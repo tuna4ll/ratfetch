@@ -1,0 +1,3 @@
+# The logos are compared byte for byte by the build script and the tests, and
+# the whole project targets Linux, so everything is stored with LF endings.
+* text=auto eol=lf
