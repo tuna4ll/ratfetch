@@ -1,0 +1,227 @@
+# ratfetch configuration
+#
+# Every value below is the built-in default, so an empty file behaves exactly
+# like this one. Delete anything you do not want to change — sections and keys
+# are all optional, and files are merged in this order:
+#
+#   /etc/ratfetch/config.toml   ->   ~/.config/ratfetch/config.toml   ->   --set
+#
+# Unknown keys are an error rather than being ignored, so typos get caught.
+# Check a file without starting the UI:  ratfetch --check-config
+
+[general]
+# Milliseconds between samples. Lower is smoother and costs more CPU.
+interval_ms = 1000
+# Samples retained for the graphs. At interval_ms = 1000 this is two minutes.
+history = 120
+# Draw on the alternate screen so the shell's scrollback survives.
+alt_screen = true
+# Handle clicks on the tab bar and scrolling in the process table.
+mouse = true
+# Key hints along the bottom edge.
+footer = true
+# Tab strip along the top edge.
+tab_bar = true
+# Tabs to build, in order: overview, processes, disks, network.
+tabs = ["overview", "processes", "disks", "network"]
+# The tab shown at startup. Must appear in `tabs`.
+start_tab = "overview"
+# Quit on a timer, in seconds. 0 runs until you press q.
+exit_after = 0
+# Reload automatically when the config file changes on disk.
+watch_config = true
+
+[logo]
+# "auto" detects the distro. Otherwise a logo name ("arch", "nixos", "debian"),
+# "none", or "file:/path/to/your/art.txt". Run `ratfetch --list-logos` to see
+# all 526 of them.
+source = "auto"
+# Prefer the compact variant when the logo ships one.
+small = false
+# left, right, top, or none.
+position = "left"
+# logo    - the palette that ships with the art
+# accent  - the whole logo in the theme's accent colour
+# mono    - the whole logo in the foreground colour
+# rainbow - cycle the theme palette across the art's colour slots
+color_mode = "logo"
+# Replace the art's palette entirely, e.g. ["#89b4fa", "bold #cba6f7"].
+# Empty keeps whatever the art was drawn with.
+colors = []
+# Blank columns between the art and the info table.
+padding = 2
+# Clamp the art. 0 means "as large as it is".
+max_width = 0
+max_height = 0
+# Draw a border around the logo.
+border = false
+
+[theme]
+# Built-in themes: catppuccin-mocha, catppuccin-latte, tokyonight, gruvbox-dark,
+# gruvbox-light, nord, dracula, everforest, rose-pine, solarized-dark, kanagawa,
+# ansi (uses your terminal's own 16 colours), mono (no colour).
+name = "catppuccin-mocha"
+# Rounded corners on panel borders.
+rounded = true
+# Draw panel borders at all.
+borders = true
+
+# Override individual roles on top of the theme above. Colours accept named
+# values (red, bright_blue), "default", "256:141", "#89b4fa", "rgb:137,180,250",
+# each optionally prefixed with bold / dim / italic / underline.
+[theme.colors]
+# background = "#1e1e2e"
+# foreground = "#cdd6f4"
+# accent = "#89b4fa"
+# muted = "#6c7086"
+# border = "#6c7086"
+# border_focus = "#89b4fa"
+# title = "bold #89b4fa"
+# key = "#89b4fa"
+# value = "#cdd6f4"
+# good = "#a6e3a1"
+# warn = "#f9e2af"
+# critical = "#f38ba8"
+# graph_primary = "#89b4fa"
+# graph_secondary = "#cba6f7"
+# tab_active = "#89b4fa"
+# tab_inactive = "#6c7086"
+# footer = "#6c7086"
+
+[layout]
+# Panels stacked under the logo/info header, in order.
+# Available: meters, graphs, processes, disks, network, colors.
+panels = ["meters", "graphs"]
+# Fixed height for the header. 0 sizes it to the logo and info table.
+header_height = 0
+# Fixed width for the logo column. 0 sizes it to the art.
+logo_width = 0
+# Outer margin around the whole frame.
+margin = 0
+# Below this terminal width the logo moves above the info table.
+narrow_width = 80
+
+# Fixed heights per panel. 0 shares the leftover space evenly, except for
+# `meters`, which sizes itself to the number of bars it has to draw.
+[layout.panel_heights]
+meters = 0
+graphs = 0
+processes = 0
+disks = 0
+network = 0
+colors = 3
+
+[info]
+# Rows of the info table, in order. Available rows:
+#   title, separator, blank, os, host, kernel, uptime, packages, shell,
+#   terminal, de, wm, resolution, cpu, cpu_temp, gpu, memory, swap, disk,
+#   local_ip, battery, load_avg, processes, users, locale, date_time, colors
+items = [
+    "title",
+    "separator",
+    "os",
+    "host",
+    "kernel",
+    "uptime",
+    "packages",
+    "shell",
+    "terminal",
+    "de",
+    "wm",
+    "resolution",
+    "cpu",
+    "gpu",
+    "memory",
+    "swap",
+    "disk",
+    "local_ip",
+    "battery",
+    "locale",
+]
+# Columns reserved for the key column. 0 fits the longest key.
+key_width = 0
+# Printed between a key and its value.
+separator = " "
+# The character the "separator" row repeats.
+rule = "─"
+# Render the user@host title in bold.
+bold_title = true
+# Drop rows whose value could not be read on this machine.
+hide_empty = true
+
+[meters]
+# Live bars. Available: cpu, memory, swap, disk, battery, load.
+items = ["cpu", "memory", "swap", "disk"]
+# bar, line, blocks, or dots.
+style = "bar"
+show_percent = true
+show_values = true
+# Percentages at which a bar turns warn-coloured, then critical-coloured.
+warn_at = 75
+critical_at = 90
+# Columns reserved for meter labels.
+label_width = 8
+# One bar per CPU core instead of a single average. Toggle live with `c`.
+per_core = false
+
+[graphs]
+# Time series. Available: cpu, memory, swap, network, disk, load.
+items = ["cpu", "memory", "network"]
+# sparkline, braille, or bars.
+style = "sparkline"
+# Put min/max/current in each graph's title.
+show_stats = true
+# Give each graph its own bordered block.
+bordered = true
+
+[processes]
+# Rows in the overview panel. The processes tab always fills its space.
+count = 8
+# cpu, memory, pid, or name. Cycle live with `s`.
+sort = "cpu"
+ascending = false
+# Show the full command line instead of just the process name.
+full_command = false
+# Only processes owned by you.
+only_mine = false
+# Hide kernel threads.
+hide_kthreads = true
+
+[disks]
+# Mount points to show. Empty means every real filesystem.
+mounts = []
+# Filesystem types that are never shown.
+hide_types = [
+    "autofs", "bpf", "binfmt_misc", "cgroup", "cgroup2", "configfs", "debugfs",
+    "devpts", "devtmpfs", "efivarfs", "fuse.gvfsd-fuse", "fusectl", "hugetlbfs",
+    "mqueue", "proc", "pstore", "ramfs", "securityfs", "sysfs", "tracefs",
+]
+# Skip filesystems smaller than this, in MiB.
+min_size_mib = 64
+# The mount behind the `disk` meter and the `disk` info row.
+primary = "/"
+
+[network]
+# Interfaces to show. Empty means every interface that is up.
+interfaces = []
+# Interface prefixes that are never shown.
+hide_prefixes = ["veth", "docker", "br-", "virbr", "tun", "tap"]
+show_loopback = false
+# The interface behind the network graph. "auto" picks the busiest one.
+primary = "auto"
+
+# Key bindings. Each action takes a list; an empty list disables the action.
+# Spelling: a single character, f1..f12, or a name (esc, tab, space, enter,
+# up, down, left, right, home, end, pageup, pagedown, backspace, delete,
+# insert), optionally prefixed with ctrl+, alt+ and shift+.
+[keys]
+quit = ["q", "esc", "ctrl+c"]
+reload = ["r"]
+help = ["?", "f1"]
+next_tab = ["tab", "right", "l"]
+prev_tab = ["shift+tab", "left", "h"]
+scroll_down = ["down", "j"]
+scroll_up = ["up", "k"]
+sort_next = ["s"]
+toggle_per_core = ["c"]
+freeze = ["space"]
