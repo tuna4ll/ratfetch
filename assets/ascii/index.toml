@@ -1,0 +1,3159 @@
+# Generated from fastfetch's src/logo/ascii metadata.
+# Art files are vendored verbatim; see assets/ascii/LICENSE.
+
+[[logo]]
+key = "adelie"
+names = ["Adélie", "Adelie"]
+colors = ["blue", "white", "cyan"]
+file = "a/adelie.txt"
+
+[[logo]]
+key = "aeon"
+names = ["Aeon"]
+colors = ["256:36", "256:36"]
+file = "a/aeon.txt"
+
+[[logo]]
+key = "aeros"
+names = ["aerOS"]
+colors = ["cyan", "cyan"]
+file = "a/aeros.txt"
+
+[[logo]]
+key = "aerynos"
+names = ["AerynOS"]
+colors = ["green", "yellow"]
+file = "a/aerynos.txt"
+
+[[logo]]
+key = "aerynos_old"
+names = ["AerynOS_old"]
+colors = ["default", "magenta"]
+file = "a/aerynos_old.txt"
+
+[[logo]]
+key = "afterglow"
+names = ["Afterglow"]
+colors = ["magenta", "red", "yellow", "blue"]
+file = "a/afterglow.txt"
+
+[[logo]]
+key = "aix"
+names = ["aix"]
+colors = ["green", "white"]
+file = "a/aix.txt"
+
+[[logo]]
+key = "almalinux"
+names = ["Almalinux"]
+colors = ["red", "bright_yellow", "blue", "bright_green", "cyan"]
+file = "a/almalinux.txt"
+
+[[logo]]
+key = "alpine"
+names = ["Alpine"]
+colors = ["blue"]
+file = "a/alpine.txt"
+
+[[logo]]
+key = "alpine2"
+names = ["Alpine2"]
+colors = ["blue", "white"]
+file = "a/alpine2.txt"
+
+[[logo]]
+key = "alpine2_small"
+names = ["alpine2_small"]
+colors = ["blue", "white"]
+file = "a/alpine2_small.txt"
+
+[[logo]]
+key = "alpine3_small"
+names = ["alpine3_small"]
+colors = ["default"]
+file = "a/alpine3_small.txt"
+
+[[logo]]
+key = "alpine_small"
+names = ["Alpine_small"]
+colors = ["blue", "white"]
+file = "a/alpine_small.txt"
+
+[[logo]]
+key = "alter"
+names = ["Alter"]
+colors = ["cyan"]
+file = "a/alter.txt"
+
+[[logo]]
+key = "altlinux"
+names = ["ALTLinux"]
+colors = ["yellow", "black", "white"]
+file = "a/altlinux.txt"
+
+[[logo]]
+key = "amazon"
+names = ["Amazon"]
+colors = ["yellow", "white"]
+file = "a/amazon.txt"
+
+[[logo]]
+key = "amazon_linux"
+names = ["Amazon Linux", "amzn"]
+colors = ["white", "256:178"]
+file = "a/amazon_linux.txt"
+
+[[logo]]
+key = "amiga"
+names = ["Amiga"]
+colors = ["red", "bright_red", "yellow", "blue", "cyan", "bright_yellow", "green"]
+file = "a/amiga.txt"
+
+[[logo]]
+key = "amogos"
+names = ["AmogOS"]
+colors = ["white", "cyan"]
+file = "a/amogos.txt"
+
+[[logo]]
+key = "anarchy"
+names = ["Anarchy"]
+colors = ["white", "blue"]
+file = "a/anarchy.txt"
+
+[[logo]]
+key = "android"
+names = ["android"]
+colors = ["green", "white"]
+file = "a/android.txt"
+
+[[logo]]
+key = "android_small"
+names = ["android_small"]
+colors = ["green"]
+file = "a/android_small.txt"
+
+[[logo]]
+key = "anduinos"
+names = ["anduinos"]
+colors = ["cyan", "blue"]
+file = "a/anduinos.txt"
+
+[[logo]]
+key = "antergos"
+names = ["Antergos"]
+colors = ["blue", "cyan"]
+file = "a/antergos.txt"
+
+[[logo]]
+key = "antix"
+names = ["antiX"]
+colors = ["red"]
+file = "a/antix.txt"
+
+[[logo]]
+key = "anushos"
+names = ["AnushOS"]
+colors = ["white", "black", "yellow", "cyan", "red"]
+file = "a/anushos.txt"
+
+[[logo]]
+key = "aoscos"
+names = ["Aosc OS", "aoscos"]
+colors = ["blue", "black", "red", "yellow"]
+file = "a/aoscos.txt"
+
+[[logo]]
+key = "aoscos_old"
+names = ["Aosc OS_old", "aoscos_old"]
+colors = ["default"]
+file = "a/aoscos_old.txt"
+
+[[logo]]
+key = "aoscosretro"
+names = ["Aosc OS/Retro", "aoscosretro"]
+colors = ["blue", "white"]
+file = "a/aoscosretro.txt"
+
+[[logo]]
+key = "aoscosretro_small"
+names = ["Aosc OS/Retro_small", "aoscosretro_small"]
+colors = ["blue", "white"]
+file = "a/aoscosretro_small.txt"
+
+[[logo]]
+key = "aperture"
+names = ["Aperture"]
+colors = ["cyan", "cyan", "cyan", "cyan", "cyan", "cyan", "cyan", "cyan"]
+file = "a/aperture.txt"
+
+[[logo]]
+key = "apricity"
+names = ["Apricity"]
+colors = ["default"]
+file = "a/apricity.txt"
+
+[[logo]]
+key = "arch"
+names = ["arch", "archmerge"]
+colors = ["cyan", "cyan"]
+file = "a/arch.txt"
+
+[[logo]]
+key = "arch2"
+names = ["arch2"]
+colors = ["cyan", "cyan"]
+file = "a/arch2.txt"
+
+[[logo]]
+key = "arch3"
+names = ["arch3"]
+colors = ["cyan", "cyan"]
+file = "a/arch3.txt"
+
+[[logo]]
+key = "arch_old"
+names = ["arch_old"]
+colors = ["blue", "white"]
+file = "a/arch_old.txt"
+
+[[logo]]
+key = "arch_small"
+names = ["arch_small"]
+colors = ["cyan", "cyan"]
+file = "a/arch_small.txt"
+
+[[logo]]
+key = "archbox"
+names = ["ArchBox"]
+colors = ["green"]
+file = "a/archbox.txt"
+
+[[logo]]
+key = "archcraft"
+names = ["Archcraft"]
+colors = ["cyan"]
+file = "a/archcraft.txt"
+
+[[logo]]
+key = "archcraft2"
+names = ["Archcraft2"]
+colors = ["cyan"]
+file = "a/archcraft2.txt"
+
+[[logo]]
+key = "archlabs"
+names = ["ARCHlabs"]
+colors = ["cyan", "red"]
+file = "a/archlabs.txt"
+
+[[logo]]
+key = "archstrike"
+names = ["ArchStrike"]
+colors = ["cyan", "black"]
+file = "a/archstrike.txt"
+
+[[logo]]
+key = "arco"
+names = ["arco", "arcolinux"]
+colors = ["blue", "white"]
+file = "a/arco.txt"
+
+[[logo]]
+key = "arco_small"
+names = ["arco_small", "arcolinux_small"]
+colors = ["blue", "white"]
+file = "a/arco_small.txt"
+
+[[logo]]
+key = "arkane"
+names = ["Arkane", "Arkane Linux"]
+colors = ["256:237", "256:130", "white"]
+file = "a/arkane.txt"
+
+[[logo]]
+key = "armbian"
+names = ["Armbian"]
+colors = ["white", "red"]
+file = "a/armbian.txt"
+
+[[logo]]
+key = "armbian2"
+names = ["Armbian2"]
+colors = ["red"]
+file = "a/armbian2.txt"
+
+[[logo]]
+key = "arselinux"
+names = ["arse", "arselinux", "arse-linux"]
+colors = ["blue", "white"]
+file = "a/arselinux.txt"
+
+[[logo]]
+key = "artix"
+names = ["artix"]
+colors = ["cyan"]
+file = "a/artix.txt"
+
+[[logo]]
+key = "artix2_small"
+names = ["artix2_small"]
+colors = ["cyan"]
+file = "a/artix2_small.txt"
+
+[[logo]]
+key = "artix_small"
+names = ["artix_small"]
+colors = ["cyan"]
+file = "a/artix_small.txt"
+
+[[logo]]
+key = "arya"
+names = ["Arya"]
+colors = ["green", "red"]
+file = "a/arya.txt"
+
+[[logo]]
+key = "asahi"
+names = ["asahi", "asahi-linux", "fedora-asahi-remix"]
+colors = ["yellow", "green", "red", "bright_black", "white", "cyan", "blue"]
+file = "a/asahi.txt"
+
+[[logo]]
+key = "asahi2"
+names = ["asahi2", "asahi-linux2"]
+colors = ["bright_yellow", "cyan", "red", "bright_red", "white", "black", "bright_cyan"]
+file = "a/asahi2.txt"
+
+[[logo]]
+key = "aster"
+names = ["aster"]
+colors = ["cyan"]
+file = "a/aster.txt"
+
+[[logo]]
+key = "asteroidos"
+names = ["AsteroidOS"]
+colors = ["256:160", "256:208", "256:202", "256:214"]
+file = "a/asteroidos.txt"
+
+[[logo]]
+key = "astos"
+names = ["astOS"]
+colors = ["default"]
+file = "a/astos.txt"
+
+[[logo]]
+key = "astra_linux"
+names = ["Astra", "Astra Linux", "astralinux"]
+colors = ["bright_red", "white"]
+file = "a/astra_linux.txt"
+
+[[logo]]
+key = "athenaos"
+names = ["AthenaOS"]
+colors = ["blue", "bright_blue"]
+file = "a/athenaos.txt"
+
+[[logo]]
+key = "athenaos_old"
+names = ["AthenaOS_old"]
+colors = ["white", "yellow"]
+file = "a/athenaos_old.txt"
+
+[[logo]]
+key = "aurora"
+names = ["Aurora"]
+colors = ["blue", "magenta", "red", "white"]
+file = "a/aurora.txt"
+
+[[logo]]
+key = "axos"
+names = ["AxOS"]
+colors = ["rgb:222,6,255", "rgb:222,6,255"]
+file = "a/axos.txt"
+
+[[logo]]
+key = "azos"
+names = ["Azos"]
+colors = ["cyan", "red"]
+file = "a/azos.txt"
+
+[[logo]]
+key = "azurelinux"
+names = ["AzureLinux"]
+colors = ["green", "blue", "white"]
+file = "a/azurelinux.txt"
+
+[[logo]]
+key = "azurelinux2"
+names = ["AzureLinux2"]
+colors = ["green", "blue", "white"]
+file = "a/azurelinux2.txt"
+
+[[logo]]
+key = "bedrock"
+names = ["bedrock"]
+colors = ["bright_black", "default"]
+file = "b/bedrock.txt"
+
+[[logo]]
+key = "bedrock_small"
+names = ["bedrock_small"]
+colors = ["bright_black", "default"]
+file = "b/bedrock_small.txt"
+
+[[logo]]
+key = "berserkarch"
+names = ["BerserkArch"]
+colors = ["blue", "default"]
+file = "b/berserkarch.txt"
+
+[[logo]]
+key = "biglinux"
+names = ["BigLinux"]
+colors = ["cyan", "yellow", "blue"]
+file = "b/biglinux.txt"
+
+[[logo]]
+key = "bitrig"
+names = ["Bitrig"]
+colors = ["green"]
+file = "b/bitrig.txt"
+
+[[logo]]
+key = "blackarch"
+names = ["Blackarch"]
+colors = ["red", "bright_red", "black"]
+file = "b/blackarch.txt"
+
+[[logo]]
+key = "blackmesa"
+names = ["BlackMesa", "black-mesa"]
+colors = ["black"]
+file = "b/blackmesa.txt"
+
+[[logo]]
+key = "blackpanther"
+names = ["BlackPanther"]
+colors = ["red", "yellow", "bright_blue"]
+file = "b/blackpanther.txt"
+
+[[logo]]
+key = "blag"
+names = ["BLAG"]
+colors = ["magenta"]
+file = "b/blag.txt"
+
+[[logo]]
+key = "blankon"
+names = ["BlankOn"]
+colors = ["red", "white"]
+file = "b/blankon.txt"
+
+[[logo]]
+key = "bluelight"
+names = ["BlueLight"]
+colors = ["white", "blue"]
+file = "b/bluelight.txt"
+
+[[logo]]
+key = "bodhi"
+names = ["Bodhi"]
+colors = ["white", "bright_yellow", "green"]
+file = "b/bodhi.txt"
+
+[[logo]]
+key = "bonsai"
+names = ["Bonsai"]
+colors = ["cyan", "green", "yellow"]
+file = "b/bonsai.txt"
+
+[[logo]]
+key = "bredos"
+names = ["Bredos"]
+colors = ["rgb:198,151,66"]
+file = "b/bredos.txt"
+
+[[logo]]
+key = "bsd"
+names = ["BSD"]
+colors = ["red", "white", "blue", "yellow", "cyan"]
+file = "b/bsd.txt"
+
+[[logo]]
+key = "bunsenlabs"
+names = ["BunsenLabs"]
+colors = ["default"]
+file = "b/bunsenlabs.txt"
+
+[[logo]]
+key = "cachyos"
+names = ["CachyOS"]
+colors = ["green", "cyan", "black"]
+file = "c/cachyos.txt"
+
+[[logo]]
+key = "cachyos_old_small"
+names = ["CachyOS_old_small"]
+colors = ["cyan"]
+file = "c/cachyos_old_small.txt"
+
+[[logo]]
+key = "cachyos_small"
+names = ["CachyOS_small"]
+colors = ["green", "cyan"]
+file = "c/cachyos_small.txt"
+
+[[logo]]
+key = "calculate"
+names = ["Calculate"]
+colors = ["white", "yellow"]
+file = "c/calculate.txt"
+
+[[logo]]
+key = "calinixos"
+names = ["CalinixOS"]
+colors = ["magenta"]
+file = "c/calinixos.txt"
+
+[[logo]]
+key = "calinixos_small"
+names = ["CalinixOS_small"]
+colors = ["magenta"]
+file = "c/calinixos_small.txt"
+
+[[logo]]
+key = "carbs"
+names = ["Carbs"]
+colors = ["magenta"]
+file = "c/carbs.txt"
+
+[[logo]]
+key = "cbl_mariner"
+names = ["CBL-Mariner"]
+colors = ["cyan"]
+file = "c/cbl_mariner.txt"
+
+[[logo]]
+key = "celos"
+names = ["CelOS"]
+colors = ["magenta", "black"]
+file = "c/celos.txt"
+
+[[logo]]
+key = "center"
+names = ["Center"]
+colors = ["default"]
+file = "c/center.txt"
+
+[[logo]]
+key = "centos"
+names = ["CentOS"]
+colors = ["yellow", "green", "blue", "magenta", "white"]
+file = "c/centos.txt"
+
+[[logo]]
+key = "centos_small"
+names = ["CentOS_small"]
+colors = ["yellow", "green", "blue", "magenta"]
+file = "c/centos_small.txt"
+
+[[logo]]
+key = "cereus"
+names = ["Cereus"]
+colors = ["256:173", "256:108", "256:71", "256:151", "256:72"]
+file = "c/cereus.txt"
+
+[[logo]]
+key = "chakra"
+names = ["Chakra"]
+colors = ["blue"]
+file = "c/chakra.txt"
+
+[[logo]]
+key = "chaletos"
+names = ["ChaletOS"]
+colors = ["blue", "white"]
+file = "c/chaletos.txt"
+
+[[logo]]
+key = "chapeau"
+names = ["Chapeau"]
+colors = ["green", "white"]
+file = "c/chapeau.txt"
+
+[[logo]]
+key = "chimera_linux"
+names = ["Chimera"]
+colors = ["red", "magenta", "blue", "red"]
+file = "c/chimera_linux.txt"
+
+[[logo]]
+key = "chimera_linux2"
+names = ["Chimera2"]
+colors = ["blue", "red", "magenta"]
+file = "c/chimera_linux2.txt"
+
+[[logo]]
+key = "chimera_linux_small"
+names = ["Chimera_small"]
+colors = ["red", "magenta", "blue", "red"]
+file = "c/chimera_linux_small.txt"
+
+[[logo]]
+key = "chonkysealos"
+names = ["ChonkySealOS"]
+colors = ["default"]
+file = "c/chonkysealos.txt"
+
+[[logo]]
+key = "chrom"
+names = ["Chrom", "ChromeOS"]
+colors = ["green", "red", "yellow", "blue", "white"]
+file = "c/chrom.txt"
+
+[[logo]]
+key = "cleanjaro"
+names = ["Cleanjaro"]
+colors = ["default"]
+file = "c/cleanjaro.txt"
+
+[[logo]]
+key = "cleanjaro_small"
+names = ["Cleanjaro_small"]
+colors = ["default"]
+file = "c/cleanjaro_small.txt"
+
+[[logo]]
+key = "clear_linux"
+names = ["Clear Linux", "clearlinux", "Clear Linux OS"]
+colors = ["blue", "yellow"]
+file = "c/clear_linux.txt"
+
+[[logo]]
+key = "clearos"
+names = ["ClearOS"]
+colors = ["green"]
+file = "c/clearos.txt"
+
+[[logo]]
+key = "clover"
+names = ["Clover"]
+colors = ["green", "cyan"]
+file = "c/clover.txt"
+
+[[logo]]
+key = "cobalt"
+names = ["Cobalt"]
+colors = ["blue", "blue", "bright_black", "bright_blue", "black"]
+file = "c/cobalt.txt"
+
+[[logo]]
+key = "codex"
+names = ["Codex Linux"]
+colors = ["white"]
+file = "c/codex.txt"
+
+[[logo]]
+key = "condres"
+names = ["Condres"]
+colors = ["green", "yellow", "cyan"]
+file = "c/condres.txt"
+
+[[logo]]
+key = "cosmic"
+names = ["Cosmic"]
+colors = ["white", "bright_yellow", "yellow", "bright_red", "red"]
+file = "c/cosmic.txt"
+
+[[logo]]
+key = "crux"
+names = ["CRUX"]
+colors = ["blue", "magenta", "white"]
+file = "c/crux.txt"
+
+[[logo]]
+key = "crux_small"
+names = ["CRUX_small"]
+colors = ["blue", "magenta", "white"]
+file = "c/crux_small.txt"
+
+[[logo]]
+key = "crystal"
+names = ["Crystal", "Crystal", "crystal-linux", "Crystal-Linux"]
+colors = ["magenta"]
+file = "c/crystal.txt"
+
+[[logo]]
+key = "cucumber"
+names = ["Cucumber", "CucumberOS"]
+colors = ["green", "yellow"]
+file = "c/cucumber.txt"
+
+[[logo]]
+key = "cuerdos"
+names = ["CuerdOS", "CuerdOS GNU/Linux"]
+colors = ["yellow", "green"]
+file = "c/cuerdos.txt"
+
+[[logo]]
+key = "cutefishos"
+names = ["CutefishOS"]
+colors = ["cyan", "white", "blue"]
+file = "c/cutefishos.txt"
+
+[[logo]]
+key = "cuteos"
+names = ["CuteOS"]
+colors = ["blue", "cyan", "256:57"]
+file = "c/cuteos.txt"
+
+[[logo]]
+key = "cyberos"
+names = ["CyberOS"]
+colors = ["blue", "cyan", "256:57"]
+file = "c/cyberos.txt"
+
+[[logo]]
+key = "cycledream"
+names = ["cycledream"]
+colors = ["magenta"]
+file = "c/cycledream.txt"
+
+[[logo]]
+key = "dahlia"
+names = ["dahliaOS"]
+colors = ["red"]
+file = "d/dahlia.txt"
+
+[[logo]]
+key = "darkos"
+names = ["DarkOS"]
+colors = ["red", "cyan", "magenta", "yellow", "green"]
+file = "d/darkos.txt"
+
+[[logo]]
+key = "debian"
+names = ["Debian"]
+colors = ["red", "white"]
+file = "d/debian.txt"
+
+[[logo]]
+key = "debian_small"
+names = ["Debian_small"]
+colors = ["red"]
+file = "d/debian_small.txt"
+
+[[logo]]
+key = "deepin"
+names = ["Deepin"]
+colors = ["blue"]
+file = "d/deepin.txt"
+
+[[logo]]
+key = "desaos"
+names = ["DesaOS"]
+colors = ["green", "white"]
+file = "d/desaos.txt"
+
+[[logo]]
+key = "devuan"
+names = ["Devuan"]
+colors = ["magenta"]
+file = "d/devuan.txt"
+
+[[logo]]
+key = "devuan_small"
+names = ["Devuan_small"]
+colors = ["magenta"]
+file = "d/devuan_small.txt"
+
+[[logo]]
+key = "dietpi"
+names = ["DietPi"]
+colors = ["green", "bright_black"]
+file = "d/dietpi.txt"
+
+[[logo]]
+key = "dracos"
+names = ["DracOS"]
+colors = ["red", "white"]
+file = "d/dracos.txt"
+
+[[logo]]
+key = "dragonfly"
+names = ["DragonFly"]
+colors = ["red", "default"]
+file = "d/dragonfly.txt"
+
+[[logo]]
+key = "dragonfly_old"
+names = ["DragonFly_old"]
+colors = ["red", "default", "yellow"]
+file = "d/dragonfly_old.txt"
+
+[[logo]]
+key = "dragonfly_small"
+names = ["DragonFly_small"]
+colors = ["red", "default"]
+file = "d/dragonfly_small.txt"
+
+[[logo]]
+key = "drauger"
+names = ["DraugerOS", "Drauger"]
+colors = ["red", "white"]
+file = "d/drauger.txt"
+
+[[logo]]
+key = "droidian"
+names = ["Droidian"]
+colors = ["green", "bright_green"]
+file = "d/droidian.txt"
+
+[[logo]]
+key = "elbrus"
+names = ["elbrus"]
+colors = ["blue"]
+file = "e/elbrus.txt"
+
+[[logo]]
+key = "elementary"
+names = ["Elementary"]
+colors = ["default"]
+file = "e/elementary.txt"
+
+[[logo]]
+key = "elementary_small"
+names = ["Elementary_small"]
+colors = ["default"]
+file = "e/elementary_small.txt"
+
+[[logo]]
+key = "elive"
+names = ["Elive"]
+colors = ["white", "bright_cyan", "cyan"]
+file = "e/elive.txt"
+
+[[logo]]
+key = "emmabuntus"
+names = ["Emmabuntus"]
+colors = ["blue", "yellow"]
+file = "e/emmabuntus.txt"
+
+[[logo]]
+key = "encryptos"
+names = ["EncryptOS"]
+colors = ["magenta"]
+file = "e/encryptos.txt"
+
+[[logo]]
+key = "endeavouros"
+names = ["EndeavourOS"]
+colors = ["magenta", "red", "blue"]
+file = "e/endeavouros.txt"
+
+[[logo]]
+key = "endeavouros_small"
+names = ["EndeavourOS_small"]
+colors = ["red", "magenta", "blue"]
+file = "e/endeavouros_small.txt"
+
+[[logo]]
+key = "endless"
+names = ["Endless"]
+colors = ["red", "white"]
+file = "e/endless.txt"
+
+[[logo]]
+key = "enos"
+names = ["ENOS"]
+colors = ["bright_blue"]
+file = "e/enos.txt"
+
+[[logo]]
+key = "enso"
+names = ["Enso"]
+colors = ["default"]
+file = "e/enso.txt"
+
+[[logo]]
+key = "eshanizedos"
+names = ["EshanizedOS"]
+colors = ["red", "white"]
+file = "e/eshanizedos.txt"
+
+[[logo]]
+key = "eurolinux"
+names = ["EuroLinux"]
+colors = ["blue", "white"]
+file = "e/eurolinux.txt"
+
+[[logo]]
+key = "evolutionos"
+names = ["EvolutionOS"]
+colors = ["green", "white"]
+file = "e/evolutionos.txt"
+
+[[logo]]
+key = "evolutionos_old"
+names = ["EvolutionOS_old"]
+colors = ["bright_blue", "white"]
+file = "e/evolutionos_old.txt"
+
+[[logo]]
+key = "evolutionos_small"
+names = ["EvolutionOS_small"]
+colors = ["green", "white"]
+file = "e/evolutionos_small.txt"
+
+[[logo]]
+key = "eweos"
+names = ["eweOS"]
+colors = ["white", "bright_yellow", "bright_red", "bright_black", "red"]
+file = "e/eweos.txt"
+
+[[logo]]
+key = "exherbo"
+names = ["Exherbo"]
+colors = ["blue", "white", "red"]
+file = "e/exherbo.txt"
+
+[[logo]]
+key = "exodia_predator"
+names = ["Exodia"]
+colors = ["magenta"]
+file = "e/exodia_predator.txt"
+
+[[logo]]
+key = "fastfetch"
+names = ["Fastfetch", "FF"]
+colors = ["blue", "red", "yellow", "green", "default", "magenta", "cyan"]
+file = "f/fastfetch.txt"
+
+[[logo]]
+key = "fedora"
+names = ["Fedora"]
+colors = ["blue", "white"]
+file = "f/fedora.txt"
+
+[[logo]]
+key = "fedora2_small"
+names = ["Fedora2_small"]
+colors = ["blue"]
+file = "f/fedora2_small.txt"
+
+[[logo]]
+key = "fedora_coreos"
+names = ["CoreOS", "Container Linux by CoreOS", "Fedora-CoreOS"]
+colors = ["blue", "white", "red"]
+file = "f/fedora_coreos.txt"
+
+[[logo]]
+key = "fedora_kinoite"
+names = ["Fedora-Kinoite"]
+colors = ["blue", "white"]
+file = "f/fedora_kinoite.txt"
+
+[[logo]]
+key = "fedora_old"
+names = ["Fedora_old"]
+colors = ["blue", "white"]
+file = "f/fedora_old.txt"
+
+[[logo]]
+key = "fedora_sericea"
+names = ["Fedora-Sericea"]
+colors = ["blue", "white"]
+file = "f/fedora_sericea.txt"
+
+[[logo]]
+key = "fedora_silverblue"
+names = ["Fedora-Silverblue"]
+colors = ["blue", "white", "cyan"]
+file = "f/fedora_silverblue.txt"
+
+[[logo]]
+key = "fedora_small"
+names = ["Fedora_small"]
+colors = ["blue"]
+file = "f/fedora_small.txt"
+
+[[logo]]
+key = "femboyos"
+names = ["FemboyOS"]
+colors = ["blue"]
+file = "f/femboyos.txt"
+
+[[logo]]
+key = "feren"
+names = ["Feren"]
+colors = ["blue"]
+file = "f/feren.txt"
+
+[[logo]]
+key = "filotimo"
+names = ["Filotimo"]
+colors = ["blue"]
+file = "f/filotimo.txt"
+
+[[logo]]
+key = "finnix"
+names = ["Finnix"]
+colors = ["blue", "white"]
+file = "f/finnix.txt"
+
+[[logo]]
+key = "flatcar"
+names = ["Flatcar"]
+colors = ["blue", "default"]
+file = "f/flatcar.txt"
+
+[[logo]]
+key = "floflis"
+names = ["Floflis"]
+colors = ["bright_cyan"]
+file = "f/floflis.txt"
+
+[[logo]]
+key = "freebsd"
+names = ["Freebsd", "HardenedBSD"]
+colors = ["white", "red"]
+file = "f/freebsd.txt"
+
+[[logo]]
+key = "freebsd_small"
+names = ["freebsd_small"]
+colors = ["red"]
+file = "f/freebsd_small.txt"
+
+[[logo]]
+key = "freemint"
+names = ["FreeMiNT"]
+colors = ["white"]
+file = "f/freemint.txt"
+
+[[logo]]
+key = "frugalware"
+names = ["Frugalware", "frugalware-linux"]
+colors = ["blue", "white"]
+file = "f/frugalware.txt"
+
+[[logo]]
+key = "funtoo"
+names = ["Funtoo"]
+colors = ["magenta", "white"]
+file = "f/funtoo.txt"
+
+[[logo]]
+key = "galliumos"
+names = ["GalliumOS"]
+colors = ["blue", "white"]
+file = "g/galliumos.txt"
+
+[[logo]]
+key = "garuda"
+names = ["Garuda"]
+colors = ["red"]
+file = "g/garuda.txt"
+
+[[logo]]
+key = "garuda_dragon"
+names = ["GarudaDragon", "garuda-dragon"]
+colors = ["red"]
+file = "g/garuda_dragon.txt"
+
+[[logo]]
+key = "garuda_small"
+names = ["Garuda_small", "garuda-linux_small"]
+colors = ["red"]
+file = "g/garuda_small.txt"
+
+[[logo]]
+key = "gentoo"
+names = ["Gentoo"]
+colors = ["magenta", "white"]
+file = "g/gentoo.txt"
+
+[[logo]]
+key = "gentoo_small"
+names = ["Gentoo_small"]
+colors = ["magenta", "white"]
+file = "g/gentoo_small.txt"
+
+[[logo]]
+key = "ghostbsd"
+names = ["GhostBSD"]
+colors = ["blue"]
+file = "g/ghostbsd.txt"
+
+[[logo]]
+key = "ghostfreak"
+names = ["GhostFreak"]
+colors = ["default"]
+file = "g/ghostfreak.txt"
+
+[[logo]]
+key = "glaucus"
+names = ["Glaucus"]
+colors = ["magenta"]
+file = "g/glaucus.txt"
+
+[[logo]]
+key = "gnewsense"
+names = ["gNewSense"]
+colors = ["blue"]
+file = "g/gnewsense.txt"
+
+[[logo]]
+key = "gnome"
+names = ["GNOME OS"]
+colors = ["blue"]
+file = "g/gnome.txt"
+
+[[logo]]
+key = "gnu"
+names = ["GNU"]
+colors = ["default"]
+file = "g/gnu.txt"
+
+[[logo]]
+key = "gobolinux"
+names = ["GoboLinux", "Gobo"]
+colors = ["magenta"]
+file = "g/gobolinux.txt"
+
+[[logo]]
+key = "goldendoglinux"
+names = ["GoldenDogLinux"]
+colors = ["yellow"]
+file = "g/goldendoglinux.txt"
+
+[[logo]]
+key = "grapheneos"
+names = ["GrapheneOS"]
+colors = ["default"]
+file = "g/grapheneos.txt"
+
+[[logo]]
+key = "grombyang"
+names = ["Grombyang"]
+colors = ["blue", "green", "red"]
+file = "g/grombyang.txt"
+
+[[logo]]
+key = "guix"
+names = ["Guix"]
+colors = ["yellow"]
+file = "g/guix.txt"
+
+[[logo]]
+key = "guix_small"
+names = ["Guix_small"]
+colors = ["yellow"]
+file = "g/guix_small.txt"
+
+[[logo]]
+key = "gxde"
+names = ["GXDE"]
+colors = ["red"]
+file = "g/gxde.txt"
+
+[[logo]]
+key = "haiku"
+names = ["Haiku"]
+colors = ["default", "green"]
+file = "h/haiku.txt"
+
+[[logo]]
+key = "haiku2"
+names = ["Haiku2"]
+colors = ["green", "default"]
+file = "h/haiku2.txt"
+
+[[logo]]
+key = "haiku_small"
+names = ["Haiku_small"]
+colors = ["green"]
+file = "h/haiku_small.txt"
+
+[[logo]]
+key = "hamonikr"
+names = ["HamoniKR"]
+colors = ["blue", "white", "256:99"]
+file = "h/hamonikr.txt"
+
+[[logo]]
+key = "hardclanz"
+names = ["HarDClanZ"]
+colors = ["blue", "white", "red"]
+file = "h/hardclanz.txt"
+
+[[logo]]
+key = "harmonyos"
+names = ["HarmonyOS"]
+colors = ["white", "blue"]
+file = "h/harmonyos.txt"
+
+[[logo]]
+key = "hash"
+names = ["Hash"]
+colors = ["256:123", "256:123"]
+file = "h/hash.txt"
+
+[[logo]]
+key = "hce"
+names = ["Huawei Cloud EulerOS", "hce"]
+colors = ["red"]
+file = "h/hce.txt"
+
+[[logo]]
+key = "heliumos"
+names = ["HeliumOS"]
+colors = ["256:81"]
+file = "h/heliumos.txt"
+
+[[logo]]
+key = "huayra"
+names = ["Huayra"]
+colors = ["default"]
+file = "h/huayra.txt"
+
+[[logo]]
+key = "hybrid"
+names = ["Hybrid"]
+colors = ["blue", "bright_blue"]
+file = "h/hybrid.txt"
+
+[[logo]]
+key = "hydroos"
+names = ["HydroOS"]
+colors = ["red"]
+file = "h/hydroos.txt"
+
+[[logo]]
+key = "hyperbola"
+names = ["Hyperbola"]
+colors = ["bright_black"]
+file = "h/hyperbola.txt"
+
+[[logo]]
+key = "hyperbola_small"
+names = ["Hyperbola_small"]
+colors = ["bright_black"]
+file = "h/hyperbola_small.txt"
+
+[[logo]]
+key = "iglunix"
+names = ["Iglunix", "Iglu"]
+colors = ["bright_black"]
+file = "i/iglunix.txt"
+
+[[logo]]
+key = "instantos"
+names = ["InstantOS"]
+colors = ["blue", "cyan"]
+file = "i/instantos.txt"
+
+[[logo]]
+key = "interix"
+names = ["Interix"]
+colors = ["red", "white", "blue", "black", "yellow"]
+file = "i/interix.txt"
+
+[[logo]]
+key = "irix"
+names = ["IRIX"]
+colors = ["blue"]
+file = "i/irix.txt"
+
+[[logo]]
+key = "ironclad"
+names = ["Ironclad"]
+colors = ["black"]
+file = "i/ironclad.txt"
+
+[[logo]]
+key = "itc"
+names = ["Itc"]
+colors = ["red"]
+file = "i/itc.txt"
+
+[[logo]]
+key = "januslinux"
+names = ["Ataraxia", "januslinux"]
+colors = ["blue", "magenta"]
+file = "j/januslinux.txt"
+
+[[logo]]
+key = "kaisen"
+names = ["Kaisen"]
+colors = ["red", "white"]
+file = "k/kaisen.txt"
+
+[[logo]]
+key = "kali"
+names = ["Kali"]
+colors = ["blue", "bright_black"]
+file = "k/kali.txt"
+
+[[logo]]
+key = "kali_small"
+names = ["Kali_small"]
+colors = ["blue", "bright_black"]
+file = "k/kali_small.txt"
+
+[[logo]]
+key = "kalpa_desktop"
+names = ["kalpa-desktop"]
+colors = ["green"]
+file = "k/kalpa_desktop.txt"
+
+[[logo]]
+key = "kaos"
+names = ["KaOS"]
+colors = ["blue", "white"]
+file = "k/kaos.txt"
+
+[[logo]]
+key = "kdelinux"
+names = ["kdelinux", "kde-linux"]
+colors = ["yellow", "white"]
+file = "k/kdelinux.txt"
+
+[[logo]]
+key = "kdeneon"
+names = ["KDE Neon"]
+colors = ["green", "default"]
+file = "k/kdeneon.txt"
+
+[[logo]]
+key = "kernelos"
+names = ["KernelOS"]
+colors = ["red", "magenta"]
+file = "k/kernelos.txt"
+
+[[logo]]
+key = "kibaos"
+names = ["KibaOS"]
+colors = ["default", "blue"]
+file = "k/kibaos.txt"
+
+[[logo]]
+key = "kibojoe"
+names = ["Kibojoe"]
+colors = ["green", "white", "blue"]
+file = "k/kibojoe.txt"
+
+[[logo]]
+key = "kiss"
+names = ["KISS"]
+colors = ["magenta", "white", "blue"]
+file = "k/kiss.txt"
+
+[[logo]]
+key = "kiss2"
+names = ["kiss2"]
+colors = ["black", "red", "white"]
+file = "k/kiss2.txt"
+
+[[logo]]
+key = "kogaion"
+names = ["Kogaion"]
+colors = ["blue", "white"]
+file = "k/kogaion.txt"
+
+[[logo]]
+key = "korora"
+names = ["Korora"]
+colors = ["blue", "white"]
+file = "k/korora.txt"
+
+[[logo]]
+key = "krassos"
+names = ["KrassOS", "Krass"]
+colors = ["blue", "white"]
+file = "k/krassos.txt"
+
+[[logo]]
+key = "kslinux"
+names = ["KSLinux"]
+colors = ["blue", "white"]
+file = "k/kslinux.txt"
+
+[[logo]]
+key = "kubuntu"
+names = ["Kubuntu", "kubuntu-linux", "kde-ubuntu"]
+colors = ["blue", "white"]
+file = "k/kubuntu.txt"
+
+[[logo]]
+key = "kylin"
+names = ["Kylin"]
+colors = ["blue", "cyan", "white", "bright_black"]
+file = "k/kylin.txt"
+
+[[logo]]
+key = "lainos"
+names = ["LainOS"]
+colors = ["blue", "256:14", "white"]
+file = "l/lainos.txt"
+
+[[logo]]
+key = "langitketujuh"
+names = ["langitketujuh", "l7"]
+colors = ["blue", "white"]
+file = "l/langitketujuh.txt"
+
+[[logo]]
+key = "laxeros"
+names = ["Laxeros"]
+colors = ["blue", "white"]
+file = "l/laxeros.txt"
+
+[[logo]]
+key = "lede"
+names = ["LEDE"]
+colors = ["blue", "white"]
+file = "l/lede.txt"
+
+[[logo]]
+key = "lfs"
+names = ["LinuxFromScratch", "lfs"]
+colors = ["white", "black", "yellow"]
+file = "l/lfs.txt"
+
+[[logo]]
+key = "libreelec"
+names = ["LibreELEC"]
+colors = ["green", "yellow", "white", "cyan", "magenta"]
+file = "l/libreelec.txt"
+
+[[logo]]
+key = "lilidog"
+names = ["Lilidog"]
+colors = ["blue"]
+file = "l/lilidog.txt"
+
+[[logo]]
+key = "limeos"
+names = ["LimeOS"]
+colors = ["default"]
+file = "l/limeos.txt"
+
+[[logo]]
+key = "lingmo"
+names = ["Lingmo", "LingmoOS"]
+colors = ["blue", "white"]
+file = "l/lingmo.txt"
+
+[[logo]]
+key = "linspire"
+names = ["Linspire", "Lindows"]
+colors = ["blue", "green"]
+file = "l/linspire.txt"
+
+[[logo]]
+key = "linux"
+names = ["Linux", "linux-generic"]
+colors = ["white", "bright_black", "yellow"]
+file = "l/linux.txt"
+
+[[logo]]
+key = "linux_small"
+names = ["Linux_small", "linux-generic_small"]
+colors = ["black", "white", "yellow"]
+file = "l/linux_small.txt"
+
+[[logo]]
+key = "linuxlite"
+names = ["LinuxLite"]
+colors = ["green", "white"]
+file = "l/linuxlite.txt"
+
+[[logo]]
+key = "linuxlite_small"
+names = ["LinuxLite_small"]
+colors = ["blue", "white"]
+file = "l/linuxlite_small.txt"
+
+[[logo]]
+key = "linuxmint"
+names = ["linuxmint"]
+colors = ["green", "white"]
+file = "l/linuxmint.txt"
+
+[[logo]]
+key = "linuxmint2"
+names = ["linuxmint2"]
+colors = ["green", "white"]
+file = "l/linuxmint2.txt"
+
+[[logo]]
+key = "linuxmint2_small"
+names = ["linuxmint2_small"]
+colors = ["green", "white"]
+file = "l/linuxmint2_small.txt"
+
+[[logo]]
+key = "linuxmint_old"
+names = ["linuxmint_old"]
+colors = ["green", "white"]
+file = "l/linuxmint_old.txt"
+
+[[logo]]
+key = "linuxmint_small"
+names = ["linuxmint_small"]
+colors = ["green", "white"]
+file = "l/linuxmint_small.txt"
+
+[[logo]]
+key = "live_raizo"
+names = ["Live Raizo", "Live_Raizo"]
+colors = ["yellow"]
+file = "l/live_raizo.txt"
+
+[[logo]]
+key = "lliurex"
+names = ["LliureX"]
+colors = ["blue"]
+file = "l/lliurex.txt"
+
+[[logo]]
+key = "lmde"
+names = ["LMDE"]
+colors = ["green", "white"]
+file = "l/lmde.txt"
+
+[[logo]]
+key = "locos"
+names = ["locos", "loc-os", "Loc-OS Linux"]
+colors = ["black", "yellow", "white"]
+file = "l/locos.txt"
+
+[[logo]]
+key = "lubuntu"
+names = ["lubuntu"]
+colors = ["blue", "white"]
+file = "l/lubuntu.txt"
+
+[[logo]]
+key = "lunar"
+names = ["Lunar"]
+colors = ["blue", "white", "yellow"]
+file = "l/lunar.txt"
+
+[[logo]]
+key = "macaronios"
+names = ["Macaroni"]
+colors = ["yellow", "white"]
+file = "m/macaronios.txt"
+
+[[logo]]
+key = "macos"
+names = ["Apple", "macOS", "OSX"]
+colors = ["green", "yellow", "bright_red", "red", "magenta", "blue"]
+file = "m/macos.txt"
+
+[[logo]]
+key = "macos2"
+names = ["macOS2"]
+colors = ["green", "yellow", "bright_red", "red", "magenta", "blue"]
+file = "m/macos2.txt"
+
+[[logo]]
+key = "macos2_small"
+names = ["macOS2_small"]
+colors = ["green", "yellow", "red", "magenta", "blue"]
+file = "m/macos2_small.txt"
+
+[[logo]]
+key = "macos3"
+names = ["macOS3"]
+colors = ["green", "yellow", "bright_red", "red", "magenta", "blue"]
+file = "m/macos3.txt"
+
+[[logo]]
+key = "macos_small"
+names = ["Apple_small", "macOS_small", "OSX_small"]
+colors = ["green", "yellow", "red", "magenta", "blue"]
+file = "m/macos_small.txt"
+
+[[logo]]
+key = "mageia"
+names = ["Mageia"]
+colors = ["cyan", "white"]
+file = "m/mageia.txt"
+
+[[logo]]
+key = "mageia_small"
+names = ["Mageia_small"]
+colors = ["cyan", "white"]
+file = "m/mageia_small.txt"
+
+[[logo]]
+key = "mainsailos"
+names = ["MainsailOS"]
+colors = ["red"]
+file = "m/mainsailos.txt"
+
+[[logo]]
+key = "mainsailos_small"
+names = ["MainsailOS_small"]
+colors = ["red"]
+file = "m/mainsailos_small.txt"
+
+[[logo]]
+key = "mandriva"
+names = ["mandriva", "mandrake"]
+colors = ["blue", "yellow"]
+file = "m/mandriva.txt"
+
+[[logo]]
+key = "manjaro"
+names = ["manjaro", "manjaro-arm"]
+colors = ["green"]
+file = "m/manjaro.txt"
+
+[[logo]]
+key = "manjaro_small"
+names = ["manjaro_small", "manjaro-arm_small"]
+colors = ["green"]
+file = "m/manjaro_small.txt"
+
+[[logo]]
+key = "massos"
+names = ["MassOS"]
+colors = ["default"]
+file = "m/massos.txt"
+
+[[logo]]
+key = "matuusos"
+names = ["MatuusOS", "Matuus"]
+colors = ["yellow", "red"]
+file = "m/matuusos.txt"
+
+[[logo]]
+key = "maui"
+names = ["MaUI"]
+colors = ["cyan"]
+file = "m/maui.txt"
+
+[[logo]]
+key = "mauna"
+names = ["Mauna"]
+colors = ["blue", "cyan"]
+file = "m/mauna.txt"
+
+[[logo]]
+key = "meowix"
+names = ["Meowix"]
+colors = ["red", "yellow", "yellow", "blue"]
+file = "m/meowix.txt"
+
+[[logo]]
+key = "mer"
+names = ["Mer"]
+colors = ["blue"]
+file = "m/mer.txt"
+
+[[logo]]
+key = "midnightbsd"
+names = ["MidnightBSD"]
+colors = ["default"]
+file = "m/midnightbsd.txt"
+
+[[logo]]
+key = "midos"
+names = ["MidOS"]
+colors = ["bright_black"]
+file = "m/midos.txt"
+
+[[logo]]
+key = "midos_old"
+names = ["MidOS_old"]
+colors = ["bright_black", "white"]
+file = "m/midos_old.txt"
+
+[[logo]]
+key = "minimal"
+names = ["Minimal_System"]
+colors = ["red"]
+file = "m/minimal.txt"
+
+[[logo]]
+key = "minix"
+names = ["Minix"]
+colors = ["red", "white", "yellow"]
+file = "m/minix.txt"
+
+[[logo]]
+key = "miracle_linux"
+names = ["miraclelinux"]
+colors = ["256:29"]
+file = "m/miracle_linux.txt"
+
+[[logo]]
+key = "mos"
+names = ["MOS"]
+colors = ["cyan", "blue"]
+file = "m/mos.txt"
+
+[[logo]]
+key = "msys2"
+names = ["Msys2"]
+colors = ["magenta", "white", "red"]
+file = "m/msys2.txt"
+
+[[logo]]
+key = "mx"
+names = ["MX"]
+colors = ["default"]
+file = "m/mx.txt"
+
+[[logo]]
+key = "mx2"
+names = ["MX2"]
+colors = ["default"]
+file = "m/mx2.txt"
+
+[[logo]]
+key = "mx_small"
+names = ["MX_small"]
+colors = ["default"]
+file = "m/mx_small.txt"
+
+[[logo]]
+key = "namib"
+names = ["Namib"]
+colors = ["red", "white"]
+file = "n/namib.txt"
+
+[[logo]]
+key = "nebios"
+names = ["NebiOS"]
+colors = ["rgb:255,95,95", "rgb:252,146,84", "rgb:248,196,72"]
+file = "n/nebios.txt"
+
+[[logo]]
+key = "nekos"
+names = ["Nekos"]
+colors = ["yellow", "white", "red"]
+file = "n/nekos.txt"
+
+[[logo]]
+key = "neptune"
+names = ["Neptune"]
+colors = ["white", "white"]
+file = "n/neptune.txt"
+
+[[logo]]
+key = "netbsd"
+names = ["NetBSD"]
+colors = ["red", "white"]
+file = "n/netbsd.txt"
+
+[[logo]]
+key = "netbsd2"
+names = ["NetBSD2"]
+colors = ["red", "white"]
+file = "n/netbsd2.txt"
+
+[[logo]]
+key = "netbsd_small"
+names = ["NetBSD_small"]
+colors = ["red", "white"]
+file = "n/netbsd_small.txt"
+
+[[logo]]
+key = "nethydra"
+names = ["NetHydra"]
+colors = ["red", "default"]
+file = "n/nethydra.txt"
+
+[[logo]]
+key = "netrunner"
+names = ["NetRunner"]
+colors = ["blue", "white"]
+file = "n/netrunner.txt"
+
+[[logo]]
+key = "nexalinux"
+names = ["nexalinux"]
+colors = ["bright_blue", "bright_blue"]
+file = "n/nexalinux.txt"
+
+[[logo]]
+key = "nitrux"
+names = ["Nitrux"]
+colors = ["blue", "white"]
+file = "n/nitrux.txt"
+
+[[logo]]
+key = "nixos"
+names = ["NixOS"]
+colors = ["blue", "cyan", "blue", "cyan", "blue", "cyan"]
+file = "n/nixos.txt"
+
+[[logo]]
+key = "nixos2"
+names = ["NixOS2"]
+colors = ["blue", "cyan"]
+file = "n/nixos2.txt"
+
+[[logo]]
+key = "nixos_old"
+names = ["nixos_old"]
+colors = ["blue", "cyan"]
+file = "n/nixos_old.txt"
+
+[[logo]]
+key = "nixos_old_small"
+names = ["nixos_old_small"]
+colors = ["blue", "cyan"]
+file = "n/nixos_old_small.txt"
+
+[[logo]]
+key = "nixos_small"
+names = ["NixOS_small"]
+colors = ["blue", "cyan", "blue", "cyan", "blue", "cyan"]
+file = "n/nixos_small.txt"
+
+[[logo]]
+key = "nobara"
+names = ["nobara"]
+colors = ["default"]
+file = "n/nobara.txt"
+
+[[logo]]
+key = "nomadbsd"
+names = ["nomadbsd"]
+colors = ["blue"]
+file = "n/nomadbsd.txt"
+
+[[logo]]
+key = "nuros"
+names = ["NurOS"]
+colors = ["rgb:41,19,182", "rgb:31,59,205", "rgb:18,95,225", "rgb:13,125,250"]
+file = "n/nuros.txt"
+
+[[logo]]
+key = "nurunner"
+names = ["Nurunner"]
+colors = ["blue", "white"]
+file = "n/nurunner.txt"
+
+[[logo]]
+key = "nutyx"
+names = ["NuTyX"]
+colors = ["blue", "red"]
+file = "n/nutyx.txt"
+
+[[logo]]
+key = "obarun"
+names = ["Obarun"]
+colors = ["cyan", "white"]
+file = "o/obarun.txt"
+
+[[logo]]
+key = "obrevenge"
+names = ["OBRevenge"]
+colors = ["red", "white"]
+file = "o/obrevenge.txt"
+
+[[logo]]
+key = "obsidianos"
+names = ["ObsidianOS"]
+colors = ["magenta", "cyan", "bright_blue"]
+file = "o/obsidianos.txt"
+
+[[logo]]
+key = "omnios"
+names = ["OmniOS"]
+colors = ["white", "yellow", "bright_black"]
+file = "o/omnios.txt"
+
+[[logo]]
+key = "openbsd"
+names = ["openbsd"]
+colors = ["yellow", "white", "cyan", "red", "bright_black"]
+file = "o/openbsd.txt"
+
+[[logo]]
+key = "openbsd_small"
+names = ["openbsd_small"]
+colors = ["yellow", "white"]
+file = "o/openbsd_small.txt"
+
+[[logo]]
+key = "openeuler"
+names = ["OpenEuler"]
+colors = ["blue", "white"]
+file = "o/openeuler.txt"
+
+[[logo]]
+key = "openindiana"
+names = ["OpenIndiana"]
+colors = ["blue", "default"]
+file = "o/openindiana.txt"
+
+[[logo]]
+key = "openkylin"
+names = ["openKylin"]
+colors = ["green", "white"]
+file = "o/openkylin.txt"
+
+[[logo]]
+key = "openmamba"
+names = ["OpenMamba"]
+colors = ["white", "green"]
+file = "o/openmamba.txt"
+
+[[logo]]
+key = "openmandriva"
+names = ["OpenMandriva"]
+colors = ["blue"]
+file = "o/openmandriva.txt"
+
+[[logo]]
+key = "openruyi"
+names = ["openRuyi"]
+colors = ["blue", "yellow", "bright_yellow"]
+file = "o/openruyi.txt"
+
+[[logo]]
+key = "openstage"
+names = ["OpenStage"]
+colors = ["green", "white"]
+file = "o/openstage.txt"
+
+[[logo]]
+key = "opensuse"
+names = ["opensuse"]
+colors = ["green", "white"]
+file = "o/opensuse.txt"
+
+[[logo]]
+key = "opensuse_leap"
+names = ["opensuse-leap"]
+colors = ["default"]
+file = "o/opensuse_leap.txt"
+
+[[logo]]
+key = "opensuse_leap_old"
+names = ["opensuse-leap_old"]
+colors = ["default"]
+file = "o/opensuse_leap_old.txt"
+
+[[logo]]
+key = "opensuse_microos"
+names = ["opensuse-microos"]
+colors = ["green"]
+file = "o/opensuse_microos.txt"
+
+[[logo]]
+key = "opensuse_slowroll"
+names = ["opensuse-slowroll", "opensuse-tumbleweed-slowroll"]
+colors = ["default"]
+file = "o/opensuse_slowroll.txt"
+
+[[logo]]
+key = "opensuse_small"
+names = ["opensuse_small", "suse_small", "suse-linux_small"]
+colors = ["green"]
+file = "o/opensuse_small.txt"
+
+[[logo]]
+key = "opensuse_tumbleweed"
+names = ["opensuse-tumbleweed"]
+colors = ["default"]
+file = "o/opensuse_tumbleweed.txt"
+
+[[logo]]
+key = "opensuse_tumbleweed2"
+names = ["opensuse-tumbleweed2"]
+colors = ["default"]
+file = "o/opensuse_tumbleweed2.txt"
+
+[[logo]]
+key = "opensuse_tumbleweed_old"
+names = ["opensuse-tumbleweed_old"]
+colors = ["default"]
+file = "o/opensuse_tumbleweed_old.txt"
+
+[[logo]]
+key = "opensuse_tumbleweed_small"
+names = ["opensuse-tumbleweed_small"]
+colors = ["default"]
+file = "o/opensuse_tumbleweed_small.txt"
+
+[[logo]]
+key = "openwrt"
+names = ["openwrt"]
+colors = ["default", "blue"]
+file = "o/openwrt.txt"
+
+[[logo]]
+key = "openwrt_old"
+names = ["openwrt_old"]
+colors = ["blue"]
+file = "o/openwrt_old.txt"
+
+[[logo]]
+key = "openwrt_small"
+names = ["openwrt_small"]
+colors = ["default", "blue"]
+file = "o/openwrt_small.txt"
+
+[[logo]]
+key = "opnsense"
+names = ["OPNsense"]
+colors = ["white", "256:202"]
+file = "o/opnsense.txt"
+
+[[logo]]
+key = "oracle"
+names = ["ol", "oracle"]
+colors = ["red"]
+file = "o/oracle.txt"
+
+[[logo]]
+key = "orchid"
+names = ["orchid"]
+colors = ["white", "magenta", "magenta"]
+file = "o/orchid.txt"
+
+[[logo]]
+key = "orchid_small"
+names = ["orchid_small"]
+colors = ["white", "magenta", "magenta"]
+file = "o/orchid_small.txt"
+
+[[logo]]
+key = "oreon"
+names = ["Oreon"]
+colors = ["default", "default"]
+file = "o/oreon.txt"
+
+[[logo]]
+key = "origami"
+names = ["Origami"]
+colors = ["rgb:185,210,235", "rgb:40,90,160"]
+file = "o/origami.txt"
+
+[[logo]]
+key = "origami_small"
+names = ["Origami_small"]
+colors = ["rgb:185,210,235", "rgb:40,90,160"]
+file = "o/origami_small.txt"
+
+[[logo]]
+key = "os2warp"
+names = ["OS2Warp"]
+colors = ["bright_white", "bright_blue"]
+file = "o/os2warp.txt"
+
+[[logo]]
+key = "os_elbrus"
+names = ["OS Elbrus"]
+colors = ["blue", "white"]
+file = "o/os_elbrus.txt"
+
+[[logo]]
+key = "osmc"
+names = ["OSMC", "Open Source Media Center"]
+colors = ["blue", "white"]
+file = "o/osmc.txt"
+
+[[logo]]
+key = "pacbsd"
+names = ["PacBSD"]
+colors = ["red", "white"]
+file = "p/pacbsd.txt"
+
+[[logo]]
+key = "panwah"
+names = ["Panwah"]
+colors = ["white", "red", "black"]
+file = "p/panwah.txt"
+
+[[logo]]
+key = "parabola"
+names = ["Parabola"]
+colors = ["magenta"]
+file = "p/parabola.txt"
+
+[[logo]]
+key = "parabola2_small"
+names = ["Parabola2_small"]
+colors = ["blue"]
+file = "p/parabola2_small.txt"
+
+[[logo]]
+key = "parabola_small"
+names = ["Parabola_small"]
+colors = ["magenta"]
+file = "p/parabola_small.txt"
+
+[[logo]]
+key = "parch"
+names = ["Parch"]
+colors = ["blue", "white", "red"]
+file = "p/parch.txt"
+
+[[logo]]
+key = "pardus"
+names = ["Pardus"]
+colors = ["blue", "cyan"]
+file = "p/pardus.txt"
+
+[[logo]]
+key = "parrot"
+names = ["Parrot"]
+colors = ["cyan", "white"]
+file = "p/parrot.txt"
+
+[[logo]]
+key = "parsix"
+names = ["Parsix"]
+colors = ["yellow", "red", "white", "bright_black"]
+file = "p/parsix.txt"
+
+[[logo]]
+key = "pcbsd"
+names = ["PCBSD", "TrueOS"]
+colors = ["red", "white"]
+file = "p/pcbsd.txt"
+
+[[logo]]
+key = "pclinuxos"
+names = ["PCLinuxOS"]
+colors = ["blue", "white"]
+file = "p/pclinuxos.txt"
+
+[[logo]]
+key = "pearos"
+names = ["PearOS"]
+colors = ["green", "yellow", "red", "magenta", "blue"]
+file = "p/pearos.txt"
+
+[[logo]]
+key = "pengwin"
+names = ["Pengwin"]
+colors = ["magenta", "bright_magenta", "magenta"]
+file = "p/pengwin.txt"
+
+[[logo]]
+key = "pentoo"
+names = ["Pentoo"]
+colors = ["magenta", "white"]
+file = "p/pentoo.txt"
+
+[[logo]]
+key = "peppermint"
+names = ["Peppermint"]
+colors = ["red", "white"]
+file = "p/peppermint.txt"
+
+[[logo]]
+key = "peropesis"
+names = ["Peropesis"]
+colors = ["white"]
+file = "p/peropesis.txt"
+
+[[logo]]
+key = "phyos"
+names = ["PhyOS"]
+colors = ["blue", "white"]
+file = "p/phyos.txt"
+
+[[logo]]
+key = "pikaos"
+names = ["PikaOS"]
+colors = ["yellow"]
+file = "p/pikaos.txt"
+
+[[logo]]
+key = "pisi"
+names = ["PisiLinux"]
+colors = ["blue", "white"]
+file = "p/pisi.txt"
+
+[[logo]]
+key = "pnm_linux"
+names = ["PNM Linux"]
+colors = ["blue", "red", "white", "256:202"]
+file = "p/pnm_linux.txt"
+
+[[logo]]
+key = "pop"
+names = ["pop", "popos"]
+colors = ["cyan", "white"]
+file = "p/pop.txt"
+
+[[logo]]
+key = "pop_small"
+names = ["pop_small", "popos_small"]
+colors = ["cyan"]
+file = "p/pop_small.txt"
+
+[[logo]]
+key = "porteus"
+names = ["Porteus"]
+colors = ["cyan", "white"]
+file = "p/porteus.txt"
+
+[[logo]]
+key = "postmarketos"
+names = ["PostMarketOS"]
+colors = ["green", "white"]
+file = "p/postmarketos.txt"
+
+[[logo]]
+key = "postmarketos2"
+names = ["PostMarketOS2"]
+colors = ["green", "white"]
+file = "p/postmarketos2.txt"
+
+[[logo]]
+key = "postmarketos_small"
+names = ["PostMarketOS_small"]
+colors = ["green", "white"]
+file = "p/postmarketos_small.txt"
+
+[[logo]]
+key = "prismlinux"
+names = ["PrismLinux"]
+colors = ["blue", "blue"]
+file = "p/prismlinux.txt"
+
+[[logo]]
+key = "prismlinux_small"
+names = ["PrismLinux_small"]
+colors = ["blue", "blue"]
+file = "p/prismlinux_small.txt"
+
+[[logo]]
+key = "proxmox"
+names = ["Proxmox"]
+colors = ["white", "256:202"]
+file = "p/proxmox.txt"
+
+[[logo]]
+key = "puffos"
+names = ["PuffOS"]
+colors = ["yellow", "white"]
+file = "p/puffos.txt"
+
+[[logo]]
+key = "puppy"
+names = ["Puppy"]
+colors = ["blue", "white"]
+file = "p/puppy.txt"
+
+[[logo]]
+key = "pureos"
+names = ["PureOS"]
+colors = ["green", "white"]
+file = "p/pureos.txt"
+
+[[logo]]
+key = "pureos_small"
+names = ["PureOS_small"]
+colors = ["green", "white"]
+file = "p/pureos_small.txt"
+
+[[logo]]
+key = "q4os"
+names = ["Q4OS"]
+colors = ["blue", "red"]
+file = "q/q4os.txt"
+
+[[logo]]
+key = "qts"
+names = ["qts"]
+colors = ["blue", "red"]
+file = "q/qts.txt"
+
+[[logo]]
+key = "quasar"
+names = ["Quasar"]
+colors = ["default"]
+file = "q/quasar.txt"
+
+[[logo]]
+key = "qubes"
+names = ["Qubes"]
+colors = ["blue", "magenta"]
+file = "q/qubes.txt"
+
+[[logo]]
+key = "qubes_small"
+names = ["Qubes_small"]
+colors = ["blue", "magenta"]
+file = "q/qubes_small.txt"
+
+[[logo]]
+key = "qubyt"
+names = ["Qubyt"]
+colors = ["blue", "magenta", "black"]
+file = "q/qubyt.txt"
+
+[[logo]]
+key = "quibian"
+names = ["Quibian"]
+colors = ["yellow", "white"]
+file = "q/quibian.txt"
+
+[[logo]]
+key = "quirinux"
+names = ["Quirinux"]
+colors = ["white", "magenta"]
+file = "q/quirinux.txt"
+
+[[logo]]
+key = "radix"
+names = ["Radix"]
+colors = ["green", "red"]
+file = "r/radix.txt"
+
+[[logo]]
+key = "raspbian"
+names = ["raspbian"]
+colors = ["red", "green"]
+file = "r/raspbian.txt"
+
+[[logo]]
+key = "raspbian_small"
+names = ["raspbian_small"]
+colors = ["red", "green"]
+file = "r/raspbian_small.txt"
+
+[[logo]]
+key = "ravynos"
+names = ["RavynOS"]
+colors = ["256:15", "white"]
+file = "r/ravynos.txt"
+
+[[logo]]
+key = "rebornos"
+names = ["RebornOS"]
+colors = ["black", "blue", "cyan"]
+file = "r/rebornos.txt"
+
+[[logo]]
+key = "rebornos_small"
+names = ["RebornOS_small"]
+colors = ["blue"]
+file = "r/rebornos_small.txt"
+
+[[logo]]
+key = "redcore"
+names = ["RedCore"]
+colors = ["red", "white"]
+file = "r/redcore.txt"
+
+[[logo]]
+key = "redos"
+names = ["RedOS"]
+colors = ["red", "white"]
+file = "r/redos.txt"
+
+[[logo]]
+key = "redos_small"
+names = ["RedOS_small"]
+colors = ["red", "white"]
+file = "r/redos_small.txt"
+
+[[logo]]
+key = "redrose"
+names = ["Redrose"]
+colors = ["red", "green"]
+file = "r/redrose.txt"
+
+[[logo]]
+key = "redstar"
+names = ["Redstar"]
+colors = ["red"]
+file = "r/redstar.txt"
+
+[[logo]]
+key = "refracta"
+names = ["Refracta"]
+colors = ["white", "bright_black"]
+file = "r/refracta.txt"
+
+[[logo]]
+key = "regata"
+names = ["Regata"]
+colors = ["white", "red", "blue", "magenta", "yellow", "green"]
+file = "r/regata.txt"
+
+[[logo]]
+key = "regolith"
+names = ["Regolith"]
+colors = ["red", "white"]
+file = "r/regolith.txt"
+
+[[logo]]
+key = "rengeos"
+names = ["RengeOS"]
+colors = ["magenta", "magenta"]
+file = "r/rengeos.txt"
+
+[[logo]]
+key = "rhaymos"
+names = ["RhaymOS"]
+colors = ["red", "white"]
+file = "r/rhaymos.txt"
+
+[[logo]]
+key = "rhel"
+names = ["rhel", "redhat"]
+colors = ["red"]
+file = "r/rhel.txt"
+
+[[logo]]
+key = "rhel_old"
+names = ["rhel_old", "redhat_old"]
+colors = ["red", "white"]
+file = "r/rhel_old.txt"
+
+[[logo]]
+key = "rhel_small"
+names = ["rhel_small", "redhat_small"]
+colors = ["red"]
+file = "r/rhel_small.txt"
+
+[[logo]]
+key = "rhino"
+names = ["Rhino Linux"]
+colors = ["magenta", "bright_blue", "bright_magenta", "magenta"]
+file = "r/rhino.txt"
+
+[[logo]]
+key = "rocky"
+names = ["rocky"]
+colors = ["green"]
+file = "r/rocky.txt"
+
+[[logo]]
+key = "rocky_small"
+names = ["rocky_small"]
+colors = ["green"]
+file = "r/rocky_small.txt"
+
+[[logo]]
+key = "rosa"
+names = ["ROSA"]
+colors = ["rgb:250,250,250", "rgb:100,165,225"]
+file = "r/rosa.txt"
+
+[[logo]]
+key = "sabayon"
+names = ["Sabayon"]
+colors = ["blue", "white"]
+file = "s/sabayon.txt"
+
+[[logo]]
+key = "sabotage"
+names = ["Sabotage"]
+colors = ["default"]
+file = "s/sabotage.txt"
+
+[[logo]]
+key = "sailfish"
+names = ["Sailfish"]
+colors = ["blue", "magenta"]
+file = "s/sailfish.txt"
+
+[[logo]]
+key = "salentos"
+names = ["SalentOS"]
+colors = ["green", "red", "yellow", "white"]
+file = "s/salentos.txt"
+
+[[logo]]
+key = "salientos"
+names = ["Salient OS", "SalientOS"]
+colors = ["cyan", "white"]
+file = "s/salientos.txt"
+
+[[logo]]
+key = "salix"
+names = ["Salix"]
+colors = ["green", "green"]
+file = "s/salix.txt"
+
+[[logo]]
+key = "sambabox"
+names = ["SambaBOX"]
+colors = ["yellow", "cyan"]
+file = "s/sambabox.txt"
+
+[[logo]]
+key = "sasanqua"
+names = ["Sasanqua"]
+colors = ["magenta", "red"]
+file = "s/sasanqua.txt"
+
+[[logo]]
+key = "scientific"
+names = ["Scientific"]
+colors = ["blue", "white", "red"]
+file = "s/scientific.txt"
+
+[[logo]]
+key = "secureblue"
+names = ["secureblue"]
+colors = ["blue", "magenta", "default"]
+file = "s/secureblue.txt"
+
+[[logo]]
+key = "semc"
+names = ["semc"]
+colors = ["green", "bright_black", "red"]
+file = "s/semc.txt"
+
+[[logo]]
+key = "septor"
+names = ["Septor"]
+colors = ["blue", "white", "blue"]
+file = "s/septor.txt"
+
+[[logo]]
+key = "serene"
+names = ["Serene"]
+colors = ["cyan", "cyan"]
+file = "s/serene.txt"
+
+[[logo]]
+key = "serpent_os"
+names = ["Serpent OS"]
+colors = ["default"]
+file = "s/serpent_os.txt"
+
+[[logo]]
+key = "sharklinux"
+names = ["SharkLinux"]
+colors = ["blue", "white"]
+file = "s/sharklinux.txt"
+
+[[logo]]
+key = "shastraos"
+names = ["ShastraOS"]
+colors = ["cyan", "white"]
+file = "s/shastraos.txt"
+
+[[logo]]
+key = "shebang"
+names = ["Shebang"]
+colors = ["white", "white"]
+file = "s/shebang.txt"
+
+[[logo]]
+key = "siduction"
+names = ["Siduction"]
+colors = ["blue", "white"]
+file = "s/siduction.txt"
+
+[[logo]]
+key = "skiffos"
+names = ["SkiffOS"]
+colors = ["blue", "white"]
+file = "s/skiffos.txt"
+
+[[logo]]
+key = "slackel"
+names = ["Slackel"]
+colors = ["yellow", "yellow"]
+file = "s/slackel.txt"
+
+[[logo]]
+key = "slackware"
+names = ["Slackware"]
+colors = ["blue", "white"]
+file = "s/slackware.txt"
+
+[[logo]]
+key = "slackware_small"
+names = ["Slackware_small"]
+colors = ["blue", "white"]
+file = "s/slackware_small.txt"
+
+[[logo]]
+key = "sleeperos"
+names = ["SleeperOS"]
+colors = ["cyan", "white"]
+file = "s/sleeperos.txt"
+
+[[logo]]
+key = "sleeperos_small"
+names = ["SleeperOS_small"]
+colors = ["cyan", "white"]
+file = "s/sleeperos_small.txt"
+
+[[logo]]
+key = "slitaz"
+names = ["Slitaz"]
+colors = ["yellow", "yellow"]
+file = "s/slitaz.txt"
+
+[[logo]]
+key = "smartos"
+names = ["SmartOS"]
+colors = ["cyan", "white"]
+file = "s/smartos.txt"
+
+[[logo]]
+key = "snigdhaos"
+names = ["SnigdhaOS", "Snigdha"]
+colors = ["cyan", "white"]
+file = "s/snigdhaos.txt"
+
+[[logo]]
+key = "soda"
+names = ["Soda"]
+colors = ["red", "white"]
+file = "s/soda.txt"
+
+[[logo]]
+key = "solaris"
+names = ["solaris", "sunos"]
+colors = ["yellow"]
+file = "s/solaris.txt"
+
+[[logo]]
+key = "solaris_small"
+names = ["solaris_small", "sunos_small"]
+colors = ["yellow"]
+file = "s/solaris_small.txt"
+
+[[logo]]
+key = "solus"
+names = ["Solus", "solus-linux"]
+colors = ["blue", "white"]
+file = "s/solus.txt"
+
+[[logo]]
+key = "source_mage"
+names = ["Source Mage", "Source Mage GNU/Linux", "source_mage", "sourcemage"]
+colors = ["default"]
+file = "s/source_mage.txt"
+
+[[logo]]
+key = "sparky"
+names = ["Sparky"]
+colors = ["red", "white"]
+file = "s/sparky.txt"
+
+[[logo]]
+key = "spoinkos"
+names = ["SpoinkOS", "spoink-os"]
+colors = ["green"]
+file = "s/spoinkos.txt"
+
+[[logo]]
+key = "star"
+names = ["Star"]
+colors = ["white", "white"]
+file = "s/star.txt"
+
+[[logo]]
+key = "steamdeck"
+names = ["SteamDeck", "SteamDeckOled"]
+colors = ["blue", "white"]
+file = "s/steamdeck.txt"
+
+[[logo]]
+key = "steamdeck_small"
+names = ["SteamDeck_small"]
+colors = ["blue", "white"]
+file = "s/steamdeck_small.txt"
+
+[[logo]]
+key = "steamos"
+names = ["SteamOS"]
+colors = ["blue", "white"]
+file = "s/steamos.txt"
+
+[[logo]]
+key = "stock_linux"
+names = ["Stock Linux"]
+colors = ["blue", "white"]
+file = "s/stock_linux.txt"
+
+[[logo]]
+key = "sulin"
+names = ["Sulin"]
+colors = ["blue", "white"]
+file = "s/sulin.txt"
+
+[[logo]]
+key = "summitos"
+names = ["SummitOS"]
+colors = ["rgb:143,191,80", "rgb:160,205,102", "rgb:181,225,102"]
+file = "s/summitos.txt"
+
+[[logo]]
+key = "suse"
+names = ["suse", "suse-linux"]
+colors = ["green", "green"]
+file = "s/suse.txt"
+
+[[logo]]
+key = "swagarch"
+names = ["Swagarch"]
+colors = ["blue", "white"]
+file = "s/swagarch.txt"
+
+[[logo]]
+key = "t2"
+names = ["T2", "T2 SDE", "T2/Linux"]
+colors = ["red", "white", "yellow", "blue"]
+file = "t/t2.txt"
+
+[[logo]]
+key = "t2_small"
+names = ["T2_small", "T2 SDE_small", "T2/Linux_small"]
+colors = ["white", "blue"]
+file = "t/t2_small.txt"
+
+[[logo]]
+key = "tails"
+names = ["Tails"]
+colors = ["blue", "white"]
+file = "t/tails.txt"
+
+[[logo]]
+key = "tatra"
+names = ["Tatra"]
+colors = ["blue", "green"]
+file = "t/tatra.txt"
+
+[[logo]]
+key = "tearch"
+names = ["TeArch"]
+colors = ["256:39", "white"]
+file = "t/tearch.txt"
+
+[[logo]]
+key = "templeos"
+names = ["TempleOS"]
+colors = ["yellow", "red", "cyan"]
+file = "t/templeos.txt"
+
+[[logo]]
+key = "tileos"
+names = ["TileOS"]
+colors = ["magenta", "blue", "green"]
+file = "t/tileos.txt"
+
+[[logo]]
+key = "torizoncore"
+names = ["common-torizon", "Torizon OS", "TorizonCore"]
+colors = ["bright_white", "yellow", "blue"]
+file = "t/torizoncore.txt"
+
+[[logo]]
+key = "trisquel"
+names = ["Trisquel"]
+colors = ["blue", "cyan"]
+file = "t/trisquel.txt"
+
+[[logo]]
+key = "truenas_scale"
+names = ["TrueNAS-Scale"]
+colors = ["256:39", "256:32", "256:248"]
+file = "t/truenas_scale.txt"
+
+[[logo]]
+key = "turkish"
+names = ["Turkish"]
+colors = ["default"]
+file = "t/turkish.txt"
+
+[[logo]]
+key = "tuxedo_os"
+names = ["Tuxedo OS", "tuxedo"]
+colors = ["white", "red"]
+file = "t/tuxedo_os.txt"
+
+[[logo]]
+key = "twister"
+names = ["Twister"]
+colors = ["green", "red", "blue", "magenta", "white"]
+file = "t/twister.txt"
+
+[[logo]]
+key = "ublinux"
+names = ["UBLinux"]
+colors = ["256:38", "white", "bright_black"]
+file = "u/ublinux.txt"
+
+[[logo]]
+key = "ublinux_small"
+names = ["UBLinux_small"]
+colors = ["256:38", "white", "bright_black"]
+file = "u/ublinux_small.txt"
+
+[[logo]]
+key = "ubuntu"
+names = ["ubuntu"]
+colors = ["red", "red"]
+file = "u/ubuntu.txt"
+
+[[logo]]
+key = "ubuntu_budgie"
+names = ["ubuntu budgie", "ubuntu-budgie"]
+colors = ["blue", "white", "red"]
+file = "u/ubuntu_budgie.txt"
+
+[[logo]]
+key = "ubuntu_cinnamon"
+names = ["ubuntu cinnamon", "ubuntu-cinnamon"]
+colors = ["red", "white"]
+file = "u/ubuntu_cinnamon.txt"
+
+[[logo]]
+key = "ubuntu_gnome"
+names = ["ubuntu gnome", "ubuntu-gnome"]
+colors = ["blue", "magenta", "white", "cyan"]
+file = "u/ubuntu_gnome.txt"
+
+[[logo]]
+key = "ubuntu_kylin"
+names = ["ubuntu kylin", "ubuntu-kylin"]
+colors = ["red", "white", "yellow"]
+file = "u/ubuntu_kylin.txt"
+
+[[logo]]
+key = "ubuntu_mate"
+names = ["ubuntu mate", "ubuntu-mate"]
+colors = ["green", "white"]
+file = "u/ubuntu_mate.txt"
+
+[[logo]]
+key = "ubuntu_old"
+names = ["ubuntu_old"]
+colors = ["red", "white"]
+file = "u/ubuntu_old.txt"
+
+[[logo]]
+key = "ubuntu_old2"
+names = ["ubuntu_old2"]
+colors = ["red", "white", "yellow"]
+file = "u/ubuntu_old2.txt"
+
+[[logo]]
+key = "ubuntu_old2_small"
+names = ["ubuntu_old2_small"]
+colors = ["red"]
+file = "u/ubuntu_old2_small.txt"
+
+[[logo]]
+key = "ubuntu_small"
+names = ["ubuntu_small"]
+colors = ["red", "red"]
+file = "u/ubuntu_small.txt"
+
+[[logo]]
+key = "ubuntu_studio"
+names = ["ubuntu studio", "ubuntu-studio"]
+colors = ["cyan", "white"]
+file = "u/ubuntu_studio.txt"
+
+[[logo]]
+key = "ubuntu_sway"
+names = ["ubuntu sway", "ubuntu-sway"]
+colors = ["cyan", "white"]
+file = "u/ubuntu_sway.txt"
+
+[[logo]]
+key = "ubuntu_touch"
+names = ["ubuntu touch", "ubuntu-touch"]
+colors = ["yellow", "white"]
+file = "u/ubuntu_touch.txt"
+
+[[logo]]
+key = "ubuntu_unity"
+names = ["ubuntu unity", "ubuntu-unity"]
+colors = ["magenta", "white"]
+file = "u/ubuntu_unity.txt"
+
+[[logo]]
+key = "ultramarine"
+names = ["Ultramarine"]
+colors = ["blue", "white"]
+file = "u/ultramarine.txt"
+
+[[logo]]
+key = "ultramarine_small"
+names = ["Ultramarine_small"]
+colors = ["blue", "white"]
+file = "u/ultramarine_small.txt"
+
+[[logo]]
+key = "unifi"
+names = ["Unifi"]
+colors = ["white", "white"]
+file = "u/unifi.txt"
+
+[[logo]]
+key = "univalent"
+names = ["Univalent"]
+colors = ["cyan", "cyan"]
+file = "u/univalent.txt"
+
+[[logo]]
+key = "univention"
+names = ["Univention"]
+colors = ["red", "white"]
+file = "u/univention.txt"
+
+[[logo]]
+key = "unknown"
+names = ["unknown"]
+colors = ["default"]
+file = "_/unknown.txt"
+
+[[logo]]
+key = "uos"
+names = ["UOS"]
+colors = ["blue"]
+file = "u/uos.txt"
+
+[[logo]]
+key = "urukos"
+names = ["UrukOS"]
+colors = ["bright_blue", "bright_blue", "white", "bright_blue", "blue"]
+file = "u/urukos.txt"
+
+[[logo]]
+key = "uwuntu"
+names = ["uwuntu"]
+colors = ["256:225", "256:206", "256:52"]
+file = "u/uwuntu.txt"
+
+[[logo]]
+key = "uzbek"
+names = ["Uzbek"]
+colors = ["green"]
+file = "u/uzbek.txt"
+
+[[logo]]
+key = "valhalla"
+names = ["Valhalla", "valhallaos", "valhalla-linux"]
+colors = ["default"]
+file = "v/valhalla.txt"
+
+[[logo]]
+key = "vanilla"
+names = ["vanilla"]
+colors = ["yellow"]
+file = "v/vanilla.txt"
+
+[[logo]]
+key = "vanilla2"
+names = ["vanilla2"]
+colors = ["yellow"]
+file = "v/vanilla2.txt"
+
+[[logo]]
+key = "vanilla_small"
+names = ["vanilla_small"]
+colors = ["bright_yellow", "yellow"]
+file = "v/vanilla_small.txt"
+
+[[logo]]
+key = "venom"
+names = ["Venom"]
+colors = ["bright_black", "blue"]
+file = "v/venom.txt"
+
+[[logo]]
+key = "venom_small"
+names = ["Venom_small"]
+colors = ["bright_black", "blue"]
+file = "v/venom_small.txt"
+
+[[logo]]
+key = "vincentos"
+names = ["VincentOS"]
+colors = ["green", "default"]
+file = "v/vincentos.txt"
+
+[[logo]]
+key = "vnux"
+names = ["Vnux"]
+colors = ["256:11", "256:8", "256:15", "red", "white"]
+file = "v/vnux.txt"
+
+[[logo]]
+key = "void"
+names = ["void"]
+colors = ["green", "bright_black"]
+file = "v/void.txt"
+
+[[logo]]
+key = "void2"
+names = ["void2"]
+colors = ["yellow", "default", "green"]
+file = "v/void2.txt"
+
+[[logo]]
+key = "void2_small"
+names = ["void2_small"]
+colors = ["green"]
+file = "v/void2_small.txt"
+
+[[logo]]
+key = "void_small"
+names = ["void_small"]
+colors = ["green"]
+file = "v/void_small.txt"
+
+[[logo]]
+key = "vzlinux"
+names = ["Vzlinux"]
+colors = ["red", "white", "yellow"]
+file = "v/vzlinux.txt"
+
+[[logo]]
+key = "wii_linux"
+names = ["WiiLinuxNgx", "WiiLinux", "Wii-Linux", "Wii Linux"]
+colors = ["cyan", "white"]
+file = "w/wii_linux.txt"
+
+[[logo]]
+key = "windows"
+names = ["Windows", "Windows 7", "Windows Server 2008", "Windows Server 2008 R2"]
+colors = ["red", "green", "blue", "yellow"]
+file = "w/windows.txt"
+
+[[logo]]
+key = "windows_11"
+names = ["Windows 11", "Windows Server 2022"]
+colors = ["blue", "blue", "blue", "blue"]
+file = "w/windows_11.txt"
+
+[[logo]]
+key = "windows_11_small"
+names = ["Windows 11_small"]
+colors = ["blue", "blue", "blue", "blue"]
+file = "w/windows_11_small.txt"
+
+[[logo]]
+key = "windows_2025"
+names = ["Windows Server 2025"]
+colors = ["blue", "blue", "blue", "blue"]
+file = "w/windows_2025.txt"
+
+[[logo]]
+key = "windows_8"
+names = ["Windows 8", "Windows 8.1", "Windows 10", "Windows Server 2012", "Windows Server 2012 R2", "Windows Server 2016", "Windows Server 2019"]
+colors = ["cyan", "cyan", "cyan", "cyan"]
+file = "w/windows_8.txt"
+
+[[logo]]
+key = "windows_95"
+names = ["Windows 95", "Windows 9x"]
+colors = ["cyan", "blue", "yellow", "green", "red", "black"]
+file = "w/windows_95.txt"
+
+[[logo]]
+key = "wolfos"
+names = ["WolfOS"]
+colors = ["blue", "green"]
+file = "w/wolfos.txt"
+
+[[logo]]
+key = "xcp_ng"
+names = ["XCP-ng", "xenenterprise"]
+colors = ["default"]
+file = "x/xcp_ng.txt"
+
+[[logo]]
+key = "xenia"
+names = ["Xenia"]
+colors = ["red", "bright_black"]
+file = "x/xenia.txt"
+
+[[logo]]
+key = "xenia_old"
+names = ["Xenia_old"]
+colors = ["yellow", "green", "red"]
+file = "x/xenia_old.txt"
+
+[[logo]]
+key = "xeroarch"
+names = ["XeroArch"]
+colors = ["256:50", "256:14", "256:50", "256:93", "256:16", "256:15"]
+file = "x/xeroarch.txt"
+
+[[logo]]
+key = "xferience"
+names = ["Xferience"]
+colors = ["cyan", "cyan"]
+file = "x/xferience.txt"
+
+[[logo]]
+key = "ximper"
+names = ["Ximper"]
+colors = ["256:21", "256:57", "256:92", "256:128"]
+file = "x/ximper.txt"
+
+[[logo]]
+key = "xinux"
+names = ["Xinux"]
+colors = ["blue", "cyan"]
+file = "x/xinux.txt"
+
+[[logo]]
+key = "xj380"
+names = ["XJ380"]
+colors = ["rgb:0,162,232", "rgb:255,242,0"]
+file = "x/xj380.txt"
+
+[[logo]]
+key = "xray_os"
+names = ["Xray_OS"]
+colors = ["256:15", "256:14", "256:16"]
+file = "x/xray_os.txt"
+
+[[logo]]
+key = "xubuntu"
+names = ["Xubuntu"]
+colors = ["256:25", "default"]
+file = "x/xubuntu.txt"
+
+[[logo]]
+key = "yiffos"
+names = ["YiffOS"]
+colors = ["256:93", "256:92"]
+file = "y/yiffos.txt"
+
+[[logo]]
+key = "zerene"
+names = ["Zerene"]
+colors = ["blue"]
+file = "z/zerene.txt"
+
+[[logo]]
+key = "zorin"
+names = ["Zorin"]
+colors = ["blue"]
+file = "z/zorin.txt"
+
+[[logo]]
+key = "zos"
+names = ["z/OS", "zos"]
+colors = ["blue"]
+file = "z/zos.txt"
+
+[[logo]]
+key = "zraxyl"
+names = ["Zraxyl"]
+colors = ["blue"]
+file = "z/zraxyl.txt"
+

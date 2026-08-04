@@ -1,0 +1,22 @@
+                  AA
+                 AaaA
+                Aa$2/\$1aA
+$1               Aa$2/$1aa$2\$1aA
+$1              Aa$2/$1aAAa$2\$1aA
+$1             aA$2/$1aaAAaa$2\$1Aa
+$1            aA$2/$1aaAAAAaa$2\$1Aa
+$1  aaaaaaAAAAa$2/$1aaAAAAAAaa$2\$1aAAAAaaaaa
+$1aAAa$2-----$1aaaaaAAAAAAAAAAaaaaa$2-----$1aAAa
+$1  aAA$2\ $1aAAAAAAAAAAAAAAAAAAAAAAa$2 /$1AAa
+$1    aAa$2\$1aAAA$2\$1AAAA$2\$1AAAA$2\$1AAA$2\$1AAa$2/$1aAa
+$1      aAa$2\$1aA$2\\$1AAA$2\\$1AAA$2\\$1AA$2\\/$1aAa
+$1       aAA$2\$1aA$2\\$1AAA$2\\$1AAA$2\\$1Aa$2/$1AAa
+$1         aA$2\$1aA$2\\$1AAA$2\\$1AAA$2\\/$1Aa
+$1         aA$2/$1AA$2\\\$1AA$2\\\$1AA$2\\\$1Aa
+$1        aA$2/\$1AAa$2\\\$1Aa$2\\\$1Aa$2\\\$1Aa
+$1        aA$2/\\$1AAa$2\\/\$1a$2\\\$1Aa$2\\$1Aa
+$1       aA$2/$1a$2\\\$1Aa$2\/$1AA$2\\\\\$1Aa$2\\$1Aa
+$1       aA$2/$1aA$2\\/$1aAa  aAa$2\\\$1Aa$2\$1Aa
+$1      aA$2/\$1A$2\/$1Aa        aA$2\\$1A$2\\$1Aa
+$1      A$2|/$1aaAa            aAaa$2\|$1A
+$1     aAaa                    aaAa

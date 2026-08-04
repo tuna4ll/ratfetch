@@ -1,0 +1,21 @@
+               $1rrrrrraaaaaaaaaaaayyyy
+           $1xxrrrrrrrraaaaaaaaaaaayyyyyyyyy
+        $1xxxxxrrrrrrrraaaaaaaaaaaayyyyyyy$3yyyyy$2yyyyyyyyyy
+      $1xxxxxxxrrrrrrrraaaaa $2aaaaayyyyyyyyyyyyyyyyyyy
+    $1xxxxxx$3xxx$1rrrrrrrraaaa $2aaaaaaayyyyyyyyyyyyyyyyy
+  $1xxxxxx$3xxxxxr$1rrrrrrraa $2aaaaaaaaay$3yyyyyyyyy$2yyyy $1yy
+ $1xxxxxxx$3xxx$1xxrrrrrrrra $2aaaaaaaaa$3ayyyyyyyyyyyy$1yyyyyy
+ $1xxxxxxxxxxxxrrrrrrrr $2aaaaaaaaaaa$3yyyyyyyyyyyy$1yyyyyyy
+$1xxxxxxxxxxxxxrrrrrr $2raaaaaaaaaaaayyy$3yyyyyyyy$1yyyyyy$1yyy
+$1xxxxxxxxxxxxxrrrrr $2rraaaaaaaaaaaayyyyy$3yy$2yyyyyy $1yyyyyy
+$1xxxxxxxx$3xxxx$1xrrrrr$2rr$3raaaaaaa$2aaaaayyyyyyyyyy $1yyyyyyyyy
+$1xxxxxxx$3xxxx$1xxrrrrrrr$3raaaaaa$2aaaaaayyyyyyy $1yyyyyyyyyyyy
+$1xxxxxxx$3xxx$1xxxrrrrrrrr$3aaaaaa$2aaaaaayyyy $1yyyyyyyyyyyyyy
+ $1xxxxxxxxxxxxrrrrrrrra $2aaaaaaaaaay $1yyyyyyyyyyyyyyyy
+  $1xxxxxxxxxxxrrrrrrr $2aaaaaaaaaaaayyyy$1yyyyyyyyyyyyy
+   $1xxxxxxx$3xxxrr$1rrrr $2raaaaaaaaaaaa $1yyyyyyyyyyyyyyy
+     $1xxxxxxxxrrrr $2rrraaaaaaaaa $1aayyyyyyyyyyyyyy
+       $1xxxxxxrrrrrrr $2aaaaaa  $1aaaayyyyyyyyyyyy
+          $1xxxrrrrrr $2raaa  $1aaaaaaayyyyyyyyy
+              $1rrrr $2rr  $1aaaaaaaaaayyyyyy
+                 $2r   $1aaaaaaaaaa
