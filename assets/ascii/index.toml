@@ -2768,6 +2768,12 @@ colors = ["256:39", "256:32", "256:248"]
 file = "t/truenas_scale.txt"
 
 [[logo]]
+key = "tunix"
+names = ["Tunix"]
+colors = ["cyan", "blue"]
+file = "t/tunix.txt"
+
+[[logo]]
 key = "turkish"
 names = ["Turkish"]
 colors = ["default"]
