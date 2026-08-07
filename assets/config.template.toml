@@ -60,7 +60,11 @@ border = false
 # Built-in themes: catppuccin-mocha, catppuccin-latte, tokyonight, gruvbox-dark,
 # gruvbox-light, nord, dracula, everforest, rose-pine, solarized-dark, kanagawa,
 # ansi (uses your terminal's own 16 colours), mono (no colour).
-name = "catppuccin-mocha"
+#
+# The default leaves the interface monochrome, so it inherits your terminal's
+# colours and the logo is the only coloured thing on screen. Pick any of the
+# names above for a full palette.
+name = "mono"
 # Rounded corners on panel borders.
 rounded = true
 # Draw panel borders at all.

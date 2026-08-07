@@ -134,7 +134,10 @@ pub struct Theme {
 impl Default for Theme {
     fn default() -> Self {
         Self {
-            name: "catppuccin-mocha".to_string(),
+            // Monochrome by default: the chrome stays out of the way and
+            // inherits the terminal's own colours, so the logo is the only
+            // thing on screen with a palette of its own.
+            name: "mono".to_string(),
             colors: Palette::default(),
             rounded: true,
             borders: true,
