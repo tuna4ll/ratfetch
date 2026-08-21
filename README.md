@@ -8,34 +8,7 @@ A system fetch that does not stop at one frame.
 the info table, then puts them at the top of a live TUI: meters, graphs, a
 process table, filesystems and interfaces, all refreshing while you watch.
 
-```
-  overview  │  processes  │  disks  │  network                                ratfetch 0.1.0
-╭─────────────────────────────────────────────────────────────────────────────────────────╮
-│                  -`                   tuna4l@archbox                                    │
-│                 .o+`                  ─────────────                                     │
-│                `ooo/                  OS       Arch Linux x86_64                        │
-│               `+oooo:                 Kernel   6.9.3-arch1-1                            │
-│              `+oooooo:                Uptime   3d 4h 12m                                │
-│              -+oooooo+:               Packages 1843 (pacman), 12 (flatpak)               │
-│            `/:-:++oooo+:              Shell    zsh                                      │
-│           `/++++/+++++++:             Terminal kitty                                    │
-│          `/++++++++++++++:            WM       Hyprland                                 │
-│         `/+++ooooooooooooo/`          CPU      AMD Ryzen 5 3600 (12) @ 3.60 GHz         │
-│        ./ooosssso++osssssso+`         GPU      AMD Navi 31                              │
-│       .oossssso-````/ossssss+`        Memory   7.2 GiB / 31.1 GiB (23%)                 │
-│      -osssssso.      :ssssssso.       Disk     412 GiB / 1.8 TiB (23%) [ext4]           │
-│     :osssssss/        osssso+++.                                                        │
-│    /ossssssss/        +ssssooo/-      cpu 14%  mem 23%  ↓1.2 MiB/s  ↑88 KiB/s           │
-╰─────────────────────────────────────────────────────────────────────────────────────────╯
-╭ Load ───────────────────────────────────────────────────────────────────────────────────╮
-│CPU      [██████░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░]  14.2%  3.60 GHz      │
-│Memory   [█████████████░░░░░░░░░░░░░░░░░░░░░░░░░░░░░]  23.1%  7.2 GiB / 31.1 GiB          │
-╰─────────────────────────────────────────────────────────────────────────────────────────╯
-╭ CPU 14% (peak 62%) ────────────╮╭ Memory 23% (peak 24%) ────────╮╭ ↓ 1.2 MiB/s ─────────╮
-│      ▂▃▂▁    ▃▅▂▁      ▁▂▃▂▁   ││▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅ ││   ▁▃▇▅▂▁      ▂▄▃▁   │
-╰────────────────────────────────╯╰───────────────────────────────╯╰──────────────────────╯
- q quit  ? help  tab tab  s sort  space freeze  r reload
-```
+<img width="1039" height="660" alt="image" src="https://github.com/user-attachments/assets/9f578ad0-12a9-4fe1-8823-51e3124f576e" />
 
 ## What it does
 
