@@ -8,7 +8,7 @@ A system fetch that does not stop at one frame.
 the info table, then puts them at the top of a live TUI: meters, graphs, a
 process table, filesystems and interfaces, all refreshing while you watch.
 
-<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/98353701-4342-480c-99fd-4c96b5d0f2d4" />
+<img width="1300" height="1000" alt="ratfetch-demo" src="https://github.com/user-attachments/assets/eadefa47-c392-423c-9c4d-99c015d117f6" />
 
 ## What it does
 
