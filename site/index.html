@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ratfetch — a system fetch that does not stop at one frame</title>
+<meta name="description" content="A live, always-updating system fetch for the terminal. Install with one command.">
+<style>
+  :root {
+    color-scheme: light dark;
+    --bg: #faf9f7;
+    --fg: #1b1a18;
+    --muted: #6c6a66;
+    --line: #e2ded8;
+    --card: #ffffff;
+    --accent: #b4531f;
+    --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #131211; --fg: #ececea; --muted: #9a968f;
+      --line: #2a2825; --card: #1b1a18; --accent: #e08a4e;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--fg);
+    font: 16px/1.6 ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  main { max-width: 46rem; margin: 0 auto; padding: 4.5rem 1.5rem 6rem; }
+  h1 { font-family: var(--mono); font-size: 2.1rem; margin: 0 0 .4rem; letter-spacing: -.02em; }
+  h1 span { color: var(--accent); }
+  .tagline { color: var(--muted); font-size: 1.05rem; margin: 0 0 2.5rem; }
+  h2 { font-size: .8rem; text-transform: uppercase; letter-spacing: .09em;
+       color: var(--muted); font-weight: 600; margin: 3rem 0 .9rem; }
+  .cmd {
+    display: flex; align-items: center; gap: .75rem;
+    background: var(--card); border: 1px solid var(--line); border-radius: 10px;
+    padding: .9rem 1rem; font-family: var(--mono); font-size: .92rem; overflow-x: auto;
+  }
+  .cmd code { white-space: nowrap; }
+  .cmd .prompt { color: var(--accent); user-select: none; }
+  button {
+    margin-left: auto; flex: none; font: inherit; font-size: .8rem;
+    background: transparent; color: var(--muted); border: 1px solid var(--line);
+    border-radius: 6px; padding: .3rem .6rem; cursor: pointer;
+  }
+  button:hover { color: var(--fg); border-color: var(--muted); }
+  ul { padding-left: 1.1rem; }
+  li { margin: .35rem 0; }
+  li b { font-weight: 600; }
+  pre {
+    background: var(--card); border: 1px solid var(--line); border-radius: 10px;
+    padding: 1rem; overflow-x: auto; font-family: var(--mono); font-size: .88rem; margin: 0;
+  }
+  a { color: var(--accent); }
+  img { max-width: 100%; border: 1px solid var(--line); border-radius: 10px; }
+  footer { margin-top: 4rem; padding-top: 1.5rem; border-top: 1px solid var(--line);
+           color: var(--muted); font-size: .88rem; }
+  .note { color: var(--muted); font-size: .88rem; margin-top: .7rem; }
+</style>
+</head>
+<body>
+<main>
+  <h1>rat<span>fetch</span></h1>
+  <p class="tagline">A system fetch that does not stop at one frame. Linux, terminal, live.</p>
+
+  <div class="cmd">
+    <span class="prompt">$</span>
+    <code id="one-liner">curl -fsSL https://tuna4ll.github.io/ratfetch/install.sh | sh</code>
+    <button type="button" id="copy">copy</button>
+  </div>
+  <p class="note">
+    Detects your architecture and libc, verifies the release checksum, and installs into
+    <code>~/.local/bin</code> (or <code>/usr/local/bin</code> as root).
+    Prefer to read it first? <a href="install.sh">install.sh</a>.
+  </p>
+
+  <h2>What it does</h2>
+  <ul>
+    <li><b>Live, not a snapshot.</b> Everything re-reads on a configurable interval.</li>
+    <li><b>526 logos</b>, vendored from fastfetch with their original colour palettes.</li>
+    <li><b>Four tabs</b> — overview, processes, filesystems, interfaces.</li>
+    <li><b>13 themes</b>, plus per-role colour overrides.</li>
+    <li><b>No <code>sysinfo</code> crate.</b> <code>/proc</code> and <code>/sys</code> are read directly.</li>
+  </ul>
+
+  <img src="https://github.com/user-attachments/assets/eadefa47-c392-423c-9c4d-99c015d117f6"
+       alt="ratfetch running in a terminal: logo, info table, meters, graphs and a process table" loading="lazy">
+
+  <h2>Other ways to install</h2>
+<pre># a specific version, or a different directory
+RATFETCH_VERSION=v0.1.0 sh -c "$(curl -fsSL https://tuna4ll.github.io/ratfetch/install.sh)"
+RATFETCH_INSTALL_DIR=~/bin sh -c "$(curl -fsSL https://tuna4ll.github.io/ratfetch/install.sh)"
+
+# manual setup, from source — needs Rust 1.88+
+cargo install --git https://github.com/tuna4ll/ratfetch
+
+# or from a checkout
+git clone https://github.com/tuna4ll/ratfetch
+cd ratfetch &amp;&amp; cargo install --path .</pre>
+
+  <h2>Then</h2>
+<pre>ratfetch                      # the live TUI
+ratfetch --once               # one frame, like a classic fetch tool
+ratfetch --theme gruvbox-dark
+ratfetch --generate-config     # a fully commented config.toml</pre>
+
+  <footer>
+    <a href="https://github.com/tuna4ll/ratfetch">github.com/tuna4ll/ratfetch</a> ·
+    MIT · Linux only
+  </footer>
+</main>
+<script>
+  document.getElementById('copy').addEventListener('click', async (e) => {
+    try {
+      await navigator.clipboard.writeText(document.getElementById('one-liner').textContent);
+      e.target.textContent = 'copied';
+      setTimeout(() => { e.target.textContent = 'copy'; }, 1500);
+    } catch { e.target.textContent = 'press ⌘/ctrl+c'; }
+  });
+</script>
+</body>
+</html>
