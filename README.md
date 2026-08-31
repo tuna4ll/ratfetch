@@ -29,12 +29,42 @@ Linux only — the collectors are built on `/proc` and `/sys`.
 ## Install
 
 ```sh
+curl -fsSL https://tuna4ll.github.io/ratfetch/install.sh | sh
+```
+
+That picks the right prebuilt binary for your architecture and libc, verifies
+its checksum against the release's `SHA256SUMS`, and installs it to
+`~/.local/bin` (or `/usr/local/bin` when run as root). `RATFETCH_VERSION`,
+`RATFETCH_INSTALL_DIR` and `RATFETCH_NO_MODIFY_PATH` override the defaults.
+The script is [`install.sh`](install.sh) in this repo — read it before piping
+it to a shell, as you should with any installer.
+
+Prebuilt for `x86_64` and `aarch64`, gnu and musl.
+
+### Manual setup
+
+Any other architecture, or if you would rather build it yourself. Needs Rust
+1.88 or newer.
+
+```sh
+cargo install --git https://github.com/tuna4ll/ratfetch
+```
+
+From a checkout, which is also how you build it to hack on:
+
+```sh
 git clone https://github.com/tuna4ll/ratfetch
 cd ratfetch
 cargo install --path .
 ```
 
-Needs Rust 1.88 or newer.
+Both put the binary in `~/.cargo/bin`. To keep it out of the cargo tree
+entirely, build and place it yourself:
+
+```sh
+cargo build --release
+install -m 755 target/release/ratfetch ~/.local/bin/
+```
 
 ## Use
 

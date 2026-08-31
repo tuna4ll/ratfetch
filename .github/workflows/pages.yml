@@ -1,0 +1,50 @@
+name: pages
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "site/**"
+      - "install.sh"
+      - ".github/workflows/pages.yml"
+  workflow_dispatch:
+
+# Never publish a stale build over a newer one, but let an in-flight deploy
+# finish rather than cancelling it half-way.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    name: build and deploy the site
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Shell-check the installer
+        run: |
+          sh -n install.sh
+          if command -v shellcheck >/dev/null; then shellcheck -s sh install.sh; fi
+
+      - name: Assemble the site
+        run: |
+          mkdir -p _site
+          cp -r site/. _site/
+          # Served at /ratfetch/install.sh — the URL the README advertises.
+          cp install.sh _site/install.sh
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+      - id: deploy
+        uses: actions/deploy-pages@v4
