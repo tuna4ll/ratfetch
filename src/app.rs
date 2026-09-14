@@ -4,7 +4,9 @@ use std::collections::VecDeque;
 use std::path::PathBuf;
 use std::time::{Duration, Instant, SystemTime};
 
-use crossterm::event::{KeyEvent, KeyEventKind, MouseEvent, MouseEventKind};
+use crossterm::event::{
+    KeyCode, KeyEvent, KeyEventKind, KeyModifiers, MouseButton, MouseEvent, MouseEventKind,
+};
 
 use crate::config::enums::{ProcSort, Tab};
 use crate::config::theme::{self, Theme};
@@ -160,6 +162,14 @@ pub enum Action {
     ToggleFreeze,
     ToggleInfoDetails,
     ToggleErrors,
+    SearchProcesses,
+    ClearProcessFilter,
+    ToggleProcessDetails,
+    ToggleProcessTree,
+    SignalProcess,
+    ConfirmSignal,
+    CancelSignal,
+    SelectTab(Tab),
 }
 
 /// A transient message shown in the footer.
@@ -201,6 +211,11 @@ pub struct App {
     pub show_help: bool,
     pub show_info_details: bool,
     pub show_errors: bool,
+    pub process_searching: bool,
+    pub process_query: String,
+    pub process_tree: bool,
+    pub show_process_details: bool,
+    pub show_signal_confirm: bool,
     pub scroll: usize,
     pub status: Option<Status>,
     pub errors: VecDeque<String>,
@@ -247,6 +262,11 @@ impl App {
             show_help: false,
             show_info_details: false,
             show_errors: false,
+            process_searching: false,
+            process_query: String::new(),
+            process_tree: false,
+            show_process_details: false,
+            show_signal_confirm: false,
             scroll: 0,
             status: None,
             errors: VecDeque::with_capacity(32),
@@ -285,6 +305,10 @@ impl App {
             self.config.processes.ascending,
         );
         self.history.record(&self.dynamic, &self.config);
+        let rows =
+            crate::sys::procs::view(&self.dynamic.procs, &self.process_query, self.process_tree)
+                .len();
+        self.scroll = self.scroll.min(rows.saturating_sub(1));
 
         if self
             .status
@@ -312,6 +336,18 @@ impl App {
         }
         let k = &self.config.keys;
         let hit = |list: &[crate::config::KeyBinding]| list.iter().any(|b| b.matches(key));
+
+        if self.show_signal_confirm {
+            return match key.code {
+                KeyCode::Char('y') => Action::ConfirmSignal,
+                KeyCode::Char('n') => Action::CancelSignal,
+                _ if hit(&k.quit) => Action::CancelSignal,
+                _ => Action::None,
+            };
+        }
+        if self.show_process_details && (hit(&k.process_details) || hit(&k.quit)) {
+            return Action::ToggleProcessDetails;
+        }
 
         // Help is modal: while it is open, any bound key closes it.
         if self.show_help && (hit(&k.help) || hit(&k.quit)) {
@@ -348,6 +384,16 @@ impl App {
             Action::ToggleInfoDetails
         } else if hit(&k.errors) {
             Action::ToggleErrors
+        } else if self.tab == Tab::Processes && hit(&k.search_processes) {
+            Action::SearchProcesses
+        } else if self.tab == Tab::Processes && hit(&k.clear_process_filter) {
+            Action::ClearProcessFilter
+        } else if self.tab == Tab::Processes && hit(&k.process_details) {
+            Action::ToggleProcessDetails
+        } else if self.tab == Tab::Processes && hit(&k.process_tree) {
+            Action::ToggleProcessTree
+        } else if self.tab == Tab::Processes && hit(&k.signal_process) {
+            Action::SignalProcess
         } else {
             Action::None
         }
@@ -358,6 +404,24 @@ impl App {
         match ev.kind {
             MouseEventKind::ScrollDown => Action::ScrollDown,
             MouseEventKind::ScrollUp => Action::ScrollUp,
+            MouseEventKind::Down(MouseButton::Left)
+                if self.config.general.tab_bar
+                    && ev.row == self.config.layout.margin
+                    && self.config.general.tabs.len() > 1 =>
+            {
+                let mut column = self.config.layout.margin.saturating_add(1);
+                for (index, tab) in self.config.general.tabs.iter().enumerate() {
+                    if index > 0 {
+                        column = column.saturating_add(3);
+                    }
+                    let end = column.saturating_add(tab.to_string().chars().count() as u16 + 2);
+                    if ev.column >= column && ev.column < end {
+                        return Action::SelectTab(*tab);
+                    }
+                    column = end;
+                }
+                Action::None
+            }
             _ => Action::None,
         }
     }
@@ -371,7 +435,21 @@ impl App {
             Action::Reload => self.reload(),
             Action::NextTab => self.switch_tab(1),
             Action::PrevTab => self.switch_tab(-1),
-            Action::ScrollDown => self.scroll = self.scroll.saturating_add(1),
+            Action::ScrollDown => {
+                let max = match self.tab {
+                    Tab::Processes => crate::sys::procs::view(
+                        &self.dynamic.procs,
+                        &self.process_query,
+                        self.process_tree,
+                    )
+                    .len()
+                    .saturating_sub(1),
+                    Tab::Disks => self.dynamic.disks.len().saturating_sub(1),
+                    Tab::Network => self.dynamic.nets.len().saturating_sub(1),
+                    Tab::Overview => 4095,
+                };
+                self.scroll = self.scroll.saturating_add(1).min(max);
+            }
             Action::ScrollUp => self.scroll = self.scroll.saturating_sub(1),
             Action::SortNext => {
                 self.sort = self.sort.next();
@@ -399,7 +477,95 @@ impl App {
                     self.status = None;
                 }
             }
+            Action::SearchProcesses => {
+                self.process_searching = true;
+                self.scroll = 0;
+            }
+            Action::ClearProcessFilter => {
+                self.process_query.clear();
+                self.scroll = 0;
+            }
+            Action::ToggleProcessDetails => {
+                if self.selected_process().is_some() {
+                    self.show_process_details = !self.show_process_details;
+                }
+            }
+            Action::ToggleProcessTree => {
+                self.process_tree = !self.process_tree;
+                self.scroll = 0;
+                self.set_status(
+                    if self.process_tree {
+                        "process tree"
+                    } else {
+                        "sorted process list"
+                    },
+                    false,
+                );
+            }
+            Action::SignalProcess => {
+                self.show_signal_confirm = self.selected_process().is_some();
+            }
+            Action::ConfirmSignal => {
+                let selected = self
+                    .selected_process()
+                    .map(|process| (process.pid, process.name.clone()));
+                self.show_signal_confirm = false;
+                if let Some((pid, name)) = selected {
+                    // SAFETY: kill does not dereference pointers; it reports failure.
+                    let result = unsafe { libc::kill(pid, libc::SIGTERM) };
+                    if result == 0 {
+                        self.set_status(format!("sent SIGTERM to {name} ({pid})"), false);
+                    } else {
+                        self.set_status(
+                            format!(
+                                "cannot signal {name} ({pid}): {}",
+                                std::io::Error::last_os_error()
+                            ),
+                            true,
+                        );
+                    }
+                }
+            }
+            Action::CancelSignal => self.show_signal_confirm = false,
+            Action::SelectTab(tab) => {
+                self.tab = tab;
+                self.scroll = 0;
+            }
         }
+    }
+
+    /// Handles editable process-search input before global key bindings.
+    pub fn handle_text_input(&mut self, key: &KeyEvent) -> bool {
+        if !self.process_searching || key.kind != KeyEventKind::Press {
+            return false;
+        }
+        match key.code {
+            KeyCode::Esc | KeyCode::Enter => self.process_searching = false,
+            KeyCode::Backspace => {
+                self.process_query.pop();
+                self.scroll = 0;
+            }
+            KeyCode::Char('u') if key.modifiers.contains(KeyModifiers::CONTROL) => {
+                self.process_query.clear();
+                self.scroll = 0;
+            }
+            KeyCode::Char(c)
+                if !key
+                    .modifiers
+                    .intersects(KeyModifiers::CONTROL | KeyModifiers::ALT) =>
+            {
+                self.process_query.push(c);
+                self.scroll = 0;
+            }
+            _ => {}
+        }
+        true
+    }
+
+    pub fn selected_process(&self) -> Option<&crate::sys::procs::Process> {
+        crate::sys::procs::view(&self.dynamic.procs, &self.process_query, self.process_tree)
+            .get(self.scroll)
+            .map(|(process, _)| *process)
     }
 
     fn switch_tab(&mut self, delta: isize) {

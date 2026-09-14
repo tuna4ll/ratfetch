@@ -10,6 +10,7 @@ use crate::config::model::Processes as ProcCfg;
 #[derive(Debug, Clone, Default, PartialEq)]
 pub struct Process {
     pub pid: i32,
+    pub ppid: i32,
     pub name: String,
     /// The full command line, or the name again when it is unreadable.
     pub command: String,
@@ -38,6 +39,7 @@ impl Process {
 struct Stat {
     name: String,
     state: char,
+    ppid: i32,
     ticks: u64,
     rss_pages: u64,
     threads: u64,
@@ -59,6 +61,7 @@ fn parse_stat(text: &str) -> Option<Stat> {
     Some(Stat {
         name,
         state: fields.first().and_then(|s| s.chars().next()).unwrap_or('?'),
+        ppid: fields.get(1).and_then(|f| f.parse().ok()).unwrap_or(0),
         ticks: get(14) + get(15), // utime + stime
         rss_pages: get(24),
         threads: get(20),
@@ -166,6 +169,7 @@ impl Sampler {
 
             out.push(Process {
                 pid,
+                ppid: stat.ppid,
                 name: stat.name,
                 command,
                 state: stat.state,
@@ -213,6 +217,69 @@ pub fn sort(procs: &mut [Process], by: ProcSort, ascending: bool) {
     });
 }
 
+/// Processes prepared for the interactive table, paired with their tree depth.
+pub fn view<'a>(procs: &'a [Process], query: &str, tree: bool) -> Vec<(&'a Process, usize)> {
+    let query = query.trim().to_ascii_lowercase();
+    let matches = |process: &Process| {
+        query.is_empty()
+            || process.name.to_ascii_lowercase().contains(&query)
+            || process.command.to_ascii_lowercase().contains(&query)
+            || process.pid.to_string().contains(&query)
+    };
+
+    if !tree {
+        return procs
+            .iter()
+            .filter(|process| matches(process))
+            .map(|process| (process, 0))
+            .collect();
+    }
+
+    use std::collections::{HashMap, HashSet};
+    let known: HashSet<i32> = procs.iter().map(|process| process.pid).collect();
+    let mut children: HashMap<i32, Vec<&Process>> = HashMap::new();
+    let mut roots = Vec::new();
+    for process in procs {
+        if process.ppid > 0 && known.contains(&process.ppid) && process.ppid != process.pid {
+            children.entry(process.ppid).or_default().push(process);
+        } else {
+            roots.push(process);
+        }
+    }
+
+    fn walk<'a>(
+        process: &'a Process,
+        depth: usize,
+        children: &HashMap<i32, Vec<&'a Process>>,
+        seen: &mut HashSet<i32>,
+        out: &mut Vec<(&'a Process, usize)>,
+    ) {
+        if !seen.insert(process.pid) {
+            return;
+        }
+        out.push((process, depth));
+        if let Some(nodes) = children.get(&process.pid) {
+            for child in nodes {
+                walk(child, depth.saturating_add(1), children, seen, out);
+            }
+        }
+    }
+
+    let mut ordered = Vec::with_capacity(procs.len());
+    let mut seen = HashSet::new();
+    for root in roots {
+        walk(root, 0, &children, &mut seen, &mut ordered);
+    }
+    // Malformed parent cycles are still shown once.
+    for process in procs {
+        walk(process, 0, &children, &mut seen, &mut ordered);
+    }
+    ordered
+        .into_iter()
+        .filter(|(process, _)| matches(process))
+        .collect()
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -226,6 +293,7 @@ mod tests {
         let s = parse_stat(STAT).unwrap();
         assert_eq!(s.name, "my prog");
         assert_eq!(s.state, 'S');
+        assert_eq!(s.ppid, 1);
         assert_eq!(s.ticks, 200, "utime 150 + stime 50");
         assert_eq!(s.threads, 7);
         assert_eq!(s.rss_pages, 2048);
@@ -305,6 +373,22 @@ mod tests {
         assert_eq!(proc.display(true), "prog", "no command line to show");
         proc.command = "/usr/bin/prog --flag".into();
         assert_eq!(proc.display(true), "/usr/bin/prog --flag");
+    }
+
+    #[test]
+    fn view_filters_and_builds_a_tree() {
+        let mut parent = p(10, "shell", 0.0, 0);
+        parent.ppid = 1;
+        let mut child = p(20, "worker", 0.0, 0);
+        child.ppid = 10;
+        let procs = vec![child, parent];
+
+        let tree = view(&procs, "", true);
+        assert_eq!(
+            tree.iter().map(|(p, d)| (p.pid, *d)).collect::<Vec<_>>(),
+            vec![(10, 0), (20, 1)]
+        );
+        assert_eq!(view(&procs, "work", false)[0].0.pid, 20);
     }
 
     #[test]

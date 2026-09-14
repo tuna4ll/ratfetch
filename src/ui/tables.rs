@@ -2,7 +2,9 @@
 
 use ratatui::layout::{Constraint, Rect};
 use ratatui::text::{Line, Span};
-use ratatui::widgets::{Cell, Paragraph, Row, Table};
+use ratatui::widgets::{
+    Cell, Paragraph, Row, Scrollbar, ScrollbarOrientation, ScrollbarState, Table,
+};
 use ratatui::Frame;
 
 use crate::app::App;
@@ -30,15 +32,23 @@ fn empty(frame: &mut Frame, area: Rect, app: &App, message: &str) {
 /// `scroll` is ignored and the title simplified when `full` is false, which is
 /// how the overview panel shows a short top-N list.
 pub fn processes(frame: &mut Frame, area: Rect, app: &App, scroll: usize, full: bool) {
+    let view = crate::sys::procs::view(&app.dynamic.procs, &app.process_query, app.process_tree);
     let title = format!(
-        " Processes — {} by {}{} ",
+        " Processes — {}/{} by {}{}{}{} ",
+        view.len(),
         app.dynamic.proc_total,
         app.sort,
         if app.config.processes.ascending {
             " ▲"
         } else {
             " ▼"
-        }
+        },
+        if app.process_tree { " · tree" } else { "" },
+        if app.process_query.is_empty() {
+            String::new()
+        } else {
+            format!(" · /{}", app.process_query)
+        },
     );
     let block = super::panel(&app.theme, &title);
     let inner = block.inner(area);
@@ -47,8 +57,17 @@ pub fn processes(frame: &mut Frame, area: Rect, app: &App, scroll: usize, full: 
     if inner.width == 0 || inner.height == 0 {
         return;
     }
-    if app.dynamic.procs.is_empty() {
-        empty(frame, inner, app, "no processes visible");
+    if view.is_empty() {
+        empty(
+            frame,
+            inner,
+            app,
+            if app.process_query.is_empty() {
+                "no processes visible"
+            } else {
+                "no processes match the filter; ctrl+u clears it"
+            },
+        );
         return;
     }
 
@@ -63,29 +82,43 @@ pub fn processes(frame: &mut Frame, area: Rect, app: &App, scroll: usize, full: 
     } else {
         app.config.processes.count.min(visible)
     };
+    let selected = scroll.min(view.len().saturating_sub(1));
     let offset = if full {
-        clamp_scroll(scroll, app.dynamic.procs.len(), visible)
+        selected.saturating_sub(visible.saturating_sub(1))
     } else {
         0
     };
 
     let theme = &app.theme;
-    let rows: Vec<Row> = app
-        .dynamic
-        .procs
+    let rows: Vec<Row> = view
         .iter()
         .skip(offset)
         .take(limit)
-        .map(|p| {
+        .enumerate()
+        .map(|(index, (p, depth))| {
             let cpu_color = theme.level(
                 p.cpu,
                 app.config.meters.warn_at,
                 app.config.meters.critical_at,
             );
             Row::new(vec![
+                Cell::from(if full && offset + index == selected {
+                    "›"
+                } else {
+                    ""
+                })
+                .style(theme.accent.fg()),
                 Cell::from(p.pid.to_string()).style(theme.muted.fg()),
-                Cell::from(p.display(app.config.processes.full_command).to_string())
-                    .style(theme.value.fg()),
+                Cell::from(format!(
+                    "{}{}",
+                    if app.process_tree {
+                        "  ".repeat(*depth)
+                    } else {
+                        String::new()
+                    },
+                    p.display(app.config.processes.full_command)
+                ))
+                .style(theme.value.fg()),
                 Cell::from(format!("{:>5.1}", p.cpu)).style(cpu_color.fg()),
                 Cell::from(human_bytes(p.memory)).style(theme.foreground.fg()),
                 Cell::from(p.state.to_string()).style(theme.muted.fg()),
@@ -93,7 +126,7 @@ pub fn processes(frame: &mut Frame, area: Rect, app: &App, scroll: usize, full: 
         })
         .collect();
 
-    let header = Row::new(vec!["PID", "COMMAND", "CPU%", "MEM", "S"]).style(
+    let header = Row::new(vec!["", "PID", "COMMAND", "CPU%", "MEM", "S"]).style(
         theme
             .accent
             .fg()
@@ -101,6 +134,7 @@ pub fn processes(frame: &mut Frame, area: Rect, app: &App, scroll: usize, full: 
     );
 
     let widths = [
+        Constraint::Length(1),
         Constraint::Length(7),
         Constraint::Fill(1),
         Constraint::Length(6),
@@ -115,6 +149,15 @@ pub fn processes(frame: &mut Frame, area: Rect, app: &App, scroll: usize, full: 
             .style(super::surface(theme)),
         inner,
     );
+
+    if full && view.len() > visible {
+        let mut state = ScrollbarState::new(view.len()).position(selected);
+        frame.render_stateful_widget(
+            Scrollbar::new(ScrollbarOrientation::VerticalRight),
+            inner,
+            &mut state,
+        );
+    }
 }
 
 /// The filesystem table.

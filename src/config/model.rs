@@ -470,6 +470,11 @@ pub struct Keys {
     pub freeze: Vec<KeyBinding>,
     pub info_details: Vec<KeyBinding>,
     pub errors: Vec<KeyBinding>,
+    pub search_processes: Vec<KeyBinding>,
+    pub clear_process_filter: Vec<KeyBinding>,
+    pub process_details: Vec<KeyBinding>,
+    pub process_tree: Vec<KeyBinding>,
+    pub signal_process: Vec<KeyBinding>,
 }
 
 impl Default for Keys {
@@ -488,6 +493,11 @@ impl Default for Keys {
             freeze: b(&["space"]),
             info_details: b(&["i"]),
             errors: b(&["e"]),
+            search_processes: b(&["/"]),
+            clear_process_filter: b(&["ctrl+u"]),
+            process_details: b(&["enter"]),
+            process_tree: b(&["t"]),
+            signal_process: b(&["x"]),
         }
     }
 }

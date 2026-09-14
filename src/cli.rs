@@ -302,6 +302,9 @@ fn event_loop(app: &mut App) -> io::Result<()> {
         if event::poll(timeout)? {
             match event::read()? {
                 Event::Key(key) => {
+                    if app.handle_text_input(&key) {
+                        continue;
+                    }
                     // Ctrl-C is honoured even if the user unbound quit.
                     if is_interrupt(&key) {
                         return Ok(());

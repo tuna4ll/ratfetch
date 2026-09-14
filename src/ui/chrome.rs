@@ -108,6 +108,10 @@ pub fn footer(frame: &mut Frame, area: Rect, app: &App) {
     if app.tab == crate::config::enums::Tab::Overview {
         spans.extend(hint(&k.info_details, "info", app));
     }
+    if app.tab == crate::config::enums::Tab::Processes {
+        spans.extend(hint(&k.search_processes, "filter", app));
+        spans.extend(hint(&k.process_details, "details", app));
+    }
     spans.extend(hint(&k.scroll_down, "scroll", app));
 
     frame.render_widget(
@@ -186,7 +190,7 @@ pub fn help(frame: &mut Frame, area: Rect, app: &App) {
     let theme = &app.theme;
     let k = &app.config.keys;
 
-    let entries: [(&str, &[KeyBinding]); 12] = [
+    let entries: [(&str, &[KeyBinding]); 17] = [
         ("quit", &k.quit),
         ("this help", &k.help),
         ("reload config", &k.reload),
@@ -199,6 +203,11 @@ pub fn help(frame: &mut Frame, area: Rect, app: &App) {
         ("freeze / resume", &k.freeze),
         ("full system information", &k.info_details),
         ("error details", &k.errors),
+        ("filter processes", &k.search_processes),
+        ("clear process filter", &k.clear_process_filter),
+        ("selected process details", &k.process_details),
+        ("toggle process tree", &k.process_tree),
+        ("signal selected process", &k.signal_process),
     ];
 
     let key_column = entries
@@ -260,7 +269,7 @@ pub fn help(frame: &mut Frame, area: Rect, app: &App) {
 }
 
 fn text_popup(frame: &mut Frame, area: Rect, app: &App, title: &str, lines: Vec<Line<'static>>) {
-    let width = area.width.saturating_sub(4).min(100).max(1);
+    let width = area.width.saturating_sub(4).clamp(1, 100);
     let height = (lines.len() as u16 + 2)
         .min(area.height.saturating_sub(2))
         .max(1);
@@ -300,6 +309,45 @@ pub fn errors(frame: &mut Frame, area: Rect, app: &App) {
             .collect()
     };
     text_popup(frame, area, app, " Errors — e/esc close ", lines);
+}
+
+pub fn process_details(frame: &mut Frame, area: Rect, app: &App) {
+    let Some(process) = app.selected_process() else {
+        return;
+    };
+    let lines = vec![
+        Line::from(format!("Name     {}", process.name)),
+        Line::from(format!("PID      {}", process.pid)),
+        Line::from(format!("Parent   {}", process.ppid)),
+        Line::from(format!("UID      {}", process.uid)),
+        Line::from(format!("State    {}", process.state)),
+        Line::from(format!("Threads  {}", process.threads)),
+        Line::from(format!("CPU      {:.1}%", process.cpu)),
+        Line::from(format!(
+            "Memory   {}",
+            crate::util::human_bytes(process.memory)
+        )),
+        Line::from(""),
+        Line::from(format!("Command  {}", process.display(true))),
+    ];
+    text_popup(frame, area, app, " Process — enter/esc close ", lines);
+}
+
+pub fn signal_confirm(frame: &mut Frame, area: Rect, app: &App) {
+    let Some(process) = app.selected_process() else {
+        return;
+    };
+    text_popup(
+        frame,
+        area,
+        app,
+        " Send SIGTERM? ",
+        vec![
+            Line::from(format!("Terminate {} ({})?", process.name, process.pid)),
+            Line::from(""),
+            Line::from("y send SIGTERM    n/esc cancel"),
+        ],
+    );
 }
 
 #[cfg(test)]

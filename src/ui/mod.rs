@@ -52,6 +52,10 @@ pub fn draw(frame: &mut Frame, app: &App) {
         chrome::info_details(frame, area, app);
     } else if app.show_errors {
         chrome::errors(frame, area, app);
+    } else if app.show_process_details {
+        chrome::process_details(frame, area, app);
+    } else if app.show_signal_confirm {
+        chrome::signal_confirm(frame, area, app);
     }
 }
 
