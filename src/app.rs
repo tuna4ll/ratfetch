@@ -158,6 +158,8 @@ pub enum Action {
     SortNext,
     TogglePerCore,
     ToggleFreeze,
+    ToggleInfoDetails,
+    ToggleErrors,
 }
 
 /// A transient message shown in the footer.
@@ -197,8 +199,11 @@ pub struct App {
     pub per_core: bool,
     pub frozen: bool,
     pub show_help: bool,
+    pub show_info_details: bool,
+    pub show_errors: bool,
     pub scroll: usize,
     pub status: Option<Status>,
+    pub errors: VecDeque<String>,
     pub should_quit: bool,
     pub started: Instant,
     sampler: Sampler,
@@ -240,8 +245,11 @@ impl App {
             logo,
             frozen: false,
             show_help: false,
+            show_info_details: false,
+            show_errors: false,
             scroll: 0,
             status: None,
+            errors: VecDeque::with_capacity(32),
             should_quit: false,
             started: Instant::now(),
             sampler: Sampler::new(),
@@ -278,7 +286,11 @@ impl App {
         );
         self.history.record(&self.dynamic, &self.config);
 
-        if self.status.as_ref().is_some_and(Status::expired) {
+        if self
+            .status
+            .as_ref()
+            .is_some_and(|status| !status.is_error && status.expired())
+        {
             self.status = None;
         }
         if self.config.general.watch_config {
@@ -305,6 +317,12 @@ impl App {
         if self.show_help && (hit(&k.help) || hit(&k.quit)) {
             return Action::ToggleHelp;
         }
+        if self.show_info_details && (hit(&k.info_details) || hit(&k.quit)) {
+            return Action::ToggleInfoDetails;
+        }
+        if self.show_errors && (hit(&k.errors) || hit(&k.quit)) {
+            return Action::ToggleErrors;
+        }
 
         if hit(&k.quit) {
             Action::Quit
@@ -326,6 +344,10 @@ impl App {
             Action::TogglePerCore
         } else if hit(&k.freeze) {
             Action::ToggleFreeze
+        } else if hit(&k.info_details) {
+            Action::ToggleInfoDetails
+        } else if hit(&k.errors) {
+            Action::ToggleErrors
         } else {
             Action::None
         }
@@ -368,6 +390,15 @@ impl App {
                 let word = if self.frozen { "frozen" } else { "running" };
                 self.set_status(word, false);
             }
+            Action::ToggleInfoDetails => {
+                self.show_info_details = !self.show_info_details;
+            }
+            Action::ToggleErrors => {
+                self.show_errors = !self.show_errors;
+                if !self.show_errors && self.status.as_ref().is_some_and(|s| s.is_error) {
+                    self.status = None;
+                }
+            }
         }
     }
 
@@ -385,6 +416,13 @@ impl App {
 
     /// Shows a message in the footer.
     pub fn set_status(&mut self, text: impl Into<String>, is_error: bool) {
+        let text = text.into();
+        if is_error {
+            if self.errors.len() == 32 {
+                self.errors.pop_front();
+            }
+            self.errors.push_back(text.clone());
+        }
         self.status = Some(Status::new(text, is_error));
     }
 

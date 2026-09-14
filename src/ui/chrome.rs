@@ -3,7 +3,7 @@
 use ratatui::layout::{Alignment, Constraint, Layout, Rect};
 use ratatui::style::{Color, Modifier, Style};
 use ratatui::text::{Line, Span};
-use ratatui::widgets::{Clear, Paragraph};
+use ratatui::widgets::{Clear, Paragraph, Wrap};
 use ratatui::Frame;
 
 use crate::app::App;
@@ -30,11 +30,17 @@ pub fn tab_bar(frame: &mut Frame, area: Rect, app: &App) {
     }
 
     let left = Line::from(spans);
-    let right = Line::from(vec![
+    let mut right = Line::from(vec![
         Span::styled(if app.frozen { "⏸ frozen " } else { "" }, theme.warn.fg()),
         Span::styled(format!("ratfetch {} ", crate::VERSION), theme.muted.fg()),
     ]);
 
+    if left.width().saturating_add(right.width()) > area.width as usize {
+        right = Line::from(Span::styled(
+            if app.frozen { "⏸ frozen " } else { "" },
+            theme.warn.fg(),
+        ));
+    }
     let chunks = Layout::horizontal([Constraint::Min(0), Constraint::Length(right.width() as u16)])
         .split(area);
 
@@ -78,6 +84,10 @@ pub fn footer(frame: &mut Frame, area: Rect, app: &App) {
                 crate::util::truncate(&status.text, area.width.saturating_sub(3) as usize),
                 color.fg(),
             ),
+            Span::styled(
+                if status.is_error { "  e details" } else { "" },
+                theme.footer.fg(),
+            ),
         ]);
         frame.render_widget(Paragraph::new(line).style(theme.background.bg()), area);
         return;
@@ -95,6 +105,10 @@ pub fn footer(frame: &mut Frame, area: Rect, app: &App) {
         app,
     ));
     spans.extend(hint(&k.reload, "reload", app));
+    if app.tab == crate::config::enums::Tab::Overview {
+        spans.extend(hint(&k.info_details, "info", app));
+    }
+    spans.extend(hint(&k.scroll_down, "scroll", app));
 
     frame.render_widget(
         Paragraph::new(Line::from(spans)).style(theme.background.bg()),
@@ -172,7 +186,7 @@ pub fn help(frame: &mut Frame, area: Rect, app: &App) {
     let theme = &app.theme;
     let k = &app.config.keys;
 
-    let entries: [(&str, &[KeyBinding]); 10] = [
+    let entries: [(&str, &[KeyBinding]); 12] = [
         ("quit", &k.quit),
         ("this help", &k.help),
         ("reload config", &k.reload),
@@ -183,6 +197,8 @@ pub fn help(frame: &mut Frame, area: Rect, app: &App) {
         ("cycle sort column", &k.sort_next),
         ("toggle per-core meters", &k.toggle_per_core),
         ("freeze / resume", &k.freeze),
+        ("full system information", &k.info_details),
+        ("error details", &k.errors),
     ];
 
     let key_column = entries
@@ -241,6 +257,49 @@ pub fn help(frame: &mut Frame, area: Rect, app: &App) {
         Paragraph::new(lines).style(super::surface(theme)),
         super::shrink(inner, 0),
     );
+}
+
+fn text_popup(frame: &mut Frame, area: Rect, app: &App, title: &str, lines: Vec<Line<'static>>) {
+    let width = area.width.saturating_sub(4).min(100).max(1);
+    let height = (lines.len() as u16 + 2)
+        .min(area.height.saturating_sub(2))
+        .max(1);
+    let popup = centred(area, width, height);
+    frame.render_widget(Clear, popup);
+    let block = super::panel(&app.theme, title).border_style(app.theme.border_focus.fg());
+    let inner = block.inner(popup);
+    frame.render_widget(block, popup);
+    frame.render_widget(
+        Paragraph::new(lines)
+            .wrap(Wrap { trim: false })
+            .style(super::surface(&app.theme)),
+        inner,
+    );
+}
+
+/// All system information without the overview's one-line truncation.
+pub fn info_details(frame: &mut Frame, area: Rect, app: &App) {
+    text_popup(
+        frame,
+        area,
+        app,
+        " Information — i/esc close ",
+        super::header::detail_lines(app),
+    );
+}
+
+/// Recent errors, retained after the footer notification is dismissed.
+pub fn errors(frame: &mut Frame, area: Rect, app: &App) {
+    let lines = if app.errors.is_empty() {
+        vec![Line::from("No errors recorded.")]
+    } else {
+        app.errors
+            .iter()
+            .rev()
+            .map(|error| Line::from(format!("! {error}")))
+            .collect()
+    };
+    text_popup(frame, area, app, " Errors — e/esc close ", lines);
 }
 
 #[cfg(test)]

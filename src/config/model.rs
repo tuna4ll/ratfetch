@@ -468,6 +468,8 @@ pub struct Keys {
     pub sort_next: Vec<KeyBinding>,
     pub toggle_per_core: Vec<KeyBinding>,
     pub freeze: Vec<KeyBinding>,
+    pub info_details: Vec<KeyBinding>,
+    pub errors: Vec<KeyBinding>,
 }
 
 impl Default for Keys {
@@ -484,6 +486,8 @@ impl Default for Keys {
             sort_next: b(&["s"]),
             toggle_per_core: b(&["c"]),
             freeze: b(&["space"]),
+            info_details: b(&["i"]),
+            errors: b(&["e"]),
         }
     }
 }

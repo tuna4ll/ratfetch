@@ -214,6 +214,11 @@ pub fn info_lines(app: &App, width: u16) -> Vec<Line<'static>> {
     out
 }
 
+/// Full-width information for the details overlay.
+pub fn detail_lines(app: &App) -> Vec<Line<'static>> {
+    info_lines(app, u16::MAX)
+}
+
 /// A one-line summary of live load, shown under the info table when there is
 /// room for it.
 pub fn live_line(app: &App) -> Line<'static> {
@@ -334,6 +339,12 @@ pub fn draw(frame: &mut Frame, area: Rect, app: &App) {
 
     if is_stacked(app, inner.width) {
         let logo = app.logo.as_ref().expect("logo_visible checked it");
+        let logo_height = clamp_logo_height(logo, &app.config);
+        // A logo is decoration; on a short split pane the facts take priority.
+        if inner.height < logo_height.saturating_add(6) {
+            info(frame, inner, app);
+            return;
+        }
         // The logo never takes so much height that the table has no room.
         let height =
             clamp_logo_height(logo, &app.config).min(inner.height.saturating_sub(inner.height / 3));
@@ -383,7 +394,9 @@ fn logo_widget(frame: &mut Frame, area: Rect, app: &App) {
     };
 
     frame.render_widget(
-        Paragraph::new(lines).style(super::surface(&app.theme)),
+        Paragraph::new(lines)
+            .scroll((app.scroll.min(u16::MAX as usize) as u16, 0))
+            .style(super::surface(&app.theme)),
         area,
     );
 }
