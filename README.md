@@ -75,6 +75,8 @@ ratfetch --once               # one frame, like a classic fetch tool
 ratfetch --logo nixos         # override the detected logo
 ratfetch --theme gruvbox-dark
 ratfetch --interval 250       # four samples a second
+ratfetch --format json        # one machine-readable snapshot
+ratfetch --format plain       # clean line-oriented output
 ratfetch --list-logos | fzf   # browse what is bundled
 ```
 
