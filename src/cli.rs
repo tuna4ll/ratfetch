@@ -5,7 +5,7 @@ use std::path::PathBuf;
 use std::process::ExitCode;
 use std::time::Instant;
 
-use clap::{Parser, ValueEnum};
+use clap::{CommandFactory, Parser, ValueEnum};
 use crossterm::event::{
     self, DisableMouseCapture, EnableMouseCapture, Event, KeyCode, KeyEvent, KeyModifiers,
 };
@@ -30,6 +30,27 @@ pub enum OutputFormat {
     Plain,
     /// A complete machine-readable snapshot.
     Json,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq, ValueEnum)]
+pub enum CompletionShell {
+    Bash,
+    Zsh,
+    Fish,
+    Elvish,
+    Powershell,
+}
+
+impl From<CompletionShell> for clap_complete::Shell {
+    fn from(shell: CompletionShell) -> Self {
+        match shell {
+            CompletionShell::Bash => Self::Bash,
+            CompletionShell::Zsh => Self::Zsh,
+            CompletionShell::Fish => Self::Fish,
+            CompletionShell::Elvish => Self::Elvish,
+            CompletionShell::Powershell => Self::PowerShell,
+        }
+    }
 }
 
 /// A live, always-updating system fetch for the terminal.
@@ -99,6 +120,14 @@ pub struct Args {
     /// Explain which collectors and kernel interfaces are available.
     #[arg(long)]
     pub diagnose: bool,
+
+    /// Generate a completion script and exit.
+    #[arg(long, value_enum, value_name = "SHELL")]
+    pub generate_completion: Option<CompletionShell>,
+
+    /// Generate a man page to stdout or an optional path and exit.
+    #[arg(long, value_name = "PATH", num_args = 0..=1, default_missing_value = "")]
+    pub generate_man: Option<String>,
 }
 
 impl Args {
@@ -147,6 +176,28 @@ pub fn run() -> ExitCode {
 
 fn dispatch(args: &Args) -> Result<ExitCode, Box<dyn std::error::Error>> {
     // The informational modes never touch the terminal.
+    if let Some(shell) = args.generate_completion {
+        let mut command = Args::command();
+        clap_complete::generate(
+            clap_complete::Shell::from(shell),
+            &mut command,
+            "ratfetch",
+            &mut io::stdout().lock(),
+        );
+        return Ok(ExitCode::SUCCESS);
+    }
+
+    if let Some(path) = &args.generate_man {
+        let man = clap_mangen::Man::new(Args::command());
+        if path.is_empty() {
+            man.render(&mut io::stdout().lock())?;
+        } else {
+            man.render(&mut std::fs::File::create(path)?)?;
+            println!("wrote {path}");
+        }
+        return Ok(ExitCode::SUCCESS);
+    }
+
     if args.list_logos {
         let mut out = io::stdout().lock();
         for name in crate::logo::all_names() {
@@ -600,6 +651,14 @@ mod tests {
 
         let args = Args::parse_from(["ratfetch"]);
         assert_eq!(args.generate_config, None);
+    }
+
+    #[test]
+    fn generators_parse_their_arguments() {
+        let args = Args::parse_from(["ratfetch", "--generate-completion", "fish"]);
+        assert_eq!(args.generate_completion, Some(CompletionShell::Fish));
+        let args = Args::parse_from(["ratfetch", "--generate-man"]);
+        assert_eq!(args.generate_man.as_deref(), Some(""));
     }
 
     #[test]

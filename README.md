@@ -78,6 +78,8 @@ ratfetch --interval 250       # four samples a second
 ratfetch --format json        # one machine-readable snapshot
 ratfetch --format plain       # clean line-oriented output
 ratfetch --diagnose           # explain unavailable collectors
+ratfetch --generate-completion fish
+ratfetch --generate-man ratfetch.1
 ratfetch --list-logos | fzf   # browse what is bundled
 ```
 
