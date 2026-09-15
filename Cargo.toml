@@ -1,6 +1,6 @@
 [package]
 name = "ratfetch"
-version = "0.1.0"
+version = "0.2.0"
 edition = "2021"
 # Set by ratatui 0.30, which is the highest MSRV in the dependency tree.
 rust-version = "1.88"
@@ -17,11 +17,14 @@ include = ["src/**", "assets/**", "build.rs", "README.md", "LICENSE"]
 
 [dependencies]
 clap = { version = "4.6", features = ["derive"] }
+clap_complete = "4.6"
+clap_mangen = "0.2"
 crossterm = "0.29"
 dirs = "6.0"
 libc = "0.2"
 ratatui = "0.30"
 serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
 toml = "1.1"
 
 [build-dependencies]

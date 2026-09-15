@@ -34,7 +34,7 @@ watch_config = true
 [logo]
 # "auto" detects the distro. Otherwise a logo name ("arch", "nixos", "debian"),
 # "none", or "file:/path/to/your/art.txt". Run `ratfetch --list-logos` to see
-# all 526 of them.
+# all 527 of them.
 source = "auto"
 # Prefer the compact variant when the logo ships one.
 small = false
@@ -119,7 +119,8 @@ colors = 3
 # Rows of the info table, in order. Available rows:
 #   title, separator, blank, os, host, kernel, uptime, packages, shell,
 #   terminal, de, wm, resolution, cpu, cpu_temp, gpu, memory, swap, disk,
-#   local_ip, battery, load_avg, processes, users, locale, date_time, colors
+#   local_ip, local_ipv6, battery, load_avg, processes, users, locale, date_time,
+#   colors
 items = [
     "title",
     "separator",
@@ -154,7 +155,7 @@ bold_title = true
 hide_empty = true
 
 [meters]
-# Live bars. Available: cpu, memory, swap, disk, battery, load.
+# Live bars. Available: cpu, memory, swap, disk, battery, load, gpu.
 items = ["cpu", "memory", "swap", "disk"]
 # bar, line, blocks, or dots.
 style = "bar"
@@ -169,7 +170,7 @@ label_width = 8
 per_core = false
 
 [graphs]
-# Time series. Available: cpu, memory, swap, network, disk, load.
+# Time series. Available: cpu, memory, swap, network, disk, disk_io, load, gpu.
 items = ["cpu", "memory", "network"]
 # sparkline, braille, or bars.
 style = "sparkline"
@@ -229,3 +230,10 @@ scroll_up = ["up", "k"]
 sort_next = ["s"]
 toggle_per_core = ["c"]
 freeze = ["space"]
+info_details = ["i"]
+errors = ["e"]
+search_processes = ["/"]
+clear_process_filter = ["ctrl+u"]
+process_details = ["enter"]
+process_tree = ["t"]
+signal_process = ["x"]

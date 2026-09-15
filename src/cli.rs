@@ -5,7 +5,7 @@ use std::path::PathBuf;
 use std::process::ExitCode;
 use std::time::Instant;
 
-use clap::Parser;
+use clap::{CommandFactory, Parser, ValueEnum};
 use crossterm::event::{
     self, DisableMouseCapture, EnableMouseCapture, Event, KeyCode, KeyEvent, KeyModifiers,
 };
@@ -18,6 +18,40 @@ use ratatui::{Terminal, TerminalOptions, Viewport};
 
 use crate::app::{Action, App};
 use crate::config::{self, LoadOptions};
+
+#[derive(Debug, Clone, Copy, Default, PartialEq, Eq, ValueEnum)]
+pub enum OutputFormat {
+    /// TUI on a terminal, plain text when redirected.
+    #[default]
+    Auto,
+    /// The interactive terminal interface, including ANSI control sequences.
+    Tui,
+    /// Stable, line-oriented text without terminal control sequences.
+    Plain,
+    /// A complete machine-readable snapshot.
+    Json,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq, ValueEnum)]
+pub enum CompletionShell {
+    Bash,
+    Zsh,
+    Fish,
+    Elvish,
+    Powershell,
+}
+
+impl From<CompletionShell> for clap_complete::Shell {
+    fn from(shell: CompletionShell) -> Self {
+        match shell {
+            CompletionShell::Bash => Self::Bash,
+            CompletionShell::Zsh => Self::Zsh,
+            CompletionShell::Fish => Self::Fish,
+            CompletionShell::Elvish => Self::Elvish,
+            CompletionShell::Powershell => Self::PowerShell,
+        }
+    }
+}
 
 /// A live, always-updating system fetch for the terminal.
 #[derive(Debug, Parser)]
@@ -51,6 +85,10 @@ pub struct Args {
     #[arg(short = '1', long)]
     pub once: bool,
 
+    /// Output format. Non-terminal output defaults to plain.
+    #[arg(long, value_enum, default_value_t)]
+    pub format: OutputFormat,
+
     /// Quit after this many seconds.
     #[arg(long, value_name = "SECS")]
     pub exit_after: Option<u64>,
@@ -78,6 +116,18 @@ pub struct Args {
     /// List every built-in theme and exit.
     #[arg(long)]
     pub list_themes: bool,
+
+    /// Explain which collectors and kernel interfaces are available.
+    #[arg(long)]
+    pub diagnose: bool,
+
+    /// Generate a completion script and exit.
+    #[arg(long, value_enum, value_name = "SHELL")]
+    pub generate_completion: Option<CompletionShell>,
+
+    /// Generate a man page to stdout or an optional path and exit.
+    #[arg(long, value_name = "PATH", num_args = 0..=1, default_missing_value = "")]
+    pub generate_man: Option<String>,
 }
 
 impl Args {
@@ -113,6 +163,11 @@ pub fn run() -> ExitCode {
     match dispatch(&args) {
         Ok(code) => code,
         Err(e) => {
+            if e.downcast_ref::<io::Error>()
+                .is_some_and(|error| error.kind() == io::ErrorKind::BrokenPipe)
+            {
+                return ExitCode::SUCCESS;
+            }
             eprintln!("ratfetch: {e}");
             ExitCode::FAILURE
         }
@@ -121,6 +176,28 @@ pub fn run() -> ExitCode {
 
 fn dispatch(args: &Args) -> Result<ExitCode, Box<dyn std::error::Error>> {
     // The informational modes never touch the terminal.
+    if let Some(shell) = args.generate_completion {
+        let mut command = Args::command();
+        clap_complete::generate(
+            clap_complete::Shell::from(shell),
+            &mut command,
+            "ratfetch",
+            &mut io::stdout().lock(),
+        );
+        return Ok(ExitCode::SUCCESS);
+    }
+
+    if let Some(path) = &args.generate_man {
+        let man = clap_mangen::Man::new(Args::command());
+        if path.is_empty() {
+            man.render(&mut io::stdout().lock())?;
+        } else {
+            man.render(&mut std::fs::File::create(path)?)?;
+            println!("wrote {path}");
+        }
+        return Ok(ExitCode::SUCCESS);
+    }
+
     if args.list_logos {
         let mut out = io::stdout().lock();
         for name in crate::logo::all_names() {
@@ -166,12 +243,183 @@ fn dispatch(args: &Args) -> Result<ExitCode, Box<dyn std::error::Error>> {
     }
 
     let app = App::new(loaded, options);
-    if args.once {
-        draw_once(app)?;
-    } else {
-        run_loop(app)?;
+    if args.diagnose {
+        write_diagnostics(io::stdout().lock(), &app)?;
+        return Ok(ExitCode::SUCCESS);
+    }
+    let format = match args.format {
+        OutputFormat::Auto if !io::stdout().is_terminal() => OutputFormat::Plain,
+        OutputFormat::Auto => OutputFormat::Tui,
+        explicit => explicit,
+    };
+    match format {
+        OutputFormat::Plain => write_plain(io::stdout().lock(), &app)?,
+        OutputFormat::Json => write_json(io::stdout().lock(), &app)?,
+        OutputFormat::Tui | OutputFormat::Auto if args.once => draw_once(app)?,
+        OutputFormat::Tui | OutputFormat::Auto => run_loop(app)?,
     }
     Ok(ExitCode::SUCCESS)
+}
+
+fn write_plain(mut out: impl Write, app: &App) -> io::Result<()> {
+    let s = &app.statics;
+    let d = &app.dynamic;
+    let (rx, tx) = d.net_rates();
+    let (disk_read, disk_write) = crate::sys::disk_io::total_rate(&d.disk_io);
+    for (key, value) in [
+        ("user", s.username.clone()),
+        ("host", s.hostname.clone()),
+        ("os", s.os_name.clone()),
+        ("kernel", s.kernel.clone()),
+        ("uptime", crate::util::human_uptime(d.uptime)),
+        ("cpu", s.cpu.label(d.cpu.freq_mhz)),
+        ("cpu_percent", format!("{:.1}", d.cpu.total)),
+        ("memory_used", d.mem.used.to_string()),
+        ("memory_total", d.mem.total.to_string()),
+        ("memory_percent", format!("{:.1}", d.mem.percent())),
+        ("network_rx_bytes_per_second", format!("{rx:.0}")),
+        ("network_tx_bytes_per_second", format!("{tx:.0}")),
+        ("disk_read_bytes_per_second", format!("{disk_read:.0}")),
+        ("disk_write_bytes_per_second", format!("{disk_write:.0}")),
+        ("processes", d.proc_total.to_string()),
+    ] {
+        writeln!(out, "{key}: {value}")?;
+    }
+    for disk in &d.disks {
+        writeln!(
+            out,
+            "filesystem: {} {} {} {}",
+            disk.mount, disk.used, disk.total, disk.fstype
+        )?;
+    }
+    for interface in &d.nets {
+        writeln!(
+            out,
+            "interface: {} {} {} {:.0} {:.0}",
+            interface.name,
+            interface.state,
+            interface.ipv4.as_deref().unwrap_or("-"),
+            interface.rx_rate,
+            interface.tx_rate
+        )?;
+        if let Some(ipv6) = &interface.ipv6 {
+            writeln!(out, "interface_ipv6: {} {ipv6}", interface.name)?;
+        }
+    }
+    Ok(())
+}
+
+fn write_json(mut out: impl Write, app: &App) -> io::Result<()> {
+    let s = &app.statics;
+    let d = &app.dynamic;
+    let value = serde_json::json!({
+        "identity": { "user": s.username, "hostname": s.hostname },
+        "system": {
+            "os": s.os_name, "distro_id": s.distro_id, "kernel": s.kernel,
+            "host_model": s.host_model, "uptime_seconds": d.uptime,
+            "shell": s.shell, "terminal": s.terminal, "desktop": s.de,
+            "window_manager": s.wm, "resolution": s.resolution, "locale": s.locale,
+            "packages": s.packages,
+        },
+        "cpu": {
+            "model": s.cpu.model, "physical_cores": s.cpu.cores,
+            "threads": s.cpu.threads, "frequency_mhz": d.cpu.freq_mhz,
+            "percent": d.cpu.total, "per_core_percent": d.cpu.per_core,
+        },
+        "memory": {
+            "total_bytes": d.mem.total, "used_bytes": d.mem.used,
+            "available_bytes": d.mem.available, "percent": d.mem.percent(),
+            "swap_total_bytes": d.mem.swap_total, "swap_used_bytes": d.mem.swap_used,
+        },
+        "gpus": s.gpus.iter().map(|gpu| {
+            let live = d.gpus.iter().find(|stats| stats.card == gpu.card);
+            serde_json::json!({
+                "card": gpu.card, "vendor": gpu.vendor, "model": gpu.model,
+                "driver": gpu.driver,
+                "percent": live.and_then(|stats| stats.usage_percent),
+                "memory_used_bytes": live.and_then(|stats| stats.memory_used),
+                "memory_total_bytes": live.and_then(|stats| stats.memory_total),
+                "temperature_celsius": live.and_then(|stats| stats.temperature_celsius),
+                "power_watts": live.and_then(|stats| stats.power_watts),
+            })
+        }).collect::<Vec<_>>(),
+        "filesystems": d.disks.iter().map(|disk| serde_json::json!({
+            "device": disk.device, "mount": disk.mount, "type": disk.fstype,
+            "total_bytes": disk.total, "used_bytes": disk.used,
+            "available_bytes": disk.available,
+        })).collect::<Vec<_>>(),
+        "disk_io": d.disk_io.iter().map(|device| serde_json::json!({
+            "device": device.name, "read_bytes": device.read_bytes,
+            "write_bytes": device.write_bytes, "read_bytes_per_second": device.read_rate,
+            "write_bytes_per_second": device.write_rate,
+        })).collect::<Vec<_>>(),
+        "network": d.nets.iter().map(|interface| serde_json::json!({
+            "interface": interface.name, "state": interface.state,
+            "ipv4": interface.ipv4, "ipv6": interface.ipv6,
+            "rx_bytes": interface.rx_bytes, "tx_bytes": interface.tx_bytes,
+            "rx_bytes_per_second": interface.rx_rate,
+            "tx_bytes_per_second": interface.tx_rate,
+        })).collect::<Vec<_>>(),
+        "processes": d.procs.iter().map(|process| serde_json::json!({
+            "pid": process.pid, "ppid": process.ppid, "uid": process.uid,
+            "name": process.name, "command": process.command, "state": process.state.to_string(),
+            "threads": process.threads, "cpu_percent": process.cpu,
+            "memory_bytes": process.memory,
+        })).collect::<Vec<_>>(),
+    });
+    serde_json::to_writer_pretty(&mut out, &value).map_err(io::Error::other)?;
+    writeln!(out)
+}
+
+fn write_diagnostics(mut out: impl Write, app: &App) -> io::Result<()> {
+    writeln!(out, "ratfetch {} diagnostics", crate::VERSION)?;
+    writeln!(
+        out,
+        "platform: {} {}",
+        std::env::consts::OS,
+        std::env::consts::ARCH
+    )?;
+    if app.config_sources().is_empty() {
+        writeln!(out, "config: built-in defaults")?;
+    } else {
+        for path in app.config_sources() {
+            writeln!(out, "config: {}", path.display())?;
+        }
+    }
+
+    for (name, path, optional) in [
+        ("cpu", "/proc/stat", false),
+        ("memory", "/proc/meminfo", false),
+        ("processes", "/proc", false),
+        ("filesystems", "/proc/mounts", false),
+        ("disk io", "/proc/diskstats", false),
+        ("network", "/proc/net/dev", false),
+        ("temperatures", "/sys/class/hwmon", true),
+        ("gpu", "/sys/class/drm", true),
+        ("battery", "/sys/class/power_supply", true),
+    ] {
+        let status = match std::fs::metadata(path) {
+            Ok(_) => "ok".to_string(),
+            Err(error) if optional => format!("optional: {error}"),
+            Err(error) => format!("unavailable: {error}"),
+        };
+        writeln!(out, "{name}: {status} [{path}]")?;
+    }
+
+    writeln!(out, "cpu samples: {}", app.dynamic.cpu.per_core.len())?;
+    writeln!(out, "filesystems found: {}", app.dynamic.disks.len())?;
+    writeln!(out, "block devices found: {}", app.dynamic.disk_io.len())?;
+    writeln!(out, "interfaces found: {}", app.dynamic.nets.len())?;
+    writeln!(out, "processes visible: {}", app.dynamic.procs.len())?;
+    writeln!(
+        out,
+        "temperature sensors found: {}",
+        app.dynamic.temps.len()
+    )?;
+    writeln!(out, "gpus found: {}", app.statics.gpus.len())?;
+    writeln!(out, "gpus with telemetry: {}", app.dynamic.gpus.len())?;
+    writeln!(out, "battery found: {}", app.dynamic.battery.is_some())?;
+    Ok(())
 }
 
 /// `--check-config`: report what would be loaded, without starting the UI.
@@ -302,6 +550,9 @@ fn event_loop(app: &mut App) -> io::Result<()> {
         if event::poll(timeout)? {
             match event::read()? {
                 Event::Key(key) => {
+                    if app.handle_text_input(&key) {
+                        continue;
+                    }
                     // Ctrl-C is honoured even if the user unbound quit.
                     if is_interrupt(&key) {
                         return Ok(());
@@ -400,6 +651,14 @@ mod tests {
 
         let args = Args::parse_from(["ratfetch"]);
         assert_eq!(args.generate_config, None);
+    }
+
+    #[test]
+    fn generators_parse_their_arguments() {
+        let args = Args::parse_from(["ratfetch", "--generate-completion", "fish"]);
+        assert_eq!(args.generate_completion, Some(CompletionShell::Fish));
+        let args = Args::parse_from(["ratfetch", "--generate-man"]);
+        assert_eq!(args.generate_man.as_deref(), Some(""));
     }
 
     #[test]

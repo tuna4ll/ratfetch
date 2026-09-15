@@ -57,7 +57,31 @@ fn rows(app: &App) -> Vec<Option<Row>> {
                 "GPU",
                 s.gpus
                     .iter()
-                    .map(|g| g.label())
+                    .map(|g| {
+                        let mut label = g.label();
+                        if let Some(stats) = d.gpus.iter().find(|stats| stats.card == g.card) {
+                            let mut live = Vec::new();
+                            if let Some(usage) = stats.usage_percent {
+                                live.push(format!("{usage:.0}%"));
+                            }
+                            if let (Some(used), Some(total)) =
+                                (stats.memory_used, stats.memory_total)
+                            {
+                                live.push(format!(
+                                    "{} / {}",
+                                    human_bytes(used),
+                                    human_bytes(total)
+                                ));
+                            }
+                            if let Some(temp) = stats.temperature_celsius {
+                                live.push(format!("{temp:.0} °C"));
+                            }
+                            if !live.is_empty() {
+                                label.push_str(&format!(" ({})", live.join(", ")));
+                            }
+                        }
+                        label
+                    })
                     .collect::<Vec<_>>()
                     .join(", "),
             ),
@@ -100,6 +124,7 @@ fn rows(app: &App) -> Vec<Option<Row>> {
             ),
 
             InfoItem::LocalIp => row("Local IP", d.local_ip.clone()),
+            InfoItem::LocalIpv6 => row("Local IPv6", d.local_ipv6.clone()),
             InfoItem::Battery => row(
                 "Battery",
                 d.battery.as_ref().map(|b| b.label()).unwrap_or_default(),
@@ -212,6 +237,11 @@ pub fn info_lines(app: &App, width: u16) -> Vec<Line<'static>> {
     }
 
     out
+}
+
+/// Full-width information for the details overlay.
+pub fn detail_lines(app: &App) -> Vec<Line<'static>> {
+    info_lines(app, u16::MAX)
 }
 
 /// A one-line summary of live load, shown under the info table when there is
@@ -334,6 +364,12 @@ pub fn draw(frame: &mut Frame, area: Rect, app: &App) {
 
     if is_stacked(app, inner.width) {
         let logo = app.logo.as_ref().expect("logo_visible checked it");
+        let logo_height = clamp_logo_height(logo, &app.config);
+        // A logo is decoration; on a short split pane the facts take priority.
+        if inner.height < logo_height.saturating_add(6) {
+            info(frame, inner, app);
+            return;
+        }
         // The logo never takes so much height that the table has no room.
         let height =
             clamp_logo_height(logo, &app.config).min(inner.height.saturating_sub(inner.height / 3));
@@ -383,7 +419,9 @@ fn logo_widget(frame: &mut Frame, area: Rect, app: &App) {
     };
 
     frame.render_widget(
-        Paragraph::new(lines).style(super::surface(&app.theme)),
+        Paragraph::new(lines)
+            .scroll((app.scroll.min(u16::MAX as usize) as u16, 0))
+            .style(super::surface(&app.theme)),
         area,
     );
 }

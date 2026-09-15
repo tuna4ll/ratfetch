@@ -27,9 +27,11 @@ struct Series<'a> {
 /// floor that keeps an idle graph from looking busy.
 fn ceiling_for(kind: GraphKind, ring: &Ring, app: &App) -> f64 {
     match kind {
-        GraphKind::Cpu | GraphKind::Memory | GraphKind::Swap | GraphKind::Disk => 100.0,
+        GraphKind::Cpu | GraphKind::Memory | GraphKind::Swap | GraphKind::Disk | GraphKind::Gpu => {
+            100.0
+        }
         GraphKind::Load => (app.statics.cpu.threads.max(1) as f64).max(ring.max()),
-        GraphKind::Network => ring.max().max(64.0 * 1024.0),
+        GraphKind::Network | GraphKind::DiskIo => ring.max().max(64.0 * 1024.0),
     }
 }
 
@@ -64,6 +66,12 @@ fn collect<'a>(app: &'a App) -> Vec<Series<'a>> {
                 ceiling: ceiling_for(*kind, &h.memory, app),
                 color: theme.graph_secondary,
             }],
+            GraphKind::Gpu => vec![Series {
+                title: percent_title("GPU", &h.gpu),
+                ring: &h.gpu,
+                ceiling: 100.0,
+                color: theme.accent,
+            }],
             GraphKind::Swap => vec![Series {
                 title: percent_title("Swap", &h.swap),
                 ring: &h.swap,
@@ -71,7 +79,7 @@ fn collect<'a>(app: &'a App) -> Vec<Series<'a>> {
                 color: theme.warn,
             }],
             GraphKind::Disk => vec![Series {
-                title: percent_title("Disk", &h.disk),
+                title: percent_title("Disk use", &h.disk),
                 ring: &h.disk,
                 ceiling: ceiling_for(*kind, &h.disk, app),
                 color: theme.accent,
@@ -86,6 +94,39 @@ fn collect<'a>(app: &'a App) -> Vec<Series<'a>> {
                 ceiling: ceiling_for(*kind, &h.load, app),
                 color: theme.critical,
             }],
+            GraphKind::DiskIo => {
+                let ceiling = h.disk_read.max().max(h.disk_write.max()).max(64.0 * 1024.0);
+                vec![
+                    Series {
+                        title: if show_stats {
+                            format!(
+                                " read {} (peak {}) ",
+                                human_rate(h.disk_read.last()),
+                                human_rate(h.disk_read.max())
+                            )
+                        } else {
+                            " read ".to_string()
+                        },
+                        ring: &h.disk_read,
+                        ceiling,
+                        color: theme.good,
+                    },
+                    Series {
+                        title: if show_stats {
+                            format!(
+                                " write {} (peak {}) ",
+                                human_rate(h.disk_write.last()),
+                                human_rate(h.disk_write.max())
+                            )
+                        } else {
+                            " write ".to_string()
+                        },
+                        ring: &h.disk_write,
+                        ceiling,
+                        color: theme.graph_secondary,
+                    },
+                ]
+            }
             // Receive and transmit share a scale so the two are comparable.
             GraphKind::Network => {
                 let ceiling = h.net_rx.max().max(h.net_tx.max()).max(64.0 * 1024.0);
@@ -281,7 +322,7 @@ mod tests {
         let mut config = Config::default();
         config.graphs.items = GraphKind::ALL.to_vec();
         let app = app_with(config);
-        // Network counts twice.
-        assert_eq!(collect(&app).len(), GraphKind::ALL.len() + 1);
+        // Network and disk I/O each expand into two series.
+        assert_eq!(collect(&app).len(), GraphKind::ALL.len() + 2);
     }
 }

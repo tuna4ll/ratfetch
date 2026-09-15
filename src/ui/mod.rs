@@ -48,6 +48,14 @@ pub fn draw(frame: &mut Frame, app: &App) {
 
     if app.show_help {
         chrome::help(frame, area, app);
+    } else if app.show_info_details {
+        chrome::info_details(frame, area, app);
+    } else if app.show_errors {
+        chrome::errors(frame, area, app);
+    } else if app.show_process_details {
+        chrome::process_details(frame, area, app);
+    } else if app.show_signal_confirm {
+        chrome::signal_confirm(frame, area, app);
     }
 }
 
@@ -62,7 +70,18 @@ fn body(frame: &mut Frame, area: Rect, app: &App) {
 
 /// The logo and info header, with the configured panels stacked underneath.
 fn overview(frame: &mut Frame, area: Rect, app: &App) {
-    let panels = &app.config.layout.panels;
+    // On a short, narrow terminal graphs collapse into a few meaningless cells.
+    // Keep the information and meters reachable and let the richer graph view
+    // return as soon as the terminal grows.
+    let compact = area.width < app.config.layout.narrow_width && area.height < 30;
+    let panels: Vec<_> = app
+        .config
+        .layout
+        .panels
+        .iter()
+        .copied()
+        .filter(|panel| !(compact && matches!(panel, PanelKind::Graphs | PanelKind::Colors)))
+        .collect();
 
     let header_height = match app.config.layout.header_height {
         0 => header::preferred_height(app, area),
@@ -74,7 +93,8 @@ fn overview(frame: &mut Frame, area: Rect, app: &App) {
     } else {
         // Otherwise it gives up whatever the panels need at minimum, so a tall
         // logo on a short terminal cannot squeeze them out of the frame.
-        header_height.min(area.height.saturating_sub(panels_min_height(app)).max(1))
+        let panel_rows = panels.iter().map(|p| panel_min_height(app, *p)).sum();
+        header_height.min(area.height.saturating_sub(panel_rows).max(1))
     };
 
     let chunks =
@@ -129,26 +149,27 @@ fn overview(frame: &mut Frame, area: Rect, app: &App) {
 /// The header is capped to whatever is left over, and `--once` uses it to size
 /// its viewport so nothing is cut off.
 pub fn panels_min_height(app: &App) -> u16 {
-    let heights = &app.config.layout.panel_heights;
-    // Anything that scrolls needs a border pair plus a header row and one row
-    // of content to be worth drawing at all.
-    const SCROLLING_MIN: u16 = 4;
-
     app.config
         .layout
         .panels
         .iter()
-        .map(|panel| match panel {
-            PanelKind::Meters if heights.meters > 0 => heights.meters,
-            PanelKind::Meters => meters::natural_height(app),
-            PanelKind::Graphs if heights.graphs > 0 => heights.graphs,
-            PanelKind::Processes if heights.processes > 0 => heights.processes,
-            PanelKind::Disks if heights.disks > 0 => heights.disks,
-            PanelKind::Network if heights.network > 0 => heights.network,
-            PanelKind::Colors => heights.colors.max(1),
-            _ => SCROLLING_MIN,
-        })
+        .map(|panel| panel_min_height(app, *panel))
         .fold(0u16, u16::saturating_add)
+}
+
+fn panel_min_height(app: &App, panel: PanelKind) -> u16 {
+    let heights = &app.config.layout.panel_heights;
+    const SCROLLING_MIN: u16 = 4;
+    match panel {
+        PanelKind::Meters if heights.meters > 0 => heights.meters,
+        PanelKind::Meters => meters::natural_height(app),
+        PanelKind::Graphs if heights.graphs > 0 => heights.graphs,
+        PanelKind::Processes if heights.processes > 0 => heights.processes,
+        PanelKind::Disks if heights.disks > 0 => heights.disks,
+        PanelKind::Network if heights.network > 0 => heights.network,
+        PanelKind::Colors => heights.colors.max(1),
+        _ => SCROLLING_MIN,
+    }
 }
 
 /// Insets a rect on all sides, without underflowing.

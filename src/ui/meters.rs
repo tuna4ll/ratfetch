@@ -135,6 +135,24 @@ fn collect(app: &App) -> Vec<Meter> {
                     detail: format!("{:.2} {:.2} {:.2}", d.load[0], d.load[1], d.load[2]),
                 });
             }
+            MeterKind::Gpu => {
+                if let Some(percent) = d.gpus.iter().find_map(|gpu| gpu.usage_percent) {
+                    let stats = d.gpus.iter().find(|gpu| gpu.usage_percent.is_some());
+                    let detail = stats
+                        .and_then(|gpu| match (gpu.memory_used, gpu.memory_total) {
+                            (Some(used), Some(total)) => {
+                                Some(format!("{} / {}", human_bytes(used), human_bytes(total)))
+                            }
+                            _ => gpu.temperature_celsius.map(|temp| format!("{temp:.0} °C")),
+                        })
+                        .unwrap_or_default();
+                    out.push(Meter {
+                        label: "GPU".into(),
+                        percent,
+                        detail,
+                    });
+                }
+            }
         }
     }
 

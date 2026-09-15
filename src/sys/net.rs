@@ -4,6 +4,7 @@
 use std::collections::HashMap;
 use std::ffi::CStr;
 use std::fs;
+use std::net::Ipv6Addr;
 
 use super::read_trimmed;
 use crate::config::model::Network as NetCfg;
@@ -23,6 +24,8 @@ pub struct Interface {
     pub state: String,
     /// The first IPv4 address bound to the interface.
     pub ipv4: Option<String>,
+    /// The first global IPv6 address, or a link-local address as fallback.
+    pub ipv6: Option<String>,
     pub is_loopback: bool,
 }
 
@@ -86,7 +89,7 @@ impl Sampler {
 
     pub fn sample(&mut self, elapsed: f64, cfg: &NetCfg) -> Vec<Interface> {
         let text = fs::read_to_string("/proc/net/dev").unwrap_or_default();
-        let addrs = ipv4_addresses();
+        let addrs = ip_addresses();
         let mut out = Vec::new();
         let mut current = HashMap::new();
 
@@ -117,7 +120,12 @@ impl Sampler {
                 rx_rate,
                 tx_rate,
                 state,
-                ipv4: addrs.get(&name).cloned(),
+                ipv4: addrs
+                    .get(&name)
+                    .and_then(|addresses| addresses.ipv4.clone()),
+                ipv6: addrs
+                    .get(&name)
+                    .and_then(|addresses| addresses.ipv6.clone()),
                 is_loopback,
                 name,
             };
@@ -140,8 +148,14 @@ impl Default for Sampler {
     }
 }
 
-/// Maps interface name to its first IPv4 address.
-fn ipv4_addresses() -> HashMap<String, String> {
+#[derive(Debug, Clone, Default)]
+struct Addresses {
+    ipv4: Option<String>,
+    ipv6: Option<String>,
+}
+
+/// Maps interface names to their first IPv4 and preferred IPv6 addresses.
+fn ip_addresses() -> HashMap<String, Addresses> {
     let mut out = HashMap::new();
     let mut head: *mut libc::ifaddrs = std::ptr::null_mut();
 
@@ -161,19 +175,35 @@ fn ipv4_addresses() -> HashMap<String, String> {
             if entry.ifa_addr.is_null() || entry.ifa_name.is_null() {
                 continue;
             }
-            if (*entry.ifa_addr).sa_family != libc::AF_INET as libc::sa_family_t {
-                continue;
-            }
-
-            let addr = &*(entry.ifa_addr as *const libc::sockaddr_in);
-            let octets = addr.sin_addr.s_addr.to_ne_bytes();
             let Ok(name) = CStr::from_ptr(entry.ifa_name).to_str() else {
                 continue;
             };
-
-            out.entry(name.to_string()).or_insert_with(|| {
-                format!("{}.{}.{}.{}", octets[0], octets[1], octets[2], octets[3])
-            });
+            let addresses = out
+                .entry(name.to_string())
+                .or_insert_with(Addresses::default);
+            match (*entry.ifa_addr).sa_family as i32 {
+                libc::AF_INET => {
+                    let addr = &*(entry.ifa_addr as *const libc::sockaddr_in);
+                    let octets = addr.sin_addr.s_addr.to_ne_bytes();
+                    addresses.ipv4.get_or_insert_with(|| {
+                        format!("{}.{}.{}.{}", octets[0], octets[1], octets[2], octets[3])
+                    });
+                }
+                libc::AF_INET6 => {
+                    let addr = &*(entry.ifa_addr as *const libc::sockaddr_in6);
+                    let ip = Ipv6Addr::from(addr.sin6_addr.s6_addr);
+                    let replace_link_local = addresses.ipv6.as_ref().is_some_and(|current| {
+                        current
+                            .parse::<Ipv6Addr>()
+                            .is_ok_and(|current| current.is_unicast_link_local())
+                            && !ip.is_unicast_link_local()
+                    });
+                    if addresses.ipv6.is_none() || replace_link_local {
+                        addresses.ipv6 = Some(ip.to_string());
+                    }
+                }
+                _ => {}
+            }
         }
     }
 
@@ -188,6 +218,14 @@ pub fn local_ip(interfaces: &[Interface]) -> String {
         .iter()
         .filter(|i| !i.is_loopback)
         .find_map(|i| i.ipv4.clone())
+        .unwrap_or_default()
+}
+
+pub fn local_ipv6(interfaces: &[Interface]) -> String {
+    interfaces
+        .iter()
+        .filter(|interface| !interface.is_loopback)
+        .find_map(|interface| interface.ipv6.clone())
         .unwrap_or_default()
 }
 
@@ -282,6 +320,22 @@ docker0: 100       1    0    0    0     0          0         0        0       0 
         ];
         assert_eq!(local_ip(&interfaces), "192.168.1.10");
         assert_eq!(local_ip(&[]), "");
+    }
+
+    #[test]
+    fn local_ipv6_skips_loopback() {
+        let interfaces = vec![
+            Interface {
+                ipv6: Some("::1".into()),
+                is_loopback: true,
+                ..Default::default()
+            },
+            Interface {
+                ipv6: Some("2001:db8::10".into()),
+                ..Default::default()
+            },
+        ];
+        assert_eq!(local_ipv6(&interfaces), "2001:db8::10");
     }
 
     #[test]

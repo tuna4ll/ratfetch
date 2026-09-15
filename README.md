@@ -13,7 +13,7 @@ process table, filesystems and interfaces, all refreshing while you watch.
 ## What it does
 
 - **Live, not a snapshot.** Everything re-reads on a configurable interval.
-- **526 logos**, the full set vendored from fastfetch, with their original
+- **527 logos**, the full set vendored from fastfetch, with their original
   colour palettes. Auto-detected from `/etc/os-release`, or pick your own.
 - **Four tabs** — overview, processes, filesystems, interfaces.
 - **13 built-in themes**, plus per-role colour overrides. The default is
@@ -75,6 +75,11 @@ ratfetch --once               # one frame, like a classic fetch tool
 ratfetch --logo nixos         # override the detected logo
 ratfetch --theme gruvbox-dark
 ratfetch --interval 250       # four samples a second
+ratfetch --format json        # one machine-readable snapshot
+ratfetch --format plain       # clean line-oriented output
+ratfetch --diagnose           # explain unavailable collectors
+ratfetch --generate-completion fish
+ratfetch --generate-man ratfetch.1
 ratfetch --list-logos | fzf   # browse what is bundled
 ```
 
@@ -90,8 +95,16 @@ ratfetch --list-logos | fzf   # browse what is bundled
 | `c` | per-core CPU meters |
 | `space` | freeze / resume |
 | `r` | reload the config |
+| `/` / `ctrl+u` | filter / clear the process list |
+| `enter` / `t` | process details / tree view |
+| `x` | confirm and send SIGTERM to the selected process |
+| `i` / `e` | full system information / error history |
 
 All of them are rebindable.
+
+The process table keeps a visible selection and scrollbar. Mouse clicks switch
+tabs, and short split panes automatically prioritize information and meters
+over decorative art and graphs.
 
 ## Configuration
 

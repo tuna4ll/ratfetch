@@ -9,6 +9,7 @@ pub mod battery;
 pub mod cpu;
 pub mod desktop;
 pub mod disk;
+pub mod disk_io;
 pub mod gpu;
 pub mod host;
 pub mod mem;
@@ -81,15 +82,18 @@ pub struct Dynamic {
     pub cpu: cpu::CpuUsage,
     pub mem: mem::Memory,
     pub disks: Vec<disk::Disk>,
+    pub disk_io: Vec<disk_io::DeviceIo>,
     pub nets: Vec<net::Interface>,
     pub battery: Option<battery::Battery>,
     pub temps: Vec<temp::Sensor>,
+    pub gpus: Vec<gpu::GpuStats>,
     pub load: [f64; 3],
     pub procs: Vec<procs::Process>,
     pub proc_total: usize,
     pub thread_total: usize,
     pub users: usize,
     pub local_ip: String,
+    pub local_ipv6: String,
 }
 
 impl Dynamic {
@@ -126,6 +130,7 @@ impl Dynamic {
 pub struct Sampler {
     cpu: cpu::Sampler,
     net: net::Sampler,
+    disk_io: disk_io::Sampler,
     procs: procs::Sampler,
     last: Option<Instant>,
 }
@@ -135,6 +140,7 @@ impl Sampler {
         Self {
             cpu: cpu::Sampler::new(),
             net: net::Sampler::new(),
+            disk_io: disk_io::Sampler::new(),
             procs: procs::Sampler::new(),
             last: None,
         }
@@ -154,21 +160,25 @@ impl Sampler {
 
         let nets = self.net.sample(elapsed, &cfg.network);
         let local_ip = net::local_ip(&nets);
+        let local_ipv6 = net::local_ipv6(&nets);
 
         Dynamic {
             uptime: os::uptime(),
             cpu: self.cpu.sample(),
             mem: mem::Memory::load(),
             disks: disk::list(&cfg.disks),
+            disk_io: self.disk_io.sample(elapsed),
             nets,
             battery: battery::load(),
             temps: temp::list(),
+            gpus: gpu::stats(),
             load: os::load_average(),
             procs: self.procs.sample(elapsed, &cfg.processes),
             proc_total: self.procs.last_total,
             thread_total: self.procs.last_threads,
             users: os::logged_in_users(),
             local_ip,
+            local_ipv6,
         }
     }
 }

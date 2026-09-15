@@ -133,6 +133,7 @@ string_enum! {
         Swap       => "swap",
         Disk       => "disk",
         LocalIp    => "local_ip" | "ip",
+        LocalIpv6  => "local_ipv6" | "ipv6",
         Battery    => "battery",
         LoadAvg    => "load_avg" | "load",
         Processes  => "processes" | "procs",
@@ -152,6 +153,7 @@ string_enum! {
         Disk    => "disk",
         Battery => "battery",
         Load    => "load" | "load_avg",
+        Gpu     => "gpu",
     }
 }
 
@@ -162,8 +164,10 @@ string_enum! {
         Memory  => "memory" | "ram",
         Swap    => "swap",
         Network => "network" | "net",
-        Disk    => "disk" | "disk_io",
+        Disk    => "disk" | "disk_usage",
+        DiskIo  => "disk_io" | "io",
         Load    => "load" | "load_avg",
+        Gpu     => "gpu",
     }
 }
 
