@@ -34,7 +34,7 @@ watch_config = true
 [logo]
 # "auto" detects the distro. Otherwise a logo name ("arch", "nixos", "debian"),
 # "none", or "file:/path/to/your/art.txt". Run `ratfetch --list-logos` to see
-# all 526 of them.
+# all 527 of them.
 source = "auto"
 # Prefer the compact variant when the logo ships one.
 small = false

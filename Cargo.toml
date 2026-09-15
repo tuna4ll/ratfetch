@@ -1,6 +1,6 @@
 [package]
 name = "ratfetch"
-version = "0.1.0"
+version = "0.2.0"
 edition = "2021"
 # Set by ratatui 0.30, which is the highest MSRV in the dependency tree.
 rust-version = "1.88"

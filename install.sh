@@ -68,6 +68,7 @@ fi
 
 need tar
 need mktemp
+need sha256sum
 
 # --- which version ----------------------------------------------------------
 
@@ -95,16 +96,13 @@ trap 'rm -rf "$tmp"' EXIT INT TERM
 fetch_to "$base/${name}.tar.gz" "$tmp/${name}.tar.gz" \
     || die "no build published for ${target} in ${VERSION}."
 
-if fetch_to "$base/SHA256SUMS" "$tmp/SHA256SUMS" 2>/dev/null; then
-    expected=$(grep " ${name}.tar.gz\$" "$tmp/SHA256SUMS" | cut -d' ' -f1 || true)
-    if [ -n "$expected" ] && command -v sha256sum >/dev/null 2>&1; then
-        actual=$(sha256sum "$tmp/${name}.tar.gz" | cut -d' ' -f1)
-        [ "$expected" = "$actual" ] || die "checksum mismatch for ${name}.tar.gz — refusing to install."
-        ok "checksum verified"
-    else
-        say "skipping checksum verification (no entry or no sha256sum)"
-    fi
-fi
+fetch_to "$base/SHA256SUMS" "$tmp/SHA256SUMS" 2>/dev/null \
+    || die "could not download SHA256SUMS — refusing an unverified install."
+expected=$(grep " ${name}.tar.gz\$" "$tmp/SHA256SUMS" | cut -d' ' -f1 || true)
+[ -n "$expected" ] || die "SHA256SUMS has no entry for ${name}.tar.gz."
+actual=$(sha256sum "$tmp/${name}.tar.gz" | cut -d' ' -f1)
+[ "$expected" = "$actual" ] || die "checksum mismatch for ${name}.tar.gz — refusing to install."
+ok "checksum verified"
 
 tar -xzf "$tmp/${name}.tar.gz" -C "$tmp"
 [ -x "$tmp/$name/ratfetch" ] || die "the archive did not contain a ratfetch binary."
