@@ -586,6 +586,10 @@ impl App {
             .map(|(process, _)| *process)
     }
 
+    pub fn config_sources(&self) -> &[PathBuf] {
+        &self.config_files
+    }
+
     fn switch_tab(&mut self, delta: isize) {
         let tabs = &self.config.general.tabs;
         if tabs.is_empty() {

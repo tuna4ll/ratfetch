@@ -77,6 +77,7 @@ ratfetch --theme gruvbox-dark
 ratfetch --interval 250       # four samples a second
 ratfetch --format json        # one machine-readable snapshot
 ratfetch --format plain       # clean line-oriented output
+ratfetch --diagnose           # explain unavailable collectors
 ratfetch --list-logos | fzf   # browse what is bundled
 ```
 

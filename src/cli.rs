@@ -95,6 +95,10 @@ pub struct Args {
     /// List every built-in theme and exit.
     #[arg(long)]
     pub list_themes: bool,
+
+    /// Explain which collectors and kernel interfaces are available.
+    #[arg(long)]
+    pub diagnose: bool,
 }
 
 impl Args {
@@ -188,6 +192,10 @@ fn dispatch(args: &Args) -> Result<ExitCode, Box<dyn std::error::Error>> {
     }
 
     let app = App::new(loaded, options);
+    if args.diagnose {
+        write_diagnostics(io::stdout().lock(), &app)?;
+        return Ok(ExitCode::SUCCESS);
+    }
     let format = match args.format {
         OutputFormat::Auto if !io::stdout().is_terminal() => OutputFormat::Plain,
         OutputFormat::Auto => OutputFormat::Tui,
@@ -310,6 +318,57 @@ fn write_json(mut out: impl Write, app: &App) -> io::Result<()> {
     });
     serde_json::to_writer_pretty(&mut out, &value).map_err(io::Error::other)?;
     writeln!(out)
+}
+
+fn write_diagnostics(mut out: impl Write, app: &App) -> io::Result<()> {
+    writeln!(out, "ratfetch {} diagnostics", crate::VERSION)?;
+    writeln!(
+        out,
+        "platform: {} {}",
+        std::env::consts::OS,
+        std::env::consts::ARCH
+    )?;
+    if app.config_sources().is_empty() {
+        writeln!(out, "config: built-in defaults")?;
+    } else {
+        for path in app.config_sources() {
+            writeln!(out, "config: {}", path.display())?;
+        }
+    }
+
+    for (name, path, optional) in [
+        ("cpu", "/proc/stat", false),
+        ("memory", "/proc/meminfo", false),
+        ("processes", "/proc", false),
+        ("filesystems", "/proc/mounts", false),
+        ("disk io", "/proc/diskstats", false),
+        ("network", "/proc/net/dev", false),
+        ("temperatures", "/sys/class/hwmon", true),
+        ("gpu", "/sys/class/drm", true),
+        ("battery", "/sys/class/power_supply", true),
+    ] {
+        let status = match std::fs::metadata(path) {
+            Ok(_) => "ok".to_string(),
+            Err(error) if optional => format!("optional: {error}"),
+            Err(error) => format!("unavailable: {error}"),
+        };
+        writeln!(out, "{name}: {status} [{path}]")?;
+    }
+
+    writeln!(out, "cpu samples: {}", app.dynamic.cpu.per_core.len())?;
+    writeln!(out, "filesystems found: {}", app.dynamic.disks.len())?;
+    writeln!(out, "block devices found: {}", app.dynamic.disk_io.len())?;
+    writeln!(out, "interfaces found: {}", app.dynamic.nets.len())?;
+    writeln!(out, "processes visible: {}", app.dynamic.procs.len())?;
+    writeln!(
+        out,
+        "temperature sensors found: {}",
+        app.dynamic.temps.len()
+    )?;
+    writeln!(out, "gpus found: {}", app.statics.gpus.len())?;
+    writeln!(out, "gpus with telemetry: {}", app.dynamic.gpus.len())?;
+    writeln!(out, "battery found: {}", app.dynamic.battery.is_some())?;
+    Ok(())
 }
 
 /// `--check-config`: report what would be loaded, without starting the UI.
