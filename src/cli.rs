@@ -269,6 +269,18 @@ fn write_json(mut out: impl Write, app: &App) -> io::Result<()> {
             "available_bytes": d.mem.available, "percent": d.mem.percent(),
             "swap_total_bytes": d.mem.swap_total, "swap_used_bytes": d.mem.swap_used,
         },
+        "gpus": s.gpus.iter().map(|gpu| {
+            let live = d.gpus.iter().find(|stats| stats.card == gpu.card);
+            serde_json::json!({
+                "card": gpu.card, "vendor": gpu.vendor, "model": gpu.model,
+                "driver": gpu.driver,
+                "percent": live.and_then(|stats| stats.usage_percent),
+                "memory_used_bytes": live.and_then(|stats| stats.memory_used),
+                "memory_total_bytes": live.and_then(|stats| stats.memory_total),
+                "temperature_celsius": live.and_then(|stats| stats.temperature_celsius),
+                "power_watts": live.and_then(|stats| stats.power_watts),
+            })
+        }).collect::<Vec<_>>(),
         "filesystems": d.disks.iter().map(|disk| serde_json::json!({
             "device": disk.device, "mount": disk.mount, "type": disk.fstype,
             "total_bytes": disk.total, "used_bytes": disk.used,

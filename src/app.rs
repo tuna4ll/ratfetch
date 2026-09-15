@@ -95,6 +95,7 @@ pub struct History {
     pub disk: Ring,
     pub disk_read: Ring,
     pub disk_write: Ring,
+    pub gpu: Ring,
     pub load: Ring,
     pub net_rx: Ring,
     pub net_tx: Ring,
@@ -109,13 +110,14 @@ impl History {
             disk: Ring::new(capacity),
             disk_read: Ring::new(capacity),
             disk_write: Ring::new(capacity),
+            gpu: Ring::new(capacity),
             load: Ring::new(capacity),
             net_rx: Ring::new(capacity),
             net_tx: Ring::new(capacity),
         }
     }
 
-    fn each_mut(&mut self) -> [&mut Ring; 9] {
+    fn each_mut(&mut self) -> [&mut Ring; 10] {
         [
             &mut self.cpu,
             &mut self.memory,
@@ -123,6 +125,7 @@ impl History {
             &mut self.disk,
             &mut self.disk_read,
             &mut self.disk_write,
+            &mut self.gpu,
             &mut self.load,
             &mut self.net_rx,
             &mut self.net_tx,
@@ -148,6 +151,12 @@ impl History {
         let (read, write) = crate::sys::disk_io::total_rate(&d.disk_io);
         self.disk_read.push(read);
         self.disk_write.push(write);
+        self.gpu.push(
+            d.gpus
+                .iter()
+                .find_map(|gpu| gpu.usage_percent)
+                .unwrap_or(0.0),
+        );
         self.load.push(d.load[0]);
         let (rx, tx) = d.net_rates();
         self.net_rx.push(rx);

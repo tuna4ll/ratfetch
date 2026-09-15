@@ -9,10 +9,22 @@ use super::read_trimmed;
 /// A graphics adapter.
 #[derive(Debug, Clone, Default, PartialEq, Eq)]
 pub struct Gpu {
+    pub card: String,
     pub vendor: String,
     pub model: String,
     /// The kernel driver bound to it, e.g. `amdgpu`.
     pub driver: String,
+}
+
+/// Live telemetry exposed by a DRM driver's sysfs nodes.
+#[derive(Debug, Clone, Default, PartialEq)]
+pub struct GpuStats {
+    pub card: String,
+    pub usage_percent: Option<f64>,
+    pub memory_used: Option<u64>,
+    pub memory_total: Option<u64>,
+    pub temperature_celsius: Option<f64>,
+    pub power_watts: Option<f64>,
 }
 
 impl Gpu {
@@ -65,10 +77,14 @@ pub fn list() -> Vec<Gpu> {
 
     for card in cards {
         let device = card.path().join("device");
-        let Some(gpu) = read_card(&device, db.as_ref()) else {
+        let Some(mut gpu) = read_card(&device, db.as_ref()) else {
             continue;
         };
-        if !out.contains(&gpu) {
+        gpu.card = card.file_name().to_string_lossy().into_owned();
+        if !out
+            .iter()
+            .any(|known| known.vendor == gpu.vendor && known.model == gpu.model)
+        {
             out.push(gpu);
         }
     }
@@ -96,10 +112,66 @@ fn read_card(device: &Path, db: Option<&PciIds>) -> Option<Gpu> {
         .unwrap_or_default();
 
     Some(Gpu {
+        card: String::new(),
         vendor,
         model,
         driver,
     })
+}
+
+/// Reads every live field the active kernel drivers expose.
+pub fn stats() -> Vec<GpuStats> {
+    let Ok(entries) = fs::read_dir("/sys/class/drm") else {
+        return Vec::new();
+    };
+    let mut out = Vec::new();
+    for entry in entries.flatten() {
+        let card = entry.file_name().to_string_lossy().into_owned();
+        if !card.starts_with("card") || card.contains('-') {
+            continue;
+        }
+        let device = entry.path().join("device");
+        let usage_percent = read_trimmed(device.join("gpu_busy_percent"))
+            .and_then(|value| value.parse::<f64>().ok())
+            .map(|value| value.clamp(0.0, 100.0));
+        let memory_used = super::read_u64(device.join("mem_info_vram_used"));
+        let memory_total = super::read_u64(device.join("mem_info_vram_total"));
+
+        let mut temperature_celsius = None;
+        let mut power_watts = None;
+        if let Ok(hwmons) = fs::read_dir(device.join("hwmon")) {
+            for hwmon in hwmons.flatten() {
+                if temperature_celsius.is_none() {
+                    temperature_celsius = super::read_u64(hwmon.path().join("temp1_input"))
+                        .map(|milli| milli as f64 / 1000.0)
+                        .filter(|value| (-50.0..=150.0).contains(value));
+                }
+                if power_watts.is_none() {
+                    power_watts = super::read_u64(hwmon.path().join("power1_average"))
+                        .or_else(|| super::read_u64(hwmon.path().join("power1_input")))
+                        .map(|microwatts| microwatts as f64 / 1_000_000.0);
+                }
+            }
+        }
+
+        if usage_percent.is_some()
+            || memory_used.is_some()
+            || memory_total.is_some()
+            || temperature_celsius.is_some()
+            || power_watts.is_some()
+        {
+            out.push(GpuStats {
+                card,
+                usage_percent,
+                memory_used,
+                memory_total,
+                temperature_celsius,
+                power_watts,
+            });
+        }
+    }
+    out.sort_by(|a, b| a.card.cmp(&b.card));
+    out
 }
 
 /// Reads a `0x10de`-style sysfs id.
@@ -213,6 +285,7 @@ mod tests {
     #[test]
     fn label_degrades_gracefully() {
         let g = Gpu {
+            card: "card0".into(),
             vendor: "AMD".into(),
             model: "Navi 31".into(),
             driver: "amdgpu".into(),
@@ -232,5 +305,6 @@ mod tests {
     fn listing_never_panics() {
         // Headless machines and containers have no /sys/class/drm.
         let _ = list();
+        let _ = stats();
     }
 }

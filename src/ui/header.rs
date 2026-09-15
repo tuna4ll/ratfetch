@@ -57,7 +57,31 @@ fn rows(app: &App) -> Vec<Option<Row>> {
                 "GPU",
                 s.gpus
                     .iter()
-                    .map(|g| g.label())
+                    .map(|g| {
+                        let mut label = g.label();
+                        if let Some(stats) = d.gpus.iter().find(|stats| stats.card == g.card) {
+                            let mut live = Vec::new();
+                            if let Some(usage) = stats.usage_percent {
+                                live.push(format!("{usage:.0}%"));
+                            }
+                            if let (Some(used), Some(total)) =
+                                (stats.memory_used, stats.memory_total)
+                            {
+                                live.push(format!(
+                                    "{} / {}",
+                                    human_bytes(used),
+                                    human_bytes(total)
+                                ));
+                            }
+                            if let Some(temp) = stats.temperature_celsius {
+                                live.push(format!("{temp:.0} °C"));
+                            }
+                            if !live.is_empty() {
+                                label.push_str(&format!(" ({})", live.join(", ")));
+                            }
+                        }
+                        label
+                    })
                     .collect::<Vec<_>>()
                     .join(", "),
             ),

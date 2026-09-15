@@ -27,7 +27,9 @@ struct Series<'a> {
 /// floor that keeps an idle graph from looking busy.
 fn ceiling_for(kind: GraphKind, ring: &Ring, app: &App) -> f64 {
     match kind {
-        GraphKind::Cpu | GraphKind::Memory | GraphKind::Swap | GraphKind::Disk => 100.0,
+        GraphKind::Cpu | GraphKind::Memory | GraphKind::Swap | GraphKind::Disk | GraphKind::Gpu => {
+            100.0
+        }
         GraphKind::Load => (app.statics.cpu.threads.max(1) as f64).max(ring.max()),
         GraphKind::Network | GraphKind::DiskIo => ring.max().max(64.0 * 1024.0),
     }
@@ -63,6 +65,12 @@ fn collect<'a>(app: &'a App) -> Vec<Series<'a>> {
                 ring: &h.memory,
                 ceiling: ceiling_for(*kind, &h.memory, app),
                 color: theme.graph_secondary,
+            }],
+            GraphKind::Gpu => vec![Series {
+                title: percent_title("GPU", &h.gpu),
+                ring: &h.gpu,
+                ceiling: 100.0,
+                color: theme.accent,
             }],
             GraphKind::Swap => vec![Series {
                 title: percent_title("Swap", &h.swap),

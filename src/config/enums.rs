@@ -152,6 +152,7 @@ string_enum! {
         Disk    => "disk",
         Battery => "battery",
         Load    => "load" | "load_avg",
+        Gpu     => "gpu",
     }
 }
 
@@ -165,6 +166,7 @@ string_enum! {
         Disk    => "disk" | "disk_usage",
         DiskIo  => "disk_io" | "io",
         Load    => "load" | "load_avg",
+        Gpu     => "gpu",
     }
 }
 
