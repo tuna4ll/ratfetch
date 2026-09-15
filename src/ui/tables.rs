@@ -246,6 +246,8 @@ pub fn network(frame: &mut Frame, area: Rect, app: &App) {
     }
 
     let theme = &app.theme;
+    let wide = inner.width >= 120;
+    let medium = inner.width >= 76;
     let visible = inner.height.saturating_sub(1) as usize;
     let offset = clamp_scroll(app.scroll, app.dynamic.nets.len(), visible.max(1));
 
@@ -256,44 +258,69 @@ pub fn network(frame: &mut Frame, area: Rect, app: &App) {
         .skip(offset)
         .map(|n| {
             let state_color = if n.is_up() { theme.good } else { theme.muted };
-            Row::new(vec![
+            let address = n
+                .ipv4
+                .as_ref()
+                .or(n.ipv6.as_ref())
+                .cloned()
+                .unwrap_or_else(|| "—".to_string());
+            let mut cells = vec![
                 Cell::from(n.name.clone()).style(theme.value.fg()),
                 Cell::from(n.state.clone()).style(state_color.fg()),
-                Cell::from(n.ipv4.clone().unwrap_or_else(|| "—".to_string()))
-                    .style(theme.foreground.fg()),
+                Cell::from(if wide {
+                    n.ipv4.clone().unwrap_or_else(|| "—".to_string())
+                } else {
+                    address
+                })
+                .style(theme.foreground.fg()),
+            ];
+            if wide {
+                cells.push(
+                    Cell::from(n.ipv6.clone().unwrap_or_else(|| "—".to_string()))
+                        .style(theme.foreground.fg()),
+                );
+            }
+            cells.extend([
                 Cell::from(human_rate(n.rx_rate)).style(theme.good.fg()),
                 Cell::from(human_rate(n.tx_rate)).style(theme.graph_secondary.fg()),
-                Cell::from(human_bytes(n.rx_bytes)).style(theme.muted.fg()),
-                Cell::from(human_bytes(n.tx_bytes)).style(theme.muted.fg()),
-            ])
+            ]);
+            if medium {
+                cells.extend([
+                    Cell::from(human_bytes(n.rx_bytes)).style(theme.muted.fg()),
+                    Cell::from(human_bytes(n.tx_bytes)).style(theme.muted.fg()),
+                ]);
+            }
+            Row::new(cells)
         })
         .collect();
 
-    let header = Row::new(vec![
-        "IFACE",
-        "STATE",
-        "IPV4",
-        "↓ RATE",
-        "↑ RATE",
-        "↓ TOTAL",
-        "↑ TOTAL",
-    ])
-    .style(
+    let mut headings = vec!["IFACE", "STATE", if wide { "IPV4" } else { "ADDRESS" }];
+    if wide {
+        headings.push("IPV6");
+    }
+    headings.extend(["↓ RATE", "↑ RATE"]);
+    if medium {
+        headings.extend(["↓ TOTAL", "↑ TOTAL"]);
+    }
+    let header = Row::new(headings).style(
         theme
             .accent
             .fg()
             .add_modifier(ratatui::style::Modifier::BOLD),
     );
 
-    let widths = [
+    let mut widths = vec![
         Constraint::Fill(1),
         Constraint::Length(8),
-        Constraint::Length(16),
-        Constraint::Length(12),
-        Constraint::Length(12),
-        Constraint::Length(11),
-        Constraint::Length(11),
+        Constraint::Length(if wide { 16 } else { 24 }),
     ];
+    if wide {
+        widths.push(Constraint::Length(30));
+    }
+    widths.extend([Constraint::Length(12), Constraint::Length(12)]);
+    if medium {
+        widths.extend([Constraint::Length(11), Constraint::Length(11)]);
+    }
 
     frame.render_widget(
         Table::new(rows, widths)

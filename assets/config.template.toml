@@ -119,7 +119,8 @@ colors = 3
 # Rows of the info table, in order. Available rows:
 #   title, separator, blank, os, host, kernel, uptime, packages, shell,
 #   terminal, de, wm, resolution, cpu, cpu_temp, gpu, memory, swap, disk,
-#   local_ip, battery, load_avg, processes, users, locale, date_time, colors
+#   local_ip, local_ipv6, battery, load_avg, processes, users, locale, date_time,
+#   colors
 items = [
     "title",
     "separator",

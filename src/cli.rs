@@ -243,6 +243,9 @@ fn write_plain(mut out: impl Write, app: &App) -> io::Result<()> {
             interface.rx_rate,
             interface.tx_rate
         )?;
+        if let Some(ipv6) = &interface.ipv6 {
+            writeln!(out, "interface_ipv6: {} {ipv6}", interface.name)?;
+        }
     }
     Ok(())
 }
@@ -292,7 +295,8 @@ fn write_json(mut out: impl Write, app: &App) -> io::Result<()> {
             "write_bytes_per_second": device.write_rate,
         })).collect::<Vec<_>>(),
         "network": d.nets.iter().map(|interface| serde_json::json!({
-            "interface": interface.name, "state": interface.state, "ipv4": interface.ipv4,
+            "interface": interface.name, "state": interface.state,
+            "ipv4": interface.ipv4, "ipv6": interface.ipv6,
             "rx_bytes": interface.rx_bytes, "tx_bytes": interface.tx_bytes,
             "rx_bytes_per_second": interface.rx_rate,
             "tx_bytes_per_second": interface.tx_rate,

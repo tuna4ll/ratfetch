@@ -93,6 +93,7 @@ pub struct Dynamic {
     pub thread_total: usize,
     pub users: usize,
     pub local_ip: String,
+    pub local_ipv6: String,
 }
 
 impl Dynamic {
@@ -159,6 +160,7 @@ impl Sampler {
 
         let nets = self.net.sample(elapsed, &cfg.network);
         let local_ip = net::local_ip(&nets);
+        let local_ipv6 = net::local_ipv6(&nets);
 
         Dynamic {
             uptime: os::uptime(),
@@ -176,6 +178,7 @@ impl Sampler {
             thread_total: self.procs.last_threads,
             users: os::logged_in_users(),
             local_ip,
+            local_ipv6,
         }
     }
 }

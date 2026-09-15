@@ -133,6 +133,7 @@ string_enum! {
         Swap       => "swap",
         Disk       => "disk",
         LocalIp    => "local_ip" | "ip",
+        LocalIpv6  => "local_ipv6" | "ipv6",
         Battery    => "battery",
         LoadAvg    => "load_avg" | "load",
         Processes  => "processes" | "procs",

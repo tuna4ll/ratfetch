@@ -124,6 +124,7 @@ fn rows(app: &App) -> Vec<Option<Row>> {
             ),
 
             InfoItem::LocalIp => row("Local IP", d.local_ip.clone()),
+            InfoItem::LocalIpv6 => row("Local IPv6", d.local_ipv6.clone()),
             InfoItem::Battery => row(
                 "Battery",
                 d.battery.as_ref().map(|b| b.label()).unwrap_or_default(),
