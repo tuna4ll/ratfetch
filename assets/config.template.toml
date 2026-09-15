@@ -169,7 +169,7 @@ label_width = 8
 per_core = false
 
 [graphs]
-# Time series. Available: cpu, memory, swap, network, disk, load.
+# Time series. Available: cpu, memory, swap, network, disk, disk_io, load.
 items = ["cpu", "memory", "network"]
 # sparkline, braille, or bars.
 style = "sparkline"

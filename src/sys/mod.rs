@@ -9,6 +9,7 @@ pub mod battery;
 pub mod cpu;
 pub mod desktop;
 pub mod disk;
+pub mod disk_io;
 pub mod gpu;
 pub mod host;
 pub mod mem;
@@ -81,6 +82,7 @@ pub struct Dynamic {
     pub cpu: cpu::CpuUsage,
     pub mem: mem::Memory,
     pub disks: Vec<disk::Disk>,
+    pub disk_io: Vec<disk_io::DeviceIo>,
     pub nets: Vec<net::Interface>,
     pub battery: Option<battery::Battery>,
     pub temps: Vec<temp::Sensor>,
@@ -126,6 +128,7 @@ impl Dynamic {
 pub struct Sampler {
     cpu: cpu::Sampler,
     net: net::Sampler,
+    disk_io: disk_io::Sampler,
     procs: procs::Sampler,
     last: Option<Instant>,
 }
@@ -135,6 +138,7 @@ impl Sampler {
         Self {
             cpu: cpu::Sampler::new(),
             net: net::Sampler::new(),
+            disk_io: disk_io::Sampler::new(),
             procs: procs::Sampler::new(),
             last: None,
         }
@@ -160,6 +164,7 @@ impl Sampler {
             cpu: self.cpu.sample(),
             mem: mem::Memory::load(),
             disks: disk::list(&cfg.disks),
+            disk_io: self.disk_io.sample(elapsed),
             nets,
             battery: battery::load(),
             temps: temp::list(),

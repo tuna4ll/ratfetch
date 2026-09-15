@@ -93,6 +93,8 @@ pub struct History {
     pub memory: Ring,
     pub swap: Ring,
     pub disk: Ring,
+    pub disk_read: Ring,
+    pub disk_write: Ring,
     pub load: Ring,
     pub net_rx: Ring,
     pub net_tx: Ring,
@@ -105,18 +107,22 @@ impl History {
             memory: Ring::new(capacity),
             swap: Ring::new(capacity),
             disk: Ring::new(capacity),
+            disk_read: Ring::new(capacity),
+            disk_write: Ring::new(capacity),
             load: Ring::new(capacity),
             net_rx: Ring::new(capacity),
             net_tx: Ring::new(capacity),
         }
     }
 
-    fn each_mut(&mut self) -> [&mut Ring; 7] {
+    fn each_mut(&mut self) -> [&mut Ring; 9] {
         [
             &mut self.cpu,
             &mut self.memory,
             &mut self.swap,
             &mut self.disk,
+            &mut self.disk_read,
+            &mut self.disk_write,
             &mut self.load,
             &mut self.net_rx,
             &mut self.net_tx,
@@ -139,6 +145,9 @@ impl History {
                 .map(|p| p.percent())
                 .unwrap_or(0.0),
         );
+        let (read, write) = crate::sys::disk_io::total_rate(&d.disk_io);
+        self.disk_read.push(read);
+        self.disk_write.push(write);
         self.load.push(d.load[0]);
         let (rx, tx) = d.net_rates();
         self.net_rx.push(rx);

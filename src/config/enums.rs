@@ -162,7 +162,8 @@ string_enum! {
         Memory  => "memory" | "ram",
         Swap    => "swap",
         Network => "network" | "net",
-        Disk    => "disk" | "disk_io",
+        Disk    => "disk" | "disk_usage",
+        DiskIo  => "disk_io" | "io",
         Load    => "load" | "load_avg",
     }
 }
